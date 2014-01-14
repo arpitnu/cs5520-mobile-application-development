@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+   	android:padding="20dip" >
+    
+     <TableLayout
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_gravity="center"
+      android:stretchColumns="*">
+      <TableRow>
+         <Button
+            android:id="@+id/landAboutButton"
+            android:text="@string/aboutBtnText"
+            android:onClick="showAboutActivity" />
+         <Button
+            android:id="@+id/landGenErrButton"
+            android:text="@string/genErrBtnText"
+            android:onClick="generateError" />
+      </TableRow>
+      <TableRow>
+         <Button
+            android:id="@+id/landSudokuButton"
+            android:text="@string/sudokuBtnText"
+            android:onClick="launchSudoku" />
+         <Button
+            android:id="@+id/landQuitButton"
+            android:text="@string/quitBtnText"
+            android:onClick="quitApplication" />
+      </TableRow>
+   </TableLayout>
+</LinearLayout>

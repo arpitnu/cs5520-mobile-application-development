@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.neu.madcourse.arpitmehta"
+    android:versionCode="2"
+    android:versionName="1.1" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="15" />
+    
+   	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <!-- Activities for Main Screen -->
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
+        </activity>
+        
+        <!-- Activities for Sudoku -->
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.sudoku.Sudoku"
+            android:label="@string/sudoku_app_name" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.sudoku.About"
+            android:label="@string/about_title"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.sudoku.Prefs"
+            android:label="@string/settings_title" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.sudoku.Game"
+            android:label="@string/game_title" >
+        </activity>
+    </application>
+</manifest>
