@@ -18,7 +18,7 @@
         <!-- Activities for Main Screen -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/hello_mad_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
