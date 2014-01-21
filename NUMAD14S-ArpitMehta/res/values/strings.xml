@@ -63,5 +63,7 @@ row, each column, and each of the 3x3 boxes
     <!-- Strings for Dictionary Activity -->
 	<string name="search">Search:</string>
 	<string name="ackText">Acknowledgements</string>
+	<string name="clearText">Clear</string>
+	<string name="returnToMenuText">Return To Menu</string>
 	
 </resources>

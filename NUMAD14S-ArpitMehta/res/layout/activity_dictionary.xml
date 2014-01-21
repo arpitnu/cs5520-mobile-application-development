@@ -1,16 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal" >
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"    
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/etDictionary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/tvSearch"
         android:ems="10"
         android:inputType="textAutoComplete" >
 
@@ -18,47 +22,57 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignBaseline="@+id/etDictionary"
+        android:layout_alignBottom="@+id/etDictionary"
         android:layout_alignParentLeft="true"
         android:text="@string/search" />
 
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/svWordSuggestions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:fadeScrollbars="true"
-        android:layout_below="@+id/editText1" >
+        android:layout_below="@+id/etDictionary" >
 
         <LinearLayout
-            android:id="@+id/wordView"
+            android:id="@+id/llWordView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:textAlignment="center" >
+            
+            
         </LinearLayout>
     </ScrollView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/ackButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/exit_label" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/ackText" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/backButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:text="@string/ackText" />
+        android:layout_above="@+id/ackButton"
+        android:layout_alignLeft="@+id/ackButton"
+        android:text="@string/returnToMenuText"
+        android:onClick="exitDictionary" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backButton"
+        android:layout_alignLeft="@+id/backButton"
+        android:text="@string/clearText" />
 
 </RelativeLayout>
