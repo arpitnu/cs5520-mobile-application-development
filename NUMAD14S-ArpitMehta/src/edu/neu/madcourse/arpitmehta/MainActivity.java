@@ -1,5 +1,6 @@
 package edu.neu.madcourse.arpitmehta;
 
+import edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity;
 import edu.neu.madcourse.arpitmehta.sudoku.Sudoku;
 import android.os.Bundle;
 import android.app.Activity;
@@ -64,11 +65,27 @@ public class MainActivity extends Activity {
 	 * @return void
 	 */
 	public void launchSudoku(View view) {
-		// Intent to bind sudoku activity
+		// Intent to bind sudoku activity to Main Activity
 		Intent sudokuIntent = new Intent(this, Sudoku.class);
 		
 		// Start Sudoku Activity
 		startActivity(sudokuIntent);
+	}
+	
+	/**
+	 * launchDictionary
+	 * 		Launch Test Dictionary Activity
+	 * 
+	 * @param view
+	 * 
+	 * @return void
+	 */
+	public void launchDictionary(View view) {
+		// Intent to bind Dictionary Activity to Main Activity
+		Intent dictionaryIntent = new Intent(this, DictionaryActivity.class);
+		
+		// Start Activity
+		startActivity(dictionaryIntent);
 	}
 	
 	/** 	

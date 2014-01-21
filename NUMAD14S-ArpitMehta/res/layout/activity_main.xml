@@ -26,12 +26,21 @@
         android:layout_centerHorizontal="true"
         android:onClick="launchSudoku"
         android:text="@string/sudokuBtnText" />
+    
+    <Button
+        android:id="@+id/dictionaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sudokuButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="launchDictionary"
+        android:text="@string/dictionaryBtnText" />
 
     <Button
         android:id="@+id/quitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sudokuButton"
+        android:layout_below="@+id/dictionaryButton"
         android:layout_centerHorizontal="true"
         android:onClick="quitApplication"
         android:text="@string/quitBtnText" />

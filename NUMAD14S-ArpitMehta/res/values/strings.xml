@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- Strings for Home Activity -->
     <string name="app_name">NUMAD14S-ArpitMehta</string>
     <string name="action_settings">Settings</string>
@@ -10,7 +10,8 @@
     <string name="aboutBtnText">About</string>
     <string name="genErrBtnText">Generate Error</string>
     <string name="sudokuBtnText">Sudoku</string>
-    
+    <string name="dictionaryBtnText">Dictionary</string>
+
     <!-- Strings for About Activity -->
     <string name="head_shot">Head Shot</string>
     <string name="my_email"><i>arpit231087@gmail.com</i></string>
@@ -24,7 +25,7 @@
 	 ! Copyrights apply to this code. It may not be used to create training material, 
 	 ! courses, books, articles, and the like. Contact us if you are in doubt.
 	 ! We make no guarantees that this code is fit for any purpose. 
-	 ! Visit http://www.pragmaticprogrammer.com/titles/eband3 for more book information.
+	 ! Visit http://www.pragmaticprogrammer.com/titles/eband3 for more book information.
     -->
 
     <string name="sudoku_app_name">Sudoku</string>
@@ -55,5 +56,12 @@ objective is to fill the grid so that each
 row, each column, and each of the 3x3 boxes
 (also called <i>blocks</i>) contains the digits
 1 to 9 exactly once.</string>
-
+    <string name="title_activity_dictionary">DictionaryActivity</string>
+    <string name="hello_world">Hello world!</string>
+    
+    
+    <!-- Strings for Dictionary Activity -->
+	<string name="search">Search:</string>
+	<string name="ackText">Acknowledgements</string>
+	
 </resources>
