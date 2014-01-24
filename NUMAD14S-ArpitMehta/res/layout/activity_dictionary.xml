@@ -1,34 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"    
+    android:gravity="left"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
-
-    <EditText
-        android:id="@+id/etDictionary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/tvSearch"
-        android:ems="10"
-        android:inputType="textAutoComplete" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/tvSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etDictionary"
-        android:layout_alignBottom="@+id/etDictionary"
-        android:layout_alignParentLeft="true"
-        android:text="@string/search" />
+    android:paddingTop="@dimen/activity_vertical_margin" >   
 
     <ScrollView
         android:id="@+id/svWordSuggestions"
@@ -73,6 +50,21 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/backButton"
         android:layout_alignLeft="@+id/backButton"
-        android:text="@string/clearText" />
+        android:text="@string/clearText"
+        android:onClick="clearAllWords" />
+
+    <EditText
+        android:id="@+id/etDictionary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/svWordSuggestions"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textAutoComplete"
+        android: >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package edu.neu.madcourse.arpitmehta.dictionary;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import edu.neu.madcourse.arpitmehta.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -9,6 +12,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class DictionaryActivity extends Activity {
+	
+	/**
+	 * ArrayList for HashCodes of all dictionary search files
+	 */
+	ArrayList<Integer> fileHashLst = new ArrayList<Integer>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,9 @@ public class DictionaryActivity extends Activity {
 		// Clear Word suggestions Display Field
 		LinearLayout ll = (LinearLayout) findViewById(R.id.llWordView);
 		ll.removeAllViews();
+		
+		// Get Hashcodes of all dictionary search files
+		
 	}
 	
 	@Override
@@ -66,6 +77,18 @@ public class DictionaryActivity extends Activity {
 	 */
 	public void exitDictionary(View view) {
 		finish();
+	}
+	
+	/**
+	 * clearAllWords
+	 * 		Clears all words in the display area
+	 * 
+	 * @param view
+	 * 
+	 * @return void
+	 */
+	public void clearAllWords(View view) {
+		
 	}
 
 }
