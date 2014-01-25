@@ -24,7 +24,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.neu.madcourse.arpitmehta.R;
-import edu.neu.madcourse.arpitmehta.sudoku.Music;
 
 public class DictionaryActivity extends Activity {
 	
@@ -158,6 +157,7 @@ public class DictionaryActivity extends Activity {
 				displayedWordLst.add(word);
 				TextView tvWord = new TextView(this);
 				tvWord.setText(word);
+				tvWord.setTextSize(getResources().getDimension(R.dimen.textsize));
 				tvWord.setGravity(Gravity.CENTER_HORIZONTAL);
 				llWordDisplay.addView(tvWord);			
 			}

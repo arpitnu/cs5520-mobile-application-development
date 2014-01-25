@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:textAlignment="center">
-            
+            android:textAlignment="center">            
             
         </LinearLayout>
     </ScrollView>
@@ -56,14 +55,12 @@
 
     <EditText
         android:id="@+id/etDictionary"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/svWordSuggestions"
         android:layout_alignParentTop="true"
-        android:inputType="text"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
         android:hint="@string/searchText"
-        android:imeOptions="actionSearch" >
-
-    </EditText>
+        android:inputType="none" />
 
 </RelativeLayout>
