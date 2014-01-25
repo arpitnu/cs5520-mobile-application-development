@@ -6,34 +6,37 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import edu.neu.madcourse.arpitmehta.R;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.AssetManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.res.AssetManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import edu.neu.madcourse.arpitmehta.R;
+import edu.neu.madcourse.arpitmehta.sudoku.Music;
 
 public class DictionaryActivity extends Activity {
 	
 	/**
-	 * ArrayList for HashCodes of all dictionary search files
-	 */
-	ArrayList<Integer> fileHashLst = new ArrayList<Integer>();
-	
-	/**
 	 * ArrayList of words to search from
 	 */
-	ArrayList<String> wordLst = new ArrayList<String>();
+	ArrayList<String> searchWordLst = new ArrayList<String>();
+	
+	/**
+	 * ArrayList of words that are currently displayed
+	 */
+	ArrayList<String> displayedWordLst = new ArrayList<String>();
 	
 	/**
 	 * Editable text.
@@ -64,6 +67,18 @@ public class DictionaryActivity extends Activity {
 		
 		// Initialize AssetManager
 		am = getAssets();
+		
+		// Clear resources to be used
+		searchWordLst.clear();
+		displayedWordLst.clear();
+		
+		// Clear EditText Field
+		EditText et = (EditText) findViewById(R.id.etDictionary);
+		et.setText("");
+				
+		// Clear Word suggestions Display Field
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llWordView);
+		ll.removeAllViews();
 	}
 	
 	/**
@@ -86,17 +101,6 @@ public class DictionaryActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		
-		// Clear EditText Field
-		EditText et = (EditText) findViewById(R.id.etDictionary);
-		et.setText("");
-		
-		// Clear Word suggestions Display Field
-		LinearLayout ll = (LinearLayout) findViewById(R.id.llWordView);
-		ll.removeAllViews();
-		
-		// Clear word list
-		wordLst.clear();
 		
 		final EditText etWordInput = (EditText) findViewById(R.id.etDictionary);
 		
@@ -122,15 +126,14 @@ public class DictionaryActivity extends Activity {
 				
 				if(enteredWord.length() == 2) {
 					// Load words for search
-					loadFileContents();
+					loadFileWords(enteredWord.toString());
 				}
 				else if(enteredWord.length() > 2) {
 					// Search word
-					searchWord();
+					searchWord(enteredWord.toString());
 				}
 				else {
-					// Clear all words displayed
-					//TODO
+					// To be handled
 				}				
 			}
 		});
@@ -140,20 +143,28 @@ public class DictionaryActivity extends Activity {
 	 * searchWord
 	 * 		Function searches the word in the word list and 
 	 * 		displays it
+	 * @param word 
 	 * 
 	 * @param none
 	 * 
 	 * @return void
 	 */
-	protected void searchWord() {
-		if(wordLst.contains(enteredWord.toString())) {
-			// Word found. Add to display list
-			// TODO
+	protected void searchWord(final String word) {
+		if(searchWordLst.contains(word.toString())) {
+			// Word found. Add to display list only if the word is not displayed yet
+			LinearLayout llWordDisplay = (LinearLayout) findViewById(R.id.llWordView);
 			
-			// Word found. Beep
+			if(!displayedWordLst.contains(word)) {
+				displayedWordLst.add(word);
+				TextView tvWord = new TextView(this);
+				tvWord.setText(word);
+				tvWord.setGravity(Gravity.CENTER_HORIZONTAL);
+				llWordDisplay.addView(tvWord);			
+			}
+			
 			try {
-				Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-				Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+				Uri beep = Uri.parse("android.resource://edu.neu.madcourse.arpitmehta/raw/" + R.raw.beep);
+				Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), beep);
 				r.play();
 			} catch(Exception e) {}
 		}
@@ -163,24 +174,25 @@ public class DictionaryActivity extends Activity {
 	 * loadFileContents
 	 * 		Function searches the word in the word list and 
 	 * 		displays it
+	 * @param word 
 	 * 
 	 * @param none
 	 * 
 	 * @return void
 	 */
-	protected void loadFileContents() {
-		String fileName = new String("dictionary/" + enteredWord + ".txt");
-		String word = new String();
+	protected void loadFileWords(final String word) {
+		String fileName = new String("dictionary/" + word.substring(0, 2) + ".txt");
+		String currWord = new String();
 		
 		// Clear word list
-		wordLst.clear();
+		searchWordLst.clear();
 		
 		try {
 			inStreamFileToSearch = am.open(fileName);
 			brFileToSearch = new BufferedReader(new InputStreamReader(inStreamFileToSearch));
 			
-			while(null != (word = brFileToSearch.readLine())) {
-				wordLst.add(word);
+			while(null != (currWord = brFileToSearch.readLine())) {
+				searchWordLst.add(currWord);
 			}
 		} catch (IOException e) {}
 	}
@@ -226,7 +238,13 @@ public class DictionaryActivity extends Activity {
 	 * @return void
 	 */
 	public void clearAllWords(View view) {
-		
+		// Clear EditText Field
+		EditText et = (EditText) findViewById(R.id.etDictionary);
+		et.setText("");
+				
+		// Clear Word suggestions Display Field
+		LinearLayout ll = (LinearLayout) findViewById(R.id.llWordView);
+		ll.removeAllViews();
 	}
 	
 	public void openAckDialog(View view) {

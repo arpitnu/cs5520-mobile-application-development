@@ -49,7 +49,7 @@
 		1 to 9 exactly once.</string>
 
     <!-- Strings for Dictionary Activity -->
-    <string name="title_activity_dictionary">Dictionary</string>
+    <string name="title_activity_dictionary">Test Dictionary</string>
     <string name="searchText">Search Word</string>
     <string name="ackButtonText">Acknowledgements</string>
     <string name="clearText">Clear</string>
@@ -57,9 +57,16 @@
     <string name="title_activity_dictionary_ack">Acknowledgements</string>
     <string name="dictionary_ack_text" > 
         \u2022 EditText usage: http://developer.android.com/guide/topics/ui/controls.html \n\n
+        \u2022 Usage of EditText.onTextChangedListener function: 
+        http://www.bipinrupadiya.com/2012/09/addtextchangedlistener-in-android.html \n\n
         \u2022 Ringtone usage for producing the beep sound during search: 
                 http://stackoverflow.com/questions/4441334/how-to-play-an-android-notification-sound/9622040#9622040 \n\n
-        \u2022 Usage of EditText.onTextChangedListener function: 
-        http://www.bipinrupadiya.com/2012/09/addtextchangedlistener-in-android.html</string>
+        \u2022 How to add text in billet points in TextView: 
+        http://stackoverflow.com/questions/3429546/android-how-to-add-bullet-symbol-in-textview \n\n
+        \u2022 Some links that I referenced regarding the quickest way to lookup words: \n
+        \t 1) http://stackoverflow.com/questions/15663241/search-word-in-word-list-text-file-in-android \n
+        \t 2) https://android.googlesource.com/platform/development/+/donut-release2%5E/samples/SearchableDictionary/src/com/example/android/searchabledict/Dictionary.java \n\n
+        \u2022 Source of beep mp3: http://soundbible.com/1251-Beep.html \n\n
+        </string>
 
 </resources>

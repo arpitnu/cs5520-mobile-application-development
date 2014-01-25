@@ -67,7 +67,7 @@
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryAck"
             android:label="@string/title_activity_dictionary_ack"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
-            android:screenOrientation="portrait" >
+             >
         </activity>
     </application>
 
