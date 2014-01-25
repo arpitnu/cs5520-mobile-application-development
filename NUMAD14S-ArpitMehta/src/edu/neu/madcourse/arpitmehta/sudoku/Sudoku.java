@@ -9,10 +9,12 @@
 package edu.neu.madcourse.arpitmehta.sudoku;
 
 import edu.neu.madcourse.arpitmehta.R;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +33,9 @@ public class Sudoku extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		// Show the Up button in the action bar.
+		setupActionBar();
 
 		// Set up click listeners for all the buttons
 		View continueButton = findViewById(R.id.continue_button);
@@ -41,6 +46,16 @@ public class Sudoku extends Activity implements OnClickListener {
 		aboutButton.setOnClickListener(this);
 		View exitButton = findViewById(R.id.exit_button);
 		exitButton.setOnClickListener(this);
+	}
+	
+	/**
+	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setupActionBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override

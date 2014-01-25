@@ -39,7 +39,8 @@
         <!-- Activities for Sudoku -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.sudoku.Sudoku"
-            android:label="@string/sudoku_app_name" >
+            android:label="@string/sudoku_app_name"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.AboutActivity" >
         </activity>
         <activity
             android:name="edu.neu.madcourse.arpitmehta.sudoku.About"
@@ -59,12 +60,14 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
             android:label="@string/title_activity_dictionary"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryAck"
             android:label="@string/title_activity_dictionary_ack"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

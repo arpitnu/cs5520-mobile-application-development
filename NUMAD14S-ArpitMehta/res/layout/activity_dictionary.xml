@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/ackText"
+        android:text="@string/ackButtonText"
         android:onClick="openAckDialog" />
 
     <Button
@@ -60,8 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/svWordSuggestions"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:inputType="text" >
+        android:inputType="none"
+        android:hint="@string/searchText"
+        android:imeOptions="actionSearch" >
 
         <requestFocus />
     </EditText>

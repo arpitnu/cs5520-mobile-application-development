@@ -14,14 +14,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.text.Editable;
-import android.view.KeyEvent;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -52,7 +50,6 @@ public class DictionaryActivity extends Activity {
 	 */
 	BufferedReader brFileToSearch;
 	
-	//TODO
 	/**
 	 * The AssetsManager
 	 */
@@ -101,28 +98,26 @@ public class DictionaryActivity extends Activity {
 		// Clear word list
 		wordLst.clear();
 		
-		// 
 		final EditText etWordInput = (EditText) findViewById(R.id.etDictionary);
-		//TODO
-//		etWordInput.setOnEditorActionListener(new OnEditorActionListener() {
-//			
-//			@Override
-//			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//				boolean handled = false;
-//				
-//				if(actionId == Editor)
-//				
-//				return handled;
-//			}
-//		});
 		
-		
-		etWordInput.setOnKeyListener(new OnKeyListener() {
+		// Setup Text Change Listener
+		etWordInput.addTextChangedListener(new TextWatcher() {
 			
 			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				boolean retVal = false;
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
 				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
 				enteredWord = etWordInput.getText();
 				
 				if(enteredWord.length() == 2) {
@@ -136,14 +131,20 @@ public class DictionaryActivity extends Activity {
 				else {
 					// Clear all words displayed
 					//TODO
-				}
-				
-				return retVal;
+				}				
 			}
 		});
-		
 	}
 	
+	/**
+	 * searchWord
+	 * 		Function searches the word in the word list and 
+	 * 		displays it
+	 * 
+	 * @param none
+	 * 
+	 * @return void
+	 */
 	protected void searchWord() {
 		if(wordLst.contains(enteredWord.toString())) {
 			// Word found. Add to display list
@@ -158,6 +159,15 @@ public class DictionaryActivity extends Activity {
 		}
 	}	
 	
+	/**
+	 * loadFileContents
+	 * 		Function searches the word in the word list and 
+	 * 		displays it
+	 * 
+	 * @param none
+	 * 
+	 * @return void
+	 */
 	protected void loadFileContents() {
 		String fileName = new String("dictionary/" + enteredWord + ".txt");
 		String word = new String();
@@ -221,12 +231,7 @@ public class DictionaryActivity extends Activity {
 	
 	public void openAckDialog(View view) {
 		Intent ackIntent = new Intent(this, DictionaryAck.class);
-		try {
-			startActivity(ackIntent);
-		} catch (ActivityNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		startActivity(ackIntent);
 	}
 
 }

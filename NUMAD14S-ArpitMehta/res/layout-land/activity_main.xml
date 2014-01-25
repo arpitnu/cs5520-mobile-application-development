@@ -32,5 +32,11 @@
             android:text="@string/quitBtnText"
             android:onClick="quitApplication" />
       </TableRow>
+      <TableRow>
+         <Button
+            android:id="@+id/landDictionaryButton"
+            android:text="@string/dictionaryBtnText"
+            android:onClick="launchDictionary" />
+      </TableRow>
    </TableLayout>
 </LinearLayout>
