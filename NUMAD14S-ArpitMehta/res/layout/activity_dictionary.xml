@@ -33,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/ackText" />
+        android:text="@string/ackText"
+        android:onClick="openAckDialog" />
 
     <Button
         android:id="@+id/backButton"
@@ -60,9 +61,7 @@
         android:layout_alignLeft="@+id/svWordSuggestions"
         android:layout_alignParentTop="true"
         android:layout_marginTop="14dp"
-        android:ems="10"
-        android:inputType="textAutoComplete"
-        android: >
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>

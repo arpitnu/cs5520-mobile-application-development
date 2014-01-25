@@ -25,6 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- Activities for About Screen -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.AboutActivity"
             android:label="@string/title_activity_about"
@@ -52,11 +54,17 @@
             android:name="edu.neu.madcourse.arpitmehta.sudoku.Game"
             android:label="@string/game_title" >
         </activity>
-        
+
         <!-- Activities for Dictionary -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
-            android:label="@string/title_activity_dictionary" >
+            android:label="@string/title_activity_dictionary"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryAck"
+            android:label="@string/title_activity_dictionary_ack"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity" >
         </activity>
     </application>
 

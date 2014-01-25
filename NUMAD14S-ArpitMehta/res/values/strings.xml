@@ -19,15 +19,6 @@
     <string name="imei_display_str">IMEI: </string>
 
     <!-- String for Sudoku App -->
-    <!--
-	 ! Excerpted from "Hello, Android",
-	 ! published by The Pragmatic Bookshelf.
-	 ! Copyrights apply to this code. It may not be used to create training material, 
-	 ! courses, books, articles, and the like. Contact us if you are in doubt.
-	 ! We make no guarantees that this code is fit for any purpose. 
-	 ! Visit http://www.pragmaticprogrammer.com/titles/eband3 for more book information.
-    -->
-
     <string name="sudoku_app_name">Sudoku</string>
     <string name="main_title">Android Sudoku</string>
     <string name="continue_label">Continue</string>
@@ -50,20 +41,24 @@
     <string name="keypad_title">Keypad</string>
     <string name="about_title">About Android Sudoku</string>
     <string name="about_text">\
-Sudoku is a logic-based number placement puzzle.
-Starting with a partially completed 9x9 grid, the
-objective is to fill the grid so that each
-row, each column, and each of the 3x3 boxes
-(also called <i>blocks</i>) contains the digits
-1 to 9 exactly once.</string>
+		Sudoku is a logic-based number placement puzzle.
+		Starting with a partially completed 9x9 grid, the
+		objective is to fill the grid so that each
+		row, each column, and each of the 3x3 boxes
+		(also called <i>blocks</i>) contains the digits
+		1 to 9 exactly once.</string>
     <string name="title_activity_dictionary">DictionaryActivity</string>
     <string name="hello_world">Hello world!</string>
-    
-    
+
     <!-- Strings for Dictionary Activity -->
-	<string name="search">Search:</string>
-	<string name="ackText">Acknowledgements</string>
-	<string name="clearText">Clear</string>
-	<string name="returnToMenuText">Return To Menu</string>
-	
+    <string name="search">Search:</string>
+    <string name="ackText">Acknowledgements</string>
+    <string name="clearText">Clear</string>
+    <string name="returnToMenuText">Return To Menu</string>
+    <string name="title_activity_dictionary_ack">Acknowledgements</string>
+    <string name="dictionary_ack_text" > 
+        \u2022 EditText usage: http://developer.android.com/guide/topics/ui/controls.html \n\n
+        \u2022 Ringtone usage for producing the beep sound during search: 
+                http://stackoverflow.com/questions/4441334/how-to-play-an-android-notification-sound/9622040#9622040 \n\n</string>
+
 </resources>
