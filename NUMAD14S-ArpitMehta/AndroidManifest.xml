@@ -61,7 +61,8 @@
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
             android:label="@string/title_activity_dictionary"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" >
         </activity>
         <activity
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryAck"
