@@ -1,39 +1,22 @@
-package edu.neu.madcourse.arpitmehta;
+package edu.neu.madcourse.arpitmehta.wordgame;
 
+import edu.neu.madcourse.arpitmehta.R;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.support.v4.app.NavUtils;
-import android.telephony.TelephonyManager;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.os.Build;
 
-public class AboutActivity extends Activity {
-	
-	private static final String TAG="SUDOKU";
-	
-	@SuppressLint("NewApi")
+public class WordGameActivity extends Activity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_about);
-		
+		setContentView(R.layout.activity_word_game);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		
-		TelephonyManager teleManager = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE));
-		
-		String imeiInfo = teleManager.getDeviceId().toString();		
-		
-		Log.d(TAG,"IMEI");
-		TextView textView = (TextView) findViewById(R.id.imei);
-		textView.setText("IMEI: " + imeiInfo);	
 	}
 
 	/**
@@ -49,7 +32,7 @@ public class AboutActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.about, menu);
+		getMenuInflater().inflate(R.menu.word_game, menu);
 		return true;
 	}
 

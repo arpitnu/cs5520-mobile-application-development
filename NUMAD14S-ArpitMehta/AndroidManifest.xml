@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.arpitmehta"
-    android:versionCode="5"
+    android:versionCode="6"
     android:versionName="1.0.2" >
 
     <uses-sdk
@@ -18,14 +18,14 @@
         <!-- Activities for Main Screen -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/myName" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- Activities for About Screen -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.AboutActivity"
@@ -67,8 +67,17 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.dictionary.DictionaryAck"
             android:label="@string/title_activity_dictionary_ack"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity"
-             >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity" >
+        </activity>
+        
+        <!-- Activites for New Word Game Activity -->
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity"
+            android:label="@string/title_activity_word_game"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
         </activity>
     </application>
 

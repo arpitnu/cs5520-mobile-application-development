@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		setTitle(R.string.hello_mad_name);
+//		setTitle(R.string.myName);
 	}
 
 	@Override
@@ -23,28 +23,26 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	/**
-	 * showAboutActivity
-	 * 		"About" activity handler function. 
-	 * 		Called when the user clicks "About" Button 
+	 * showAboutActivity "About" activity handler function. Called when the user
+	 * clicks "About" Button
 	 * 
 	 * @param view
-	 * 			Android View class
+	 *            Android View class
 	 * 
 	 * @return void
 	 */
 	public void showAboutActivity(View view) {
 		// Intent to bind 'About' activity
 		Intent aboutIntent = new Intent(this, AboutActivity.class);
-		
+
 		// start about activity.
 		startActivity(aboutIntent);
 	}
-	
+
 	/**
-	 * generateError
-	 * 		Generates error that causes the app to crash
+	 * generateError Generates error that causes the app to crash
 	 * 
 	 * @param view
 	 * 
@@ -53,12 +51,11 @@ public class MainActivity extends Activity {
 	public void generateError(View view) {
 		// Division by 0 error.
 		@SuppressWarnings("unused")
-		int errVal = 1/0;		
+		int errVal = 1 / 0;
 	}
-	
+
 	/**
-	 * launchSudoku
-	 * 		launch sudoku application
+	 * launchSudoku launch sudoku application
 	 * 
 	 * @param view
 	 * 
@@ -67,14 +64,13 @@ public class MainActivity extends Activity {
 	public void launchSudoku(View view) {
 		// Intent to bind sudoku activity to Main Activity
 		Intent sudokuIntent = new Intent(this, Sudoku.class);
-		
+
 		// Start Sudoku Activity
 		startActivity(sudokuIntent);
 	}
-	
+
 	/**
-	 * launchDictionary
-	 * 		Launch Test Dictionary Activity
+	 * launchDictionary Launch Test Dictionary Activity
 	 * 
 	 * @param view
 	 * 
@@ -83,14 +79,13 @@ public class MainActivity extends Activity {
 	public void launchDictionary(View view) {
 		// Intent to bind Dictionary Activity to Main Activity
 		Intent dictionaryIntent = new Intent(this, DictionaryActivity.class);
-		
+
 		// Start Activity
 		startActivity(dictionaryIntent);
 	}
-	
-	/** 	
-	 * quitApplication
-	 * 		Quit
+
+	/**
+	 * quitApplication Quit
 	 * 
 	 * @param view
 	 * 

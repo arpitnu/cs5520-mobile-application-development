@@ -1,27 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AboutActivity" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:gravity="center_horizontal"
-        android:text="@string/hello_mad_name" />
+        android:layout_marginTop="20dp"
+        android:text="@string/myName" />
 
     <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
         android:gravity="center_horizontal"
         android:text="@string/my_email" />
 
@@ -29,26 +22,28 @@
         android:id="@+id/degree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/email"
         android:gravity="center_horizontal"
         android:text="@string/degree" />
+    
+    <TextView
+        android:id="@+id/university"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/university" />
+
+    <ImageView
+        android:id="@+id/myPhotoImgView"
+        android:layout_width="match_parent"
+        android:layout_height="332dp"
+        android:contentDescription="@string/myPhoto"
+        android:src="@drawable/head_shot" />
 
     <TextView
         android:id="@+id/imei"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/degree"
         android:gravity="center_horizontal"
         android:text="@string/imei_display_str" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/imei"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/head_shot"
-        android:src="@drawable/head_shot" />
-
-</RelativeLayout>
+</LinearLayout>
