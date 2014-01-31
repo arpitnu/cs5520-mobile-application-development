@@ -2,6 +2,7 @@ package edu.neu.madcourse.arpitmehta;
 
 import edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity;
 import edu.neu.madcourse.arpitmehta.sudoku.Sudoku;
+import edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +15,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-//		setTitle(R.string.myName);
+		 setTitle(R.string.myName);
 	}
 
 	@Override
@@ -82,6 +83,18 @@ public class MainActivity extends Activity {
 
 		// Start Activity
 		startActivity(dictionaryIntent);
+	}
+
+	/**
+	 * launchWordGame Start New Word Game Activity
+	 * 
+	 * @param view
+	 * 
+	 * @return void
+	 */
+	public void launchWordGame(View view) {
+		Intent wordGameIntent = new Intent(this, WordGameActivity.class);
+		startActivity(wordGameIntent);
 	}
 
 	/**

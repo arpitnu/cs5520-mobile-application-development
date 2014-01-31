@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 
-public class WordGameActivity extends Activity implements OnClickListener {
+public class WordGameAckActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_word_game);
-		
+		setContentView(R.layout.activity_word_game_ack);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -36,7 +32,7 @@ public class WordGameActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.word_game, menu);
+		getMenuInflater().inflate(R.menu.word_game_ack, menu);
 		return true;
 	}
 
@@ -53,18 +49,8 @@ public class WordGameActivity extends Activity implements OnClickListener {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		case R.id.wordGameSettings:
-			Intent wordGamePrefsIntent = new Intent(this, WordGamePrefs.class);
-			startActivity(wordGamePrefsIntent);
-			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

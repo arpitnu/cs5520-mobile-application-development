@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import edu.neu.madcourse.arpitmehta.R;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +25,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import edu.neu.madcourse.arpitmehta.R;
 
 public class DictionaryActivity extends Activity {
 	

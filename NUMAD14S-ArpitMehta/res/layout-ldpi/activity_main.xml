@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/darker_gray"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dip" >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:stretchColumns="*" >
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/aboutButton"
+                android:onClick="showAboutActivity"
+                android:text="@string/aboutBtnText" />
+
+            <Button
+                android:id="@+id/genErrButton"
+                android:onClick="generateError"
+                android:text="@string/genErrBtnText" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/sudokuButton"
+                android:onClick="launchSudoku"
+                android:text="@string/sudokuBtnText" />
+
+            <Button
+                android:id="@+id/dictionaryButton"
+                android:onClick="launchDictionary"
+                android:text="@string/dictionaryBtnText" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/wordGameButton"
+                android:onClick="lanunchWordGame"
+                android:text="@string/wordGameBtnText" />
+
+            <Button
+                android:id="@+id/quitButton"
+                android:onClick="quitApplication"
+                android:text="@string/quitBtnText" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
