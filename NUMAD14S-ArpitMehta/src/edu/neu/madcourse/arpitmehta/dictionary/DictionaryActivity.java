@@ -248,7 +248,15 @@ public class DictionaryActivity extends Activity {
 		ll.removeAllViews();
 	}
 	
-	public void openAckDialog(View view) {
+	/**
+	 * launchDictionaryAckActivity
+	 * 		Displays the Acknowledgements for Test Dictionary App
+	 * 
+	 * @param view
+	 * 
+	 * @return void
+	 */
+	public void launchDictionaryAckActivity(View view) {
 		Intent ackIntent = new Intent(this, DictionaryAck.class);
 		startActivity(ackIntent);
 	}

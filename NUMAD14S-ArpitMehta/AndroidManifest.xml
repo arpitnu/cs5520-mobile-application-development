@@ -87,9 +87,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" />
         </activity>
-        <activity 
+        <activity
             android:name="edu.neu.madcourse.arpitmehta.wordgame.WordGamePrefs"
             android:label="@string/wordGamePrefTitle"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" />
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.wordgame.Letris"
+            android:label="@string/title_activity_letris"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

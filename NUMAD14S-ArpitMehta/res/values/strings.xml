@@ -52,7 +52,7 @@
     <!-- Strings for Dictionary Activity -->
     <string name="title_activity_dictionary">Test Dictionary</string>
     <string name="searchText">Search Word</string>
-    <string name="ackButtonText">Acknowledgements</string>
+    <string name="ackButtonText">Acknowledgments</string>
     <string name="clearText">Clear</string>
     <string name="returnToMenuText">Return To Menu</string>
     <string name="title_activity_dictionary_ack">Acknowledgements</string>
@@ -80,10 +80,11 @@
     <!-- Strings for New Game Activity -->
     <string name="wordGameBtnText">Word Game</string>
     <string name="title_activity_word_game">Word Game</string>
-    <string name="title_activity_word_game_ack">Acknowledgements</string>
+    <string name="title_activity_word_game_ack">Acknowledgments</string>
     <string name="wordGamePrefTitle">Word Game Settings</string>
-    <string name="word_game_ack_text">
-        
-	</string>
+    <string name="wordGameName">Letris</string>
+    <string name="word_game_ack_text"></string>
+    <string name="title_activity_letris">Letris</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -34,7 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="@string/ackButtonText"
-        android:onClick="openAckDialog" />
+        android:onClick="launchDictionaryAckActivity" />
 
     <Button
         android:id="@+id/backButton"

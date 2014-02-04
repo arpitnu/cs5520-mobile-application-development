@@ -36,3 +36,4 @@ local.properties
 RemoteSystemsTempFiles
 DictionarySplit
 Assign 3 ack
+proguard-project.txt

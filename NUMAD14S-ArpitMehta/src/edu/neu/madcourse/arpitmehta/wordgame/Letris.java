@@ -3,28 +3,18 @@ package edu.neu.madcourse.arpitmehta.wordgame;
 import edu.neu.madcourse.arpitmehta.R;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 
-public class WordGameActivity extends Activity implements OnClickListener {
-	
-	/**
-	 * The TAG for WordGameActivity
-	 */
-	private static final String TAG = "Word Game";
+public class Letris extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_word_game);
-		
+		setContentView(R.layout.activity_letris);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -42,7 +32,7 @@ public class WordGameActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.word_game, menu);
+		getMenuInflater().inflate(R.menu.letris, menu);
 		return true;
 	}
 
@@ -59,49 +49,8 @@ public class WordGameActivity extends Activity implements OnClickListener {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
-		case R.id.wordGameSettings:
-			Intent wordGamePrefsIntent = new Intent(this, WordGamePrefs.class);
-			startActivity(wordGamePrefsIntent);
-			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void launchnewWordGame(View v) {
-		Log.d(TAG, "Launching New Word Game");
-		Intent letrisGameIntent = new Intent(this, Letris.class);
-		startActivity(letrisGameIntent);
-	}
-	
-	/**
-	 * launchWordGameAckActivity
-	 * 		Display Word Game Acknowledgments
-	 * 
-	 * @param View v
-	 * 
-	 * @return void
-	 */
-	public void launchWordGameAckActivity(View v) {
-		Intent wordGameAckIntent = new Intent(this, WordGameAckActivity.class);
-		startActivity(wordGameAckIntent);
-	}
-	
-	/**
-	 * exitWordGame
-	 * 		Exit Word Game and return to main menu of the App
-	 * 
-	 * @param View v
-	 * 
-	 * @return void
-	 */
-	public void exitWordGame(View v) {
-		finish();
 	}
 
 }
