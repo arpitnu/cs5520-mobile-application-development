@@ -96,7 +96,7 @@
                 android:value="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" />
         </activity>
         <activity
-            android:name="edu.neu.madcourse.arpitmehta.wordgame.Letris"
+            android:name="edu.neu.madcourse.arpitmehta.wordgame.LetrisGame"
             android:label="@string/title_activity_letris"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" >
             <meta-data

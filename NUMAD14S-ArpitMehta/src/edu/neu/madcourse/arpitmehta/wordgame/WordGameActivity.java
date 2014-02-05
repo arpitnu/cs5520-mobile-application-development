@@ -75,7 +75,7 @@ public class WordGameActivity extends Activity implements OnClickListener {
 	
 	public void launchnewWordGame(View v) {
 		Log.d(TAG, "Launching New Word Game");
-		Intent letrisGameIntent = new Intent(this, Letris.class);
+		Intent letrisGameIntent = new Intent(this, LetrisGame.class);
 		startActivity(letrisGameIntent);
 	}
 	

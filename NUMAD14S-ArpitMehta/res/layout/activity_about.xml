@@ -31,19 +31,20 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/university" />
-
-    <ImageView
-        android:id="@+id/myPhotoImgView"
-        android:layout_width="match_parent"
-        android:layout_height="332dp"
-        android:contentDescription="@string/myPhoto"
-        android:src="@drawable/head_shot" />
-
+    
     <TextView
         android:id="@+id/imei"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/imei_display_str" />
+
+    <ImageView
+        android:id="@+id/myPhotoImgView"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/myPhoto"
+        android:src="@drawable/head_shot" />
 
 </LinearLayout>

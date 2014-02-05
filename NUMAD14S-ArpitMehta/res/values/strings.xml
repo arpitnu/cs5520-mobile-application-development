@@ -55,8 +55,9 @@
     <string name="ackButtonText">Acknowledgments</string>
     <string name="clearText">Clear</string>
     <string name="returnToMenuText">Return To Menu</string>
-    <string name="title_activity_dictionary_ack">Acknowledgements</string>
-    <string name="dictionary_ack_text">        \u2022 EditText usage: http://developer.android.com/guide/topics/ui/controls.html \n\n
+    <string name="title_activity_dictionary_ack">Acknowledgments</string>
+    <string name="dictionary_ack_text">        
+        \u2022 EditText usage: http://developer.android.com/guide/topics/ui/controls.html \n\n
         
         \u2022 Usage of EditText.onTextChangedListener function: 
         http://www.bipinrupadiya.com/2012/09/addtextchangedlistener-in-android.html \n\n
@@ -83,8 +84,14 @@
     <string name="title_activity_word_game_ack">Acknowledgments</string>
     <string name="wordGamePrefTitle">Word Game Settings</string>
     <string name="wordGameName">Letris</string>
-    <string name="word_game_ack_text"></string>
     <string name="title_activity_letris">Letris</string>
     <string name="hello_world">Hello world!</string>
+    <string name="wordGameAckText">
+        \u2022 The word_game.mp3 is an excerpt from The Matrix Soundtrack called <b><i>Furious Angels by Rob Dougan</i></b> 
+        		downloaded from http://mp3skull.com/mp3/the_matrix_reloaded_soundtrack.html
+        
+        \u2022 
+    </string>
+    
 
 </resources>

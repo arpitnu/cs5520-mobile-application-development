@@ -12,6 +12,7 @@ public class WordGameAckActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_word_game_ack);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
