@@ -74,6 +74,7 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity"
             android:label="@string/title_activity_word_game"
+            android:screenOrientation="portrait"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -98,6 +99,7 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.wordgame.LetrisGame"
             android:label="@string/title_activity_letris"
+            android:screenOrientation="portrait"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
