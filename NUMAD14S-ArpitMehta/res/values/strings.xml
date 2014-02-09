@@ -92,7 +92,15 @@
         \u2022 I referred to the following Stackoverflow post for random alphabet character generation: 
         		http://stackoverflow.com/questions/3292952/uppercase-random-number-of-characters-from-a-random-alphanumeric-string \n\n
         		
-        \u2022 Design of the game was based on Android Sudoku Game from <i>Hello, Android 3rd Edition</i> by <b>Ed Burnette</b> 
+        \u2022 Design of the game was based on Android Sudoku Game from <i>Hello, Android 3rd Edition</i> by <b>Ed Burnette</b> \n\n
+        
+        \u2022 Source of button_black_pause.png: http://findicons.com/icon/176060/button_black_pause \n\n
+        
+        \u2022 Source of button_black_play.png: http://findicons.com/icon/176061/button_black_play?id=176451 \n\n
+        
+        \u2022 Source of button_black_hint.png: http://findicons.com/icon/176031/help_black?id=176388 \n\n
+        
+        \u2022 Source of button_black_stop.png: http://findicons.com/icon/175960/button_black_stop?id=394597 \n\n
     </string>
     
 

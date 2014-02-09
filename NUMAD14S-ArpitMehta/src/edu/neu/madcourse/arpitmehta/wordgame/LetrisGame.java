@@ -11,102 +11,112 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import edu.neu.madcourse.arpitmehta.R;
-import edu.neu.madcourse.arpitmehta.sudoku.Music;
 
 public class LetrisGame extends Activity {
-	
+
 	/**
 	 * The tag for LetrisGame
 	 */
 	private static final String TAG = "Letris";
-	
+
 	/**
 	 * The puzzle reference
 	 */
 	private static final String PREF_PUZZLE = "letris_puzzle";
-	
+
 	/**
 	 * The game view
 	 */
 	private LetrisGameView gameView;
-	
+
 	/**
 	 * The Letris puzzle character array
 	 */
 	private char letrisPuzzle[];
-	
+
 	/**
 	 * The list of valid words selected
 	 */
 	ArrayList<String> validSelectedWords = new ArrayList<String>();
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		
+
 		// TODO Game difficulty
-		
-		//TODO
-		Log.d(TAG, "Creating new game view");
-		
+
 		letrisPuzzle = getPuzzle();
-		
-		//TODO
-		Log.d(TAG, "Generated Puzzle: " + letrisPuzzle.toString());
-		
 		gameView = new LetrisGameView(this);
+
+		// TODO
+		 setContentView(gameView);
 		
-//		//TODO
-//		Log.d(TAG, "ID of relative layout: " + R.id.rlGameGrid);
-//		
-//		RelativeLayout gameGridView = (RelativeLayout) findViewById(R.id.rlGameGrid);
-//		
-//		//TODO
-//		Log.d(TAG, "Addign gameView to Relative layout");
-//		
-//		try {
-//			gameGridView.addView(gameView);
-//		} catch (NullPointerException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		//TODO
-		Log.d(TAG, "setContentView");
-		
-		setContentView(gameView);
-		
-//		setContentView(gameView);
-		gameView.requestFocus();
-		
+//		setContentView(R.layout.activity_letris_game);
+//
+//		RelativeLayout rlGameView = (RelativeLayout) findViewById(R.id.rlGameView);
+//		gameView.setLayoutParams(new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.MATCH_PARENT, 
+//				RelativeLayout.LayoutParams.WRAP_CONTENT));
+//		rlGameView.addView(gameView);
+
+		// //TODO
+		// Log.d(TAG, "Creating new game view");
+		//
+		// letrisPuzzle = getPuzzle();
+		//
+		// //TODO
+		// Log.d(TAG, "Generated Puzzle: " + letrisPuzzle.toString());
+		//
+		// gameView = new LetrisGameView(this);
+		//
+		// RelativeLayout gameGridView = new GameView(this);
+		// //
+		// // //TODO
+		// // Log.d(TAG, "Addign gameView to Relative layout");
+		// //
+		// // try {
+		// // gameGridView.addView(gameView);
+		// // } catch (NullPointerException e) {
+		// // // TODO Auto-generated catch block
+		// // e.printStackTrace();
+		// // }
+		//
+		// //TODO
+		// Log.d(TAG, "setContentView");
+		//
+		// setContentView(gameView);
+		//
+		// // setContentView(gameView);
+		// gameView.requestFocus();
+
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
-	
+
 	/**
-	 * getPuzzle
-	 * 		Function returns a new puzzle.
+	 * getPuzzle Function returns a new puzzle.
 	 * 
 	 * @param none
 	 * 
 	 * @return void
 	 */
 	private char[] getPuzzle() {
-		int num_cells = GameConstants.getNumGridRows() * GameConstants.getNumGridColumns();
+		int num_cells = GameConstants.getNumGridRows()
+				* GameConstants.getNumGridColumns();
 		char[] puz = new char[num_cells];
 		Random rand = new Random();
 		String alphabet = GameConstants.getAlphabetSet();
-		
-		for(int i = 0; i < num_cells; i++) {
+
+		for (int i = 0; i < num_cells; i++) {
 			puz[i] = alphabet.charAt(rand.nextInt(alphabet.length()));
 		}
-		
+
 		// Log the generated puzzle
 		Log.d(TAG, puz.toString());
-		
+
 		return puz;
 	}
 
@@ -143,60 +153,63 @@ public class LetrisGame extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		Log.d(TAG, "onResume");
-		
+
 		// Play word game music
-		Music.play(this, R.raw.word_game);
+		WordGameMusic.play(getApplicationContext(), R.raw.word_game);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+
 		Log.d(TAG, "onPause");
-		
+
 		// Stop word game music
-		Music.stop(this);
-		
+		WordGameMusic.stop(this);
+
 		// Save the current puzzle
-	      getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE,
-	            toPuzzleString(letrisPuzzle)).commit();
+		getPreferences(MODE_PRIVATE).edit()
+				.putString(PREF_PUZZLE, toPuzzleString(letrisPuzzle)).commit();
 	}
-	
+
 	@Override
 	protected void onStop() {
 		super.onStop();
-		
+
 		Log.d(TAG, "onStop");
-		
+
 		// Clear the list of valid words
 		validSelectedWords.clear();
 	}
-	
+
 	/**
-	 * toPuzzleString
-	 * 		Convert an array into a puzzle string
+	 * toPuzzleString Convert an array into a puzzle string
 	 * 
 	 * @param puzzle
 	 * 
 	 * @return String
 	 */
 	private String toPuzzleString(char[] puzzle) {
-	      StringBuilder buf = new StringBuilder();
-	      for (char c : puzzle) {
-	         buf.append(c);
-	      }
-	      return buf.toString();
-	   }
+		StringBuilder buf = new StringBuilder();
+		for (char c : puzzle) {
+			buf.append(c);
+		}
+		return buf.toString();
+	}
 
 	/**
-	 * getTileString
-	 * 		Return a string for the tile at the given coordinates
+	 * getTileString Return a string for the tile at the given coordinates
 	 * 
 	 * @param i
 	 * @param j
@@ -205,45 +218,53 @@ public class LetrisGame extends Activity {
 	 */
 	public String getTileString(int x, int y) {
 		Character c = getTile(x, y);
-		
+
 		return String.valueOf(c);
 	}
-	
+
 	/**
-	 * getTile
-	 * 		Return the tile at the given coordinates
+	 * getTile Return the tile at the given coordinates
 	 * 
-	 * @param x int
+	 * @param x
+	 *            int
 	 * @param y
 	 * 
 	 * @return Character
 	 */
 	private Character getTile(int x, int y) {
-		return (Character.valueOf(letrisPuzzle[y * GameConstants.getNumGridRows() + x]));
-		
-//		Character c = null;
-//		try {
-//			c = Character.valueOf(letrisPuzzle[y * GameConstants.getNumGridColumns() + x]);
-//		} catch (IndexOutOfBoundsException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return c;
+		return (Character.valueOf(letrisPuzzle[y
+				* GameConstants.getNumGridRows() + x]));
+
+		// Character c = null;
+		// try {
+		// c = Character.valueOf(letrisPuzzle[y *
+		// GameConstants.getNumGridColumns() + x]);
+		// } catch (IndexOutOfBoundsException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// return c;
 	}
-	
+
 	/**
-	 * setTile
-	 * 		Change the tile at the given coordinates
-	 *  
+	 * setTile Change the tile at the given coordinates
+	 * 
 	 * @param x
 	 * @param y
 	 * @param value
 	 * 
 	 * @return void
 	 */
-	   private void setTile(int x, int y, char value) {
-	      letrisPuzzle[y * GameConstants.getNumGridRows() + x] = value;
-	   }
+	private void setTile(int x, int y, char value) {
+		letrisPuzzle[y * GameConstants.getNumGridRows() + x] = value;
+	}
+
+	public void addCharToWord(int selX, int selY) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }
