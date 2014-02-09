@@ -11,7 +11,6 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import edu.neu.madcourse.arpitmehta.R;
 
 public class LetrisGame extends Activity {
@@ -40,6 +39,7 @@ public class LetrisGame extends Activity {
 	 * The list of valid words selected
 	 */
 	ArrayList<String> validSelectedWords = new ArrayList<String>();
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,48 +51,8 @@ public class LetrisGame extends Activity {
 		letrisPuzzle = getPuzzle();
 		gameView = new LetrisGameView(this);
 
-		// TODO
-		 setContentView(gameView);
+		setContentView(gameView);
 		
-//		setContentView(R.layout.activity_letris_game);
-//
-//		RelativeLayout rlGameView = (RelativeLayout) findViewById(R.id.rlGameView);
-//		gameView.setLayoutParams(new RelativeLayout.LayoutParams(
-//				RelativeLayout.LayoutParams.MATCH_PARENT, 
-//				RelativeLayout.LayoutParams.WRAP_CONTENT));
-//		rlGameView.addView(gameView);
-
-		// //TODO
-		// Log.d(TAG, "Creating new game view");
-		//
-		// letrisPuzzle = getPuzzle();
-		//
-		// //TODO
-		// Log.d(TAG, "Generated Puzzle: " + letrisPuzzle.toString());
-		//
-		// gameView = new LetrisGameView(this);
-		//
-		// RelativeLayout gameGridView = new GameView(this);
-		// //
-		// // //TODO
-		// // Log.d(TAG, "Addign gameView to Relative layout");
-		// //
-		// // try {
-		// // gameGridView.addView(gameView);
-		// // } catch (NullPointerException e) {
-		// // // TODO Auto-generated catch block
-		// // e.printStackTrace();
-		// // }
-		//
-		// //TODO
-		// Log.d(TAG, "setContentView");
-		//
-		// setContentView(gameView);
-		//
-		// // setContentView(gameView);
-		// gameView.requestFocus();
-
-		// Show the Up button in the action bar.
 		setupActionBar();
 	}
 
@@ -259,8 +219,20 @@ public class LetrisGame extends Activity {
 	private void setTile(int x, int y, char value) {
 		letrisPuzzle[y * GameConstants.getNumGridRows() + x] = value;
 	}
+	
+	/**
+	 * Quit Game
+	 */
+	public void quitGame() {
+		Log.d(TAG, "User request to quit game");
 
-	public void addCharToWord(int selX, int selY) {
+		// Clear the list of valid words
+		validSelectedWords.clear();
+		
+		finish();	
+	}
+
+	public void processTile(int selX, int selY) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -248,6 +248,17 @@ public class PuzzleView extends View {
       }
    }
 
+   /**
+    * select
+    * 		Calculate the new x & y position of the selection 
+    * 		and then use getRect() to calculate the new 
+    * 		selection rectangle
+    * 
+    * @param x
+    * @param y
+    * 
+    * @return void
+    */
    private void select(int x, int y) {
       invalidate(selRect);
       selX = Math.min(Math.max(x, 0), 8);
@@ -255,7 +266,17 @@ public class PuzzleView extends View {
       getRect(selX, selY, selRect);
       invalidate(selRect);
    }
-
+   
+   /**
+    * getRect
+    * 		calculate the new selection rectangle
+    * 
+    * @param x
+    * @param y
+    * @param rect
+    * 
+    * @return void
+    */
    private void getRect(int x, int y, Rect rect) {
       rect.set((int) (x * width), (int) (y * height), (int) (x
             * width + width), (int) (y * height + height));
