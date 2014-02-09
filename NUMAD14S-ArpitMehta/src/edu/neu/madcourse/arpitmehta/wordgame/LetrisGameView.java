@@ -1,5 +1,7 @@
 package edu.neu.madcourse.arpitmehta.wordgame;
 
+import java.util.ArrayList;
+
 import edu.neu.madcourse.arpitmehta.R;
 import android.content.Context;
 import android.content.res.Resources;
@@ -29,7 +31,7 @@ public class LetrisGameView extends View {
 	 * The Game
 	 */
 	private final LetrisGame game;
-	
+
 	/**
 	 * The Canvas
 	 */
@@ -84,7 +86,7 @@ public class LetrisGameView extends View {
 	 * The Resources
 	 */
 	private Resources res;
-	
+
 	/**
 	 * The Begin new game bitmap
 	 */
@@ -124,6 +126,11 @@ public class LetrisGameView extends View {
 	 * The Score Paint
 	 */
 	private Paint scorePaint = new Paint();
+	
+	/**
+	 * The word paint
+	 */
+	private Paint wordPaint = new Paint();
 
 	/**
 	 * The X pos of start of grid
@@ -144,12 +151,12 @@ public class LetrisGameView extends View {
 	 * The Y pos of end of grid
 	 */
 	private float gridEndY;
-	
+
 	/**
 	 * begin game bitmap left x
 	 */
 	private int beginBitmapLeft;
-	
+
 	/**
 	 * begin game bitmap top y
 	 */
@@ -209,43 +216,58 @@ public class LetrisGameView extends View {
 	 * Count down timer y
 	 */
 	private int gameTimerY;
-	
+
 	/**
 	 * Boolean flag to indicate if begin game button is clicked
 	 */
 	private boolean isBeginClicked = false;
-	
+
 	/**
 	 * The text displayed for timer
 	 */
 	private String timerText = new String();
-	
-	/** 
+
+	/**
 	 * The text displayed for score
 	 */
 	private String scoreText = new String();
-	
+
 	/**
 	 * The initial timer value
 	 */
-	private final int initTimerVal = (int) (GameConstants.getTimerDuration() / GameConstants.getTimerTickDuration());
-	
+	private final int initTimerVal = (int) (GameConstants.getTimerDuration() / GameConstants
+			.getTimerTickDuration());
+
 	/**
 	 * Initial Timer Tick Count
 	 */
 	private int tickCount = 0;
-	
+
 	/**
 	 * The initial score
 	 */
 	private int initScore = 0;
 
 	private boolean isTimerUpdated = false;
-	
+
 	private boolean isTimerTimedout = false;
-	
+
 	private boolean isInitLoad = false;
+
+	private boolean isPauseButtonClicked = false;
+
+	private boolean isHintsButtonClicked = false;
+
+	private boolean isClickInGridTile = false;
+
+	private int wordLeft;
 	
+	private int wordTop;
+	
+	/**
+	 * Array List of coordinates of selected rectangles
+	 */
+	private ArrayList<GridCoordinate> selRectCoordinateList = new ArrayList<GridCoordinate>();
 
 	/**
 	 * LetrisGameView Constructor
@@ -263,7 +285,7 @@ public class LetrisGameView extends View {
 		res = getResources();
 
 		// Initialize Bitmaps
-		beginBitmap = BitmapFactory.decodeResource(res, 
+		beginBitmap = BitmapFactory.decodeResource(res,
 				R.drawable.button_begin_game);
 		pauseBitmap = BitmapFactory.decodeResource(res,
 				R.drawable.button_black_pause);
@@ -273,13 +295,13 @@ public class LetrisGameView extends View {
 				R.drawable.button_black_hint);
 		stopBitmap = BitmapFactory.decodeResource(res,
 				R.drawable.button_black_stop);
-		
+
 		// Initialize Timer text
 		timerText = "Seconds Left: " + initTimerVal;
-		
+
 		// Initialize score text
 		scoreText = "Score: " + initScore;
-		
+
 		isInitLoad = true;
 
 		setId(ID);
@@ -323,39 +345,25 @@ public class LetrisGameView extends View {
 	@Override
 	protected void onDraw(Canvas c) {
 		canvas = c;
-		
+
 		// Draw Background
 		Log.d(TAG, "onDraw Background");
 		onDrawBackground(canvas);
-		
+
 		// Draw the game grid lines
 		Log.d(TAG, "onDraw Grid Lines");
 		onDrawGridLines(canvas);
-		
-		if(false != isInitLoad) {
-			isInitLoad = false;
-			
+
+		if (false != isInitLoad) {
 			// Draw begin game bitmap
 			Log.d(TAG, "onDraw Begin Game Bitmap");
 			onDrawBeginGameBitmap(canvas);
-		}	
-		
-		if(isBeginClicked != false) {
+
 			// Reset flag
-			isBeginClicked = false;
-			
-			// Draw the characters
-			Log.d(TAG, "onDraw Characters");
-			onDrawGridCharacters(canvas);
-			
-			// Draw game control bitmaps
-			Log.d(TAG, "onDraw Game Controls");
-			onDrawGameControls(canvas);
+			isInitLoad = false;
 		}
-		
-		if(false != isTimerUpdated) {
-			isTimerUpdated = false;
-			
+
+		if (isBeginClicked != false) {
 			// Draw the characters
 			Log.d(TAG, "onDraw Characters");
 			onDrawGridCharacters(canvas);
@@ -363,15 +371,84 @@ public class LetrisGameView extends View {
 			// Draw game control bitmaps
 			Log.d(TAG, "onDraw Game Controls");
 			onDrawGameControls(canvas);
-			
+
+			// Reset flag
+			isBeginClicked = false;
+		}
+
+		if (false != isTimerUpdated) {
+			// Draw the characters
+			Log.d(TAG, "onDraw Characters");
+			onDrawGridCharacters(canvas);
+
+			// Draw game control bitmaps
+			Log.d(TAG, "onDraw Game Controls");
+			onDrawGameControls(canvas);
+
+			// Draw the timer text
+			Log.d(TAG, "onDraw Timer Text");
+			onDrawTimerView(canvas);
+
+			// Reset flag
+			isTimerUpdated = false;
+		} else {
 			// Draw the timer text
 			Log.d(TAG, "onDraw Timer Text");
 			onDrawTimerView(canvas);
 		}
-		else {
+
+		if (false != isTimerTimedout) {
+			// Draw the characters
+			Log.d(TAG, "onDraw Characters");
+			onDrawGridCharacters(canvas);
+
+			// Draw game control bitmaps
+			Log.d(TAG, "onDraw Game Controls");
+			onDrawGameControls(canvas);
+
 			// Draw the timer text
 			Log.d(TAG, "onDraw Timer Text");
 			onDrawTimerView(canvas);
+
+			// TODO Display all words selected by user
+
+			// Reset flag
+			isTimerTimedout = false;
+		} else {
+			// Draw the timer text
+			Log.d(TAG, "onDraw Timer Text");
+			onDrawTimerView(canvas);
+		}
+		
+		if(false != isClickInGridTile) {
+			// Draw the characters
+			Log.d(TAG, "onDraw Characters");
+			onDrawGridCharacters(canvas);
+
+			// Draw game control bitmaps
+			Log.d(TAG, "onDraw Game Controls");
+			onDrawGameControls(canvas);
+
+			// Draw the timer text
+			Log.d(TAG, "onDraw Timer Text");
+			onDrawTimerView(canvas);
+			
+			// Draw the character pressed
+			Log.d(TAG, "onDraw Word");
+			onDrawWord(canvas);
+			
+			// Reset flag
+			isClickInGridTile = false;
+		}
+		
+		if(false != isHintsButtonClicked ) {
+			
+			
+			// Reset flag
+			isHintsButtonClicked = false;
+		}
+		else {
+			
 		}
 
 		// Draw Score text
@@ -380,17 +457,36 @@ public class LetrisGameView extends View {
 	}
 	
 	/**
-	 * onDrawBeginGameBitmap
-	 * 		Draw begin game bitmap on canvas
+	 * onDrawWord
+	 * 		Draws the character currently typed by the user
+	 * 
+	 * @param canvas
+	 * 
+	 * @return void
+	 */
+	private void onDrawWord(Canvas canvas) {
+		wordPaint.setTextAlign(Paint.Align.CENTER);
+		wordPaint.setTextSize(GameConstants.getWordSize());
+		wordPaint.setColor(getResources().getColor(R.color.puzzle_hint_0));
+		wordLeft = getLeft() + (getWidth() / 2) - game.getSelectedWord().length();
+		wordTop = pauseBitmapTop - GameConstants.getWordPaddingBottom() - GameConstants.getWordSize();
+		canvas.drawText(game.getSelectedWord(), wordLeft, wordTop, wordPaint);
+	}
+
+	/**
+	 * onDrawBeginGameBitmap Draw begin game bitmap on canvas
 	 * 
 	 * @param canvas
 	 * 
 	 * @return void
 	 */
 	private void onDrawBeginGameBitmap(Canvas canvas) {
-		beginBitmapLeft = (getLeft() + (getWidth() / 2)) - (beginBitmap.getWidth() / 2);
-		beginBitmapTop = getHeight() - beginBitmap.getHeight() - GameConstants.getBitmapPaddingBottom();
-		canvas.drawBitmap(beginBitmap, beginBitmapLeft, beginBitmapTop, bitmapPaint);
+		beginBitmapLeft = (getLeft() + (getWidth() / 2))
+				- (beginBitmap.getWidth() / 2);
+		beginBitmapTop = getHeight() - beginBitmap.getHeight()
+				- GameConstants.getBitmapPaddingBottom();
+		canvas.drawBitmap(beginBitmap, beginBitmapLeft, beginBitmapTop,
+				bitmapPaint);
 	}
 
 	/**
@@ -419,11 +515,7 @@ public class LetrisGameView extends View {
 		gameTimerX = getLeft() + GameConstants.getTimerPaddingLeft();
 		gameTimerY = getTop() + GameConstants.getPaddingTop()
 				+ GameConstants.getTextSize();
-		canvas.drawText(timerText, gameTimerX, gameTimerY,
-				gameTimerPaint);
-		if(false != isTimerUpdated) {
-			isTimerUpdated = false;
-		}
+		canvas.drawText(timerText, gameTimerX, gameTimerY, gameTimerPaint);
 	}
 
 	/**
@@ -480,7 +572,7 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawGridCharacters(Canvas canvas) {
-		foreground.setColor(getResources().getColor(R.color.puzzle_foreground));
+		foreground.setColor(getResources().getColor(R.color.wordgame_forground));
 		foreground.setStyle(Style.FILL);
 		foreground.setTextAlign(Paint.Align.CENTER);
 		foreground.setTextSize(tileHeight * 0.75f);
@@ -512,8 +604,8 @@ public class LetrisGameView extends View {
 	 */
 	private void onDrawGridLines(Canvas canvas) {
 		// Define colors for the grid lines
-		dark.setColor(getResources().getColor(R.color.puzzle_dark));
-		hilite.setColor(getResources().getColor(R.color.puzzle_hilite));
+		dark.setColor(getResources().getColor(R.color.grid_line_dark));
+		hilite.setColor(getResources().getColor(R.color.grid_line_hilite));
 
 		// Calculate the grid x & y parameters
 		// Initialize Grid x & Y positions
@@ -552,13 +644,18 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawBackground(Canvas canvas) {
-		background.setColor(getResources().getColor(R.color.puzzle_background));
+		background.setColor(getResources().getColor(R.color.wordgame_background));
 		canvas.drawRect(0, 0, getWidth(), getHeight(), background);
+		
+		if(!selRectCoordinateList.isEmpty()) {
+//			for(coordinate : selRectCoordinateList) {
+//				
+//			}
+		}
 	}
-	
+
 	/**
-	 * onTouchEvent
-	 * 		Handle touch events on the canvas
+	 * onTouchEvent Handle touch events on the canvas
 	 * 
 	 * @param event
 	 * 
@@ -566,68 +663,116 @@ public class LetrisGameView extends View {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		boolean retVal = false;
+
 		if (event.getAction() != MotionEvent.ACTION_DOWN) {
-			return super.onTouchEvent(event);
+			retVal = super.onTouchEvent(event);
 		} else {
-			// Check for touch event in the grid
-			if ((event.getX() >= gridStartX) && (event.getX() <= gridEndY)
-					&& (event.getY() >= gridStartY)
-					&& (event.getY() <= gridEndY)) {
-				select((int) (event.getX() / tileWidth),
-						(int) ((event.getY() - gridStartY) / tileHeight));
-				game.processTile(selX, selY);
-				Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
-			}
-			// Check for click on begin game button
-			else if ((event.getX() >= beginBitmapLeft)
-					&& (event.getX() <= beginBitmapLeft + beginBitmap.getWidth())
-					&& (event.getY() >= beginBitmapTop)
-					&& (event.getX() <= beginBitmapTop + beginBitmap.getHeight())) {
-				Log.d(TAG, "Begin Button Click");
+			if (false == isPauseButtonClicked) {
 				
-				// Set flag
-				isBeginClicked  = true;
-				
-				invalidate();
-				
-				// Begin timer
-				game.startTimer();
+				// Check for touch event in the grid
+				if ((event.getX() >= gridStartX) && (event.getX() <= gridEndY)
+						&& (event.getY() >= gridStartY)
+						&& (event.getY() <= gridEndY)) {
+					select((int) (event.getX() / tileWidth),
+							(int) ((event.getY() - gridStartY) / tileHeight));
+					Log.d(TAG, "onTouchEvent in grid : x " + selX + ", y " + selY);
+					
+					isClickInGridTile  = true;
+					
+					// Process the tile
+					game.processTile(selX, selY);
+					
+					selRectCoordinateList.add(new GridCoordinate(selX, selY));
+					
+					invalidate();
+					
+//					// Set tile selection
+//					if(selRectCoordinateList.size() > 2) {
+//						
+//					}
+//					else {
+//						
+//					}
+					
+				}
+				// Check for click on begin game button
+				else if ((event.getX() >= beginBitmapLeft)
+						&& (event.getX() <= beginBitmapLeft
+								+ beginBitmap.getWidth())
+						&& (event.getY() >= beginBitmapTop)
+						&& (event.getX() <= beginBitmapTop
+								+ beginBitmap.getHeight())) {
+					Log.d(TAG, "Begin Button Click");
+
+					// Set flag
+					isBeginClicked = true;
+
+					invalidate();
+
+					// Begin timer
+					game.startTimer();
+				}
+				// Check for stop button click
+				else if ((event.getX() >= stopBitmapLeft)
+						&& (event.getX() <= stopBitmapLeft
+								+ stopBitmap.getWidth())
+						&& (event.getY() >= stopBitmapTop)
+						&& (event.getX() <= stopBitmapTop
+								+ stopBitmap.getHeight())) {
+					Log.d(TAG, "Stop Button Click");
+					game.quitGame();
+				}
+				// Check for click on pause button
+				else if ((event.getX() >= pauseBitmapLeft)
+						&& (event.getX() <= pauseBitmapLeft
+								+ pauseBitmap.getWidth())
+						&& (event.getY() >= pauseBitmapTop)
+						&& (event.getX() <= pauseBitmapTop
+								+ pauseBitmap.getHeight())) {
+					Log.d(TAG, "Pause Button Click");
+
+					isPauseButtonClicked = true;
+
+					// Stop game timer
+					game.pauseTimer();
+
+					// TODO disable grid selection
+				}
+				// Check for click on hint button
+				else if ((event.getX() >= hintBitmapLeft)
+						&& (event.getX() <= hintBitmapLeft
+								+ hintBitmap.getWidth())
+						&& (event.getY() >= hintBitmapTop)
+						&& (event.getX() <= hintBitmapTop
+								+ hintBitmap.getHeight())) {
+					Log.d(TAG, "Hints Button Click");
+				}
+
+				retVal = true;
+			} else {
+				// Check for click on resume button
+				if ((event.getX() >= resumeBitmapLeft)
+						&& (event.getX() <= resumeBitmapLeft
+								+ resumeBitmap.getWidth())
+						&& (event.getY() >= resumeBitmapTop)
+						&& (event.getX() <= resumeBitmapTop
+								+ resumeBitmap.getHeight())) {
+					Log.d(TAG, "Resume Button Click");
+
+					isPauseButtonClicked = false;
+
+					// Resart the timer
+					game.resumeTimer();
+
+					// TODO enable grid selection
+				}
+
+				retVal = true;
 			}
-			// Check for stop button click
-			else if ((event.getX() >= stopBitmapLeft)
-					&& (event.getX() <= stopBitmapLeft + stopBitmap.getWidth())
-					&& (event.getY() >= stopBitmapTop)
-					&& (event.getX() <= stopBitmapTop + stopBitmap.getHeight())) {
-				Log.d(TAG, "Stop Button Click");
-				game.quitGame();
-			}
-			// Check for click on pause button
-			else if ((event.getX() >= pauseBitmapLeft)
-					&& (event.getX() <= pauseBitmapLeft
-							+ pauseBitmap.getWidth())
-					&& (event.getY() >= pauseBitmapTop)
-					&& (event.getX() <= pauseBitmapTop
-							+ pauseBitmap.getHeight())) {
-				Log.d(TAG, "Pause Button Click");
-			}
-			// Check for click on resume button
-			else if ((event.getX() >= resumeBitmapLeft)
-					&& (event.getX() <= resumeBitmapLeft
-							+ resumeBitmap.getWidth())
-					&& (event.getY() >= resumeBitmapTop)
-					&& (event.getX() <= resumeBitmapTop
-							+ resumeBitmap.getHeight())) {
-				Log.d(TAG, "Resume Button Click");
-			}
-			// Check for click on resume button
-			else if ((event.getX() >= hintBitmapLeft)
-					&& (event.getX() <= hintBitmapLeft + hintBitmap.getWidth())
-					&& (event.getY() >= hintBitmapTop)
-					&& (event.getX() <= hintBitmapTop + hintBitmap.getHeight())) {
-				Log.d(TAG, "Hints Button Click");
-			}
-			return true;
 		}
+
+		return retVal;
 	}
 
 	/**
@@ -640,9 +785,11 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void select(int x, int y) {
+		invalidate(selRect);
 		selX = Math.min(Math.max(x, 0), GameConstants.getNumGridColumns() - 1);
 		selY = Math.min(Math.max(y, 0), GameConstants.getNumGridRows() - 1);
 		getRect(selX, selY, selRect);
+		invalidate(selRect);
 	}
 
 	/**
@@ -659,35 +806,49 @@ public class LetrisGameView extends View {
 				* tileWidth + tileWidth)),
 				((int) (y * tileHeight + tileHeight)));
 	}
-	
+
 	/**
-	 * timerTimeout
-	 * 		Function that is called to indicate that the game has timed out
+	 * timerTimeout Function that is called to indicate that the game has timed
+	 * out
 	 * 
 	 * @param boolean b
 	 * 
 	 * @return void
 	 */
-	public void timerTimeout(boolean b) {
-		if(false != b) {
-			String timeoutText = new String("<b>Timer Timed Out</b>");
-			setTimerText(timeoutText);
-		}
+	public void timerTimeout() {
+		isTimerTimedout = true;
+		String timeoutText = new String("Seconds Left: Game Timeout");
+		setTimerText(timeoutText);
+		invalidate();
 	}
-	
+
+	/**
+	 * setTimerText Update the timer value
+	 * 
+	 * @param txt
+	 * 
+	 * @return void
+	 */
 	private void setTimerText(String txt) {
 		timerText = txt;
 	}
 
+	/**
+	 * updateSecondsLeft Update the seconds
+	 * 
+	 * @param none
+	 * 
+	 * @return void
+	 */
 	public void updateSecondsLeft() {
 		// Set flag
 		isTimerUpdated = true;
-		
+
 		// increment tick count
 		tickCount++;
-		
+
 		setTimerText(new String("Seconds Left: " + (initTimerVal - tickCount)));
-		
+
 		invalidate();
 	}
 

@@ -28,7 +28,7 @@ public class GameTimer extends CountDownTimer {
 
 	@Override
 	public void onFinish() {
-		view.timerTimeout(true);
+		view.timerTimeout();
 	}
 
 	@Override

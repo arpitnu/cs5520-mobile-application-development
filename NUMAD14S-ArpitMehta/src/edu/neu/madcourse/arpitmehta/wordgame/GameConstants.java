@@ -24,7 +24,7 @@ public class GameConstants {
 	/**
 	 * The Bottom Padding Of Game control bitmaps
 	 */
-	private static final int BITMAP_PADDING_BOTTOM = 40;
+	private static final int BITMAP_PADDING_BOTTOM = 20;
 	
 	/**
 	 * The Side padding of game control bitmaps
@@ -60,6 +60,21 @@ public class GameConstants {
 	 * The timer tick interval in ms
 	 */
 	private static final long TIMER_TICK_DURATION = 1000; 	// 1sec
+	
+	/**
+	 * Vibration duration in ms
+	 */
+	private static final int VIBRATION_DURATION = 50;
+	
+	/**
+	 * The padding below the displayed word
+	 */
+	private static final int WORD_PADDING_BOTTOM = 10;
+	
+	/**
+	 * The displayed word size
+	 */
+	private static final int WORD_SIZE = 20;
 
 	/**
 	 * @return the nUM_GRID_ROWS
@@ -143,5 +158,26 @@ public class GameConstants {
 	 */
 	public static long getTimerTickDuration() {
 		return TIMER_TICK_DURATION;
+	}
+
+	/**
+	 * @return the vibrationDuration
+	 */
+	public static int getVibrationDuration() {
+		return VIBRATION_DURATION;
+	}
+
+	/**
+	 * @return the wordPaddingBottom
+	 */
+	public static int getWordPaddingBottom() {
+		return WORD_PADDING_BOTTOM;
+	}
+
+	/**
+	 * @return the wordSize
+	 */
+	public static int getWordSize() {
+		return WORD_SIZE;
 	}
 }

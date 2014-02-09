@@ -1,10 +1,13 @@
 package edu.neu.madcourse.arpitmehta.wordgame;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -32,16 +35,41 @@ public class LetrisGame extends Activity {
 	 * The Letris puzzle character array
 	 */
 	private char letrisPuzzle[];
+	
+	/**
+	 * The list of characters selected
+	 */
+	private ArrayList<Character> selCharList = new ArrayList<Character>();
 
 	/**
 	 * The list of valid words selected
 	 */
-	ArrayList<String> validSelectedWords = new ArrayList<String>();
+	private ArrayList<String> validSelectedWords = new ArrayList<String>();
+	
+	/**
+	 * Current word selected
+	 */
+	private String selectedWord = new String();
 	
 	/**
 	 * The game timer
 	 */
-	GameTimer gameTimer;
+	private GameTimer gameTimer;
+	
+	/**
+	 * The game score
+	 */
+	private int gameScore = 0;
+	
+	/**
+	 * Int value to indicate the number of character (tiles) touched.
+	 */
+	private int numCharsSelected = 0;
+	
+	/**
+	 * Vibrator Object
+	 */
+	private Vibrator v;
  	
 
 	@Override
@@ -61,6 +89,9 @@ public class LetrisGame extends Activity {
 		
 		// Initialize Game Timer
 		gameTimer = new GameTimer(gameView, GameConstants.getTimerDuration(), GameConstants.getTimerTickDuration());
+		
+		// Initialize Vibrator
+		v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
 	/**
@@ -217,9 +248,35 @@ public class LetrisGame extends Activity {
 		
 		finish();	
 	}
-
-	public void processTile(int selX, int selY) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * processTile
+	 * 		Process the tile touched by the user		
+	 * 
+	 * @param x
+	 * @param y
+	 * 
+	 * @return void
+	 */
+	public void processTile(int x, int y) {
+		// Get alphabet of tile
+		Character c = Character.valueOf(letrisPuzzle[y * GameConstants.getNumGridRows() + x]);
+		
+		Log.d(TAG, "Character in tile: " + Character.toString(c));
+		
+		selCharList.add(c);
+		
+		v.vibrate(GameConstants.getVibrationDuration());
+		
+		StringBuilder sb = new StringBuilder();
+		Iterator<Character> it = selCharList.iterator();
+		while(it.hasNext()) {
+			sb.append(it.next());
+		}
+		
+		selectedWord = sb.toString();
+		
+		numCharsSelected++;
 		
 	}
 	
@@ -228,6 +285,76 @@ public class LetrisGame extends Activity {
 	 */
 	public void startTimer() {
 		gameTimer.start();
+	}
+	
+	/**
+	 * Pause the game timer
+	 */
+	public void pauseTimer() {
+		gameTimer.cancel();
+	}
+	
+	/**
+	 * Resume timer count
+	 */
+	public void resumeTimer() {
+		gameTimer.start();
+	}
+
+	/**
+	 * @return the gameScore
+	 */
+	public int getGameScore() {
+		return gameScore;
+	}
+
+	/**
+	 * @param gameScore the gameScore to set
+	 */
+	public void setGameScore(int gameScore) {
+		this.gameScore = gameScore;
+	}
+
+	/**
+	 * @return the numCharsSelected
+	 */
+	public int getNumCharsSelected() {
+		return numCharsSelected;
+	}
+
+	/**
+	 * @param numCharsSelected the numCharsSelected to set
+	 */
+	public void setNumCharsSelected(int numCharsSelected) {
+		this.numCharsSelected = numCharsSelected;
+	}
+
+	/**
+	 * @return the selCharList
+	 */
+	public ArrayList<Character> getSelCharList() {
+		return selCharList;
+	}
+
+	/**
+	 * @param selCharList the selCharList to set
+	 */
+	public void setSelCharList(ArrayList<Character> selCharList) {
+		this.selCharList = selCharList;
+	}
+
+	/**
+	 * @return the selectedWord
+	 */
+	public String getSelectedWord() {
+		return selectedWord;
+	}
+
+	/**
+	 * @param selectedWord the selectedWord to set
+	 */
+	public void setSelectedWord(String selectedWord) {
+		this.selectedWord = selectedWord;
 	}
 
 	
