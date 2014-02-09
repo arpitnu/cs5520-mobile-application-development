@@ -29,12 +29,21 @@
         android:layout_marginTop="30dp"
         android:text="@string/new_game_label"
         android:onClick="launchnewWordGame" />
+    
+    <Button
+        android:id="@+id/wordGameInstructionsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newWordGameButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/instructionsButtonText"
+        android:onClick="showGameInstructions" />
 
     <Button
         android:id="@+id/wordGameAckButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newWordGameButton"
+        android:layout_below="@+id/wordGameInstructionsButton"
         android:layout_centerHorizontal="true"
         android:text="@string/ackButtonText"
         android:onClick="launchWordGameAckActivity" />
@@ -45,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/wordGameAckButton"
         android:layout_centerHorizontal="true"
-        android:text="@string/returnToMenuText"
-        android:onClick="exitWordGame" />
+        android:onClick="exitWordGame"
+        android:text="@string/returnToMenuText" />
 
 </RelativeLayout>

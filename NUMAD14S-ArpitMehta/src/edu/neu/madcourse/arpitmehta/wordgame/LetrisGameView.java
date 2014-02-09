@@ -63,6 +63,11 @@ public class LetrisGameView extends View {
 	private final Rect selRect = new Rect();
 
 	/**
+	 * The list of selected rectangles
+	 */
+	private final ArrayList<Rect> selRectList = new ArrayList<Rect>();
+
+	/**
 	 * Pain object for the canvas background
 	 */
 	private Paint background = new Paint();
@@ -126,7 +131,7 @@ public class LetrisGameView extends View {
 	 * The Score Paint
 	 */
 	private Paint scorePaint = new Paint();
-	
+
 	/**
 	 * The word paint
 	 */
@@ -260,14 +265,18 @@ public class LetrisGameView extends View {
 
 	private boolean isClickInGridTile = false;
 
+	private boolean isValidWordFound = false;
+
 	private int wordLeft;
-	
+
 	private int wordTop;
-	
+
 	/**
 	 * Array List of coordinates of selected rectangles
 	 */
 	private ArrayList<GridCoordinate> selRectCoordinateList = new ArrayList<GridCoordinate>();
+
+	private Paint selectedPaint = new Paint();
 
 	/**
 	 * LetrisGameView Constructor
@@ -307,14 +316,6 @@ public class LetrisGameView extends View {
 		setId(ID);
 	}
 
-	// TODO
-	// @Override
-	// protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-	// super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-	//
-	//
-	// }
-
 	/**
 	 * onSizeChanged Calculates the size of each tile on the screen.
 	 * 
@@ -346,15 +347,15 @@ public class LetrisGameView extends View {
 	protected void onDraw(Canvas c) {
 		canvas = c;
 
-		// Draw Background
-		Log.d(TAG, "onDraw Background");
-		onDrawBackground(canvas);
-
-		// Draw the game grid lines
-		Log.d(TAG, "onDraw Grid Lines");
-		onDrawGridLines(canvas);
-
 		if (false != isInitLoad) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
 			// Draw begin game bitmap
 			Log.d(TAG, "onDraw Begin Game Bitmap");
 			onDrawBeginGameBitmap(canvas);
@@ -364,6 +365,14 @@ public class LetrisGameView extends View {
 		}
 
 		if (isBeginClicked != false) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
 			// Draw the characters
 			Log.d(TAG, "onDraw Characters");
 			onDrawGridCharacters(canvas);
@@ -377,6 +386,14 @@ public class LetrisGameView extends View {
 		}
 
 		if (false != isTimerUpdated) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
 			// Draw the characters
 			Log.d(TAG, "onDraw Characters");
 			onDrawGridCharacters(canvas);
@@ -389,6 +406,10 @@ public class LetrisGameView extends View {
 			Log.d(TAG, "onDraw Timer Text");
 			onDrawTimerView(canvas);
 
+			// Draw the character pressed
+			Log.d(TAG, "onDraw Word");
+			onDrawWord(canvas);
+
 			// Reset flag
 			isTimerUpdated = false;
 		} else {
@@ -398,6 +419,14 @@ public class LetrisGameView extends View {
 		}
 
 		if (false != isTimerTimedout) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
 			// Draw the characters
 			Log.d(TAG, "onDraw Characters");
 			onDrawGridCharacters(canvas);
@@ -419,8 +448,16 @@ public class LetrisGameView extends View {
 			Log.d(TAG, "onDraw Timer Text");
 			onDrawTimerView(canvas);
 		}
-		
-		if(false != isClickInGridTile) {
+
+		if (false != isClickInGridTile) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
 			// Draw the characters
 			Log.d(TAG, "onDraw Characters");
 			onDrawGridCharacters(canvas);
@@ -432,33 +469,82 @@ public class LetrisGameView extends View {
 			// Draw the timer text
 			Log.d(TAG, "onDraw Timer Text");
 			onDrawTimerView(canvas);
-			
+
 			// Draw the character pressed
 			Log.d(TAG, "onDraw Word");
 			onDrawWord(canvas);
 			
+			// Draw Selections
+			Log.d(TAG, "onDraw Selections");
+			onDrawSelections(canvas);
+
 			// Reset flag
 			isClickInGridTile = false;
 		}
-		
-		if(false != isHintsButtonClicked ) {
+
+		if (false != isPauseButtonClicked) {
+			// Draw Background
+			Log.d(TAG, "onDraw Background");
+			onDrawBackground(canvas);
+
+			// Draw the game grid lines
+			Log.d(TAG, "onDraw Grid Lines");
+			onDrawGridLines(canvas);
+
+			// Draw the characters
+			Log.d(TAG, "onDraw Characters");
+			onDrawGridCharacters(canvas);
+
+			// Draw game control bitmaps
+			Log.d(TAG, "onDraw Game Controls");
+			onDrawGameControls(canvas);
+
+			// Draw the timer text
+			Log.d(TAG, "onDraw Timer Text");
+			onDrawTimerView(canvas);
+
+			// Draw the character pressed
+			Log.d(TAG, "onDraw Word");
+			onDrawWord(canvas);
 			
-			
+			// Draw Selections
+			Log.d(TAG, "onDraw Selections");
+			onDrawSelections(canvas);
+		}
+
+		if (false != isHintsButtonClicked) {
+
 			// Reset flag
 			isHintsButtonClicked = false;
-		}
-		else {
-			
+		} else {
+
 		}
 
 		// Draw Score text
 		Log.d(TAG, "onDraw Score Text");
 		onDrawScoreView(canvas);
 	}
-	
+
+	private void onDrawSelections(Canvas canvas2) {
+		if(false == isValidWordFound) {
+			selectedPaint.setColor(getResources().getColor(
+					R.color.invalid_selection));
+		}
+		else {
+			selectedPaint.setColor(getResources().getColor(
+					R.color.valid_selection));
+		}
+		
+		//TODO
+		Log.d(TAG, "Num sel rect: " + selRectList.size());
+		
+		for (Rect rect : selRectList) {
+			canvas.drawRect(rect, selectedPaint);
+		}
+	}
+
 	/**
-	 * onDrawWord
-	 * 		Draws the character currently typed by the user
+	 * onDrawWord Draws the character currently typed by the user
 	 * 
 	 * @param canvas
 	 * 
@@ -467,9 +553,17 @@ public class LetrisGameView extends View {
 	private void onDrawWord(Canvas canvas) {
 		wordPaint.setTextAlign(Paint.Align.CENTER);
 		wordPaint.setTextSize(GameConstants.getWordSize());
-		wordPaint.setColor(getResources().getColor(R.color.puzzle_hint_0));
-		wordLeft = getLeft() + (getWidth() / 2) - game.getSelectedWord().length();
-		wordTop = pauseBitmapTop - GameConstants.getWordPaddingBottom() - GameConstants.getWordSize();
+		if (false != isValidWordFound) {
+			wordPaint.setColor(getResources().getColor(
+					R.color.valid_word_selection));
+		} else {
+			wordPaint.setColor(getResources().getColor(
+					R.color.invalid_word_selection));
+		}
+		wordLeft = getLeft() + (getWidth() / 2)
+				- game.getSelectedWord().length();
+		wordTop = pauseBitmapTop - GameConstants.getWordPaddingBottom()
+				- GameConstants.getWordSize();
 		canvas.drawText(game.getSelectedWord(), wordLeft, wordTop, wordPaint);
 	}
 
@@ -497,6 +591,12 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawScoreView(Canvas canvas) {
+		if (false != isPauseButtonClicked) {
+			scorePaint.setColor(getResources().getColor(
+					R.color.paused_forground));
+		} else {
+			scorePaint.reset();
+		}
 		scorePaint.setTextSize(GameConstants.getTextSize());
 		int scoreTextX = getLeft() + GameConstants.getTimerPaddingLeft();
 		int scoreTextY = gameTimerY + 10 + GameConstants.getTextSize();
@@ -511,6 +611,12 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawTimerView(Canvas canvas) {
+		if (false != isPauseButtonClicked) {
+			gameTimerPaint.setColor(getResources().getColor(
+					R.color.paused_forground));
+		} else {
+			gameTimerPaint.reset();
+		}
 		gameTimerPaint.setTextSize(GameConstants.getTextSize());
 		gameTimerX = getLeft() + GameConstants.getTimerPaddingLeft();
 		gameTimerY = getTop() + GameConstants.getPaddingTop()
@@ -572,7 +678,13 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawGridCharacters(Canvas canvas) {
-		foreground.setColor(getResources().getColor(R.color.wordgame_forground));
+		if (false != isPauseButtonClicked) {
+			foreground.setColor(getResources().getColor(
+					R.color.paused_forground));
+		} else {
+			foreground.setColor(getResources().getColor(
+					R.color.wordgame_forground));
+		}
 		foreground.setStyle(Style.FILL);
 		foreground.setTextAlign(Paint.Align.CENTER);
 		foreground.setTextSize(tileHeight * 0.75f);
@@ -609,7 +721,6 @@ public class LetrisGameView extends View {
 
 		// Calculate the grid x & y parameters
 		// Initialize Grid x & Y positions
-		// TODO Try 0
 		gridStartX = getLeft();
 		gridEndX = getWidth();
 		gridStartY = GameConstants.getGridPaddingTop();
@@ -644,14 +755,9 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void onDrawBackground(Canvas canvas) {
-		background.setColor(getResources().getColor(R.color.wordgame_background));
+		background.setColor(getResources()
+				.getColor(R.color.wordgame_background));
 		canvas.drawRect(0, 0, getWidth(), getHeight(), background);
-		
-		if(!selRectCoordinateList.isEmpty()) {
-//			for(coordinate : selRectCoordinateList) {
-//				
-//			}
-		}
 	}
 
 	/**
@@ -669,32 +775,25 @@ public class LetrisGameView extends View {
 			retVal = super.onTouchEvent(event);
 		} else {
 			if (false == isPauseButtonClicked) {
-				
+
 				// Check for touch event in the grid
 				if ((event.getX() >= gridStartX) && (event.getX() <= gridEndY)
 						&& (event.getY() >= gridStartY)
 						&& (event.getY() <= gridEndY)) {
 					select((int) (event.getX() / tileWidth),
 							(int) ((event.getY() - gridStartY) / tileHeight));
-					Log.d(TAG, "onTouchEvent in grid : x " + selX + ", y " + selY);
-					
-					isClickInGridTile  = true;
-					
+					Log.d(TAG, "onTouchEvent in grid : x " + selX + ", y "
+							+ selY);
+
+					isClickInGridTile = true;
+
+					selRectList.add(selRect);
+
 					// Process the tile
 					game.processTile(selX, selY);
-					
-					selRectCoordinateList.add(new GridCoordinate(selX, selY));
-					
+
 					invalidate();
-					
-//					// Set tile selection
-//					if(selRectCoordinateList.size() > 2) {
-//						
-//					}
-//					else {
-//						
-//					}
-					
+
 				}
 				// Check for click on begin game button
 				else if ((event.getX() >= beginBitmapLeft)
@@ -736,8 +835,12 @@ public class LetrisGameView extends View {
 
 					// Stop game timer
 					game.pauseTimer();
+					
+					// Pause music
+					game.pauseMusic();
 
-					// TODO disable grid selection
+					// Disable grid selection
+					invalidate();
 				}
 				// Check for click on hint button
 				else if ((event.getX() >= hintBitmapLeft)
@@ -760,15 +863,41 @@ public class LetrisGameView extends View {
 								+ resumeBitmap.getHeight())) {
 					Log.d(TAG, "Resume Button Click");
 
+
 					isPauseButtonClicked = false;
 
 					// Resart the timer
 					game.resumeTimer();
+					
+					// Start music
+					game.startMusic();
 
-					// TODO enable grid selection
+					invalidate();
+				
 				}
 
-				retVal = true;
+				// Check for stop button click
+				if ((event.getX() >= stopBitmapLeft)
+						&& (event.getX() <= stopBitmapLeft
+								+ stopBitmap.getWidth())
+						&& (event.getY() >= stopBitmapTop)
+						&& (event.getX() <= stopBitmapTop
+								+ stopBitmap.getHeight())) {
+					Log.d(TAG, "Stop Button Click");
+					game.quitGame();
+
+					retVal = true;
+				}
+
+				// Check for click on hint button
+				if ((event.getX() >= hintBitmapLeft)
+						&& (event.getX() <= hintBitmapLeft
+								+ hintBitmap.getWidth())
+						&& (event.getY() >= hintBitmapTop)
+						&& (event.getX() <= hintBitmapTop
+								+ hintBitmap.getHeight())) {
+					Log.d(TAG, "Hints Button Click");
+				}
 			}
 		}
 
@@ -789,7 +918,6 @@ public class LetrisGameView extends View {
 		selX = Math.min(Math.max(x, 0), GameConstants.getNumGridColumns() - 1);
 		selY = Math.min(Math.max(y, 0), GameConstants.getNumGridRows() - 1);
 		getRect(selX, selY, selRect);
-		invalidate(selRect);
 	}
 
 	/**
@@ -802,9 +930,10 @@ public class LetrisGameView extends View {
 	 * @return void
 	 */
 	private void getRect(int x, int y, Rect rect) {
-		rect.set(((int) (x * tileWidth)), ((int) (y * tileHeight)), ((int) (x
-				* tileWidth + tileWidth)),
-				((int) (y * tileHeight + tileHeight)));
+		rect.set(((int) (x * tileWidth)), 
+				((int) (gridStartY + y * tileHeight)), 
+				((int) (x * tileWidth + tileWidth)),
+				((int) (gridStartY + y * tileHeight + tileHeight)));
 	}
 
 	/**
@@ -819,6 +948,7 @@ public class LetrisGameView extends View {
 		isTimerTimedout = true;
 		String timeoutText = new String("Seconds Left: Game Timeout");
 		setTimerText(timeoutText);
+		game.pauseMusic();
 		invalidate();
 	}
 
@@ -850,6 +980,21 @@ public class LetrisGameView extends View {
 		setTimerText(new String("Seconds Left: " + (initTimerVal - tickCount)));
 
 		invalidate();
+	}
+
+	/**
+	 * @return the isValidWordFound
+	 */
+	public boolean isValidWordFound() {
+		return isValidWordFound;
+	}
+
+	/**
+	 * @param isValidWordFound
+	 *            the isValidWordFound to set
+	 */
+	public void setValidWordFound(boolean isValidWordFound) {
+		this.isValidWordFound = isValidWordFound;
 	}
 
 }

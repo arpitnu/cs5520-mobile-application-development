@@ -64,7 +64,7 @@ public class GameConstants {
 	/**
 	 * Vibration duration in ms
 	 */
-	private static final int VIBRATION_DURATION = 50;
+	private static final int VIBRATION_DURATION = 30;
 	
 	/**
 	 * The padding below the displayed word
@@ -74,7 +74,7 @@ public class GameConstants {
 	/**
 	 * The displayed word size
 	 */
-	private static final int WORD_SIZE = 20;
+	private static final int WORD_SIZE = 40;
 
 	/**
 	 * @return the nUM_GRID_ROWS

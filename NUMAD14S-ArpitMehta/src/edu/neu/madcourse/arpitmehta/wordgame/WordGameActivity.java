@@ -94,6 +94,19 @@ public class WordGameActivity extends Activity implements OnClickListener {
 	}
 	
 	/**
+	 * showGameInstructions
+	 * 		Display Word Game Instructions
+	 * 
+	 * @param View v
+	 * 
+	 * @return void
+	 */
+	public void showGameInstructions(View v) {
+		Intent wordGameInstructionsIntent = new Intent(this, InstructionsActivity.class);
+		startActivity(wordGameInstructionsIntent);
+	}
+	
+	/**
 	 * exitWordGame
 	 * 		Exit Word Game and return to main menu of the App
 	 * 

@@ -1,17 +1,28 @@
 package edu.neu.madcourse.arpitmehta.wordgame;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import edu.neu.madcourse.arpitmehta.R;
 
 public class LetrisGame extends Activity {
@@ -19,7 +30,7 @@ public class LetrisGame extends Activity {
 	/**
 	 * The tag for LetrisGame
 	 */
-	private static final String TAG = "Letris";
+	private static final String TAG = "LetrisGame";
 
 	/**
 	 * The puzzle reference
@@ -35,7 +46,7 @@ public class LetrisGame extends Activity {
 	 * The Letris puzzle character array
 	 */
 	private char letrisPuzzle[];
-	
+
 	/**
 	 * The list of characters selected
 	 */
@@ -45,32 +56,46 @@ public class LetrisGame extends Activity {
 	 * The list of valid words selected
 	 */
 	private ArrayList<String> validSelectedWords = new ArrayList<String>();
-	
+
 	/**
 	 * Current word selected
 	 */
 	private String selectedWord = new String();
-	
+
 	/**
 	 * The game timer
 	 */
 	private GameTimer gameTimer;
-	
+
 	/**
 	 * The game score
 	 */
 	private int gameScore = 0;
-	
-	/**
-	 * Int value to indicate the number of character (tiles) touched.
-	 */
-	private int numCharsSelected = 0;
-	
+
 	/**
 	 * Vibrator Object
 	 */
 	private Vibrator v;
- 	
+
+	/**
+	 * The list of words from a file selected on the basis of first 2 characters
+	 */
+	private ArrayList<String> searchWordLst = new ArrayList<String>();
+
+	/**
+	 * The AssetsManager
+	 */
+	private AssetManager am;
+
+	/**
+	 * File Input Stream
+	 */
+	private InputStream inStreamFileToSearch;
+
+	/**
+	 * The Buffered Reader
+	 */
+	private BufferedReader brFileToSearch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,20 +103,24 @@ public class LetrisGame extends Activity {
 		Log.d(TAG, "onCreate");
 
 		// TODO Game difficulty
-		
+
 		// Initialize Puzzle
 		letrisPuzzle = getPuzzle();
-		
+
 		// Initialize Game View
 		gameView = new LetrisGameView(this);
 
 		setContentView(gameView);
-		
+
 		// Initialize Game Timer
-		gameTimer = new GameTimer(gameView, GameConstants.getTimerDuration(), GameConstants.getTimerTickDuration());
-		
+		gameTimer = new GameTimer(gameView, GameConstants.getTimerDuration(),
+				GameConstants.getTimerTickDuration());
+
 		// Initialize Vibrator
 		v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+		// Initialize AssetManager
+		am = getAssets();
 	}
 
 	/**
@@ -179,6 +208,7 @@ public class LetrisGame extends Activity {
 
 		// Clear the list of valid words
 		validSelectedWords.clear();
+		selCharList.clear();
 	}
 
 	/**
@@ -236,7 +266,7 @@ public class LetrisGame extends Activity {
 	private void setTile(int x, int y, char value) {
 		letrisPuzzle[y * GameConstants.getNumGridRows() + x] = value;
 	}
-	
+
 	/**
 	 * Quit Game
 	 */
@@ -245,13 +275,14 @@ public class LetrisGame extends Activity {
 
 		// Clear the list of valid words
 		validSelectedWords.clear();
-		
-		finish();	
+
+		selCharList.clear();
+
+		finish();
 	}
-	
+
 	/**
-	 * processTile
-	 * 		Process the tile touched by the user		
+	 * processTile Process the tile touched by the user
 	 * 
 	 * @param x
 	 * @param y
@@ -260,40 +291,107 @@ public class LetrisGame extends Activity {
 	 */
 	public void processTile(int x, int y) {
 		// Get alphabet of tile
-		Character c = Character.valueOf(letrisPuzzle[y * GameConstants.getNumGridRows() + x]);
-		
+		Character c = Character.valueOf(letrisPuzzle[y
+				* GameConstants.getNumGridRows() + x]);
+
 		Log.d(TAG, "Character in tile: " + Character.toString(c));
-		
+
 		selCharList.add(c);
-		
+
 		v.vibrate(GameConstants.getVibrationDuration());
-		
+
 		StringBuilder sb = new StringBuilder();
 		Iterator<Character> it = selCharList.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			sb.append(it.next());
 		}
-		
+
 		selectedWord = sb.toString();
-		
-		numCharsSelected++;
-		
+
+		// Check if the new word is valid
+		if (selectedWord.length() == 2) {
+			// Load words for search
+			loadFileWords(selectedWord);
+		} else if (selectedWord.length() > 2) {
+			// Search word
+			searchWord(selectedWord);
+		} else {
+			// Do Nothing
+		}
 	}
-	
+
+	/**
+	 * searchWord Function searches the word in the word list and displays it
+	 * 
+	 * @param word
+	 * 
+	 * @param none
+	 * 
+	 * @return void
+	 */
+	protected void searchWord(final String word) {
+		if (searchWordLst.contains(word.toLowerCase().toString())) {
+			Log.d(TAG, "valid word found!");
+			// Indicate to gameView that valid word is found
+			gameView.setValidWordFound(true);
+
+			if (!validSelectedWords.contains(word)) {
+				validSelectedWords.add(word);
+			} else {
+				Log.d(TAG, "valid word already selected before");
+			}
+		}
+	}
+
+	/**
+	 * loadFileContents Function searches the word in the word list and displays
+	 * it
+	 * 
+	 * @param word
+	 * 
+	 * @param none
+	 * 
+	 * @return void
+	 */
+	private void loadFileWords(final String word) {
+		String fileName = new String("dictionary/"
+				+ word.substring(0, 2).toLowerCase().toString() + ".txt");
+		String currWord = new String();
+		
+		Log.d(TAG, "Filename: " + fileName);
+
+		// Clear word list
+		searchWordLst.clear();
+
+		try {
+			inStreamFileToSearch = am.open(fileName);
+			brFileToSearch = new BufferedReader(new InputStreamReader(
+					inStreamFileToSearch));
+
+			while (null != (currWord = brFileToSearch.readLine())) {
+				searchWordLst.add(currWord);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Start the game timer
 	 */
 	public void startTimer() {
 		gameTimer.start();
 	}
-	
+
 	/**
 	 * Pause the game timer
 	 */
 	public void pauseTimer() {
 		gameTimer.cancel();
 	}
-	
+
 	/**
 	 * Resume timer count
 	 */
@@ -309,24 +407,11 @@ public class LetrisGame extends Activity {
 	}
 
 	/**
-	 * @param gameScore the gameScore to set
+	 * @param gameScore
+	 *            the gameScore to set
 	 */
 	public void setGameScore(int gameScore) {
 		this.gameScore = gameScore;
-	}
-
-	/**
-	 * @return the numCharsSelected
-	 */
-	public int getNumCharsSelected() {
-		return numCharsSelected;
-	}
-
-	/**
-	 * @param numCharsSelected the numCharsSelected to set
-	 */
-	public void setNumCharsSelected(int numCharsSelected) {
-		this.numCharsSelected = numCharsSelected;
 	}
 
 	/**
@@ -337,7 +422,8 @@ public class LetrisGame extends Activity {
 	}
 
 	/**
-	 * @param selCharList the selCharList to set
+	 * @param selCharList
+	 *            the selCharList to set
 	 */
 	public void setSelCharList(ArrayList<Character> selCharList) {
 		this.selCharList = selCharList;
@@ -351,12 +437,19 @@ public class LetrisGame extends Activity {
 	}
 
 	/**
-	 * @param selectedWord the selectedWord to set
+	 * @param selectedWord
+	 *            the selectedWord to set
 	 */
 	public void setSelectedWord(String selectedWord) {
 		this.selectedWord = selectedWord;
 	}
 
-	
+	public void startMusic() {
+		// Play word game music
+		WordGameMusic.play(getApplicationContext(), R.raw.word_game);
+	}
 
+	public void pauseMusic() {
+		WordGameMusic.stop(this);
+	}
 }

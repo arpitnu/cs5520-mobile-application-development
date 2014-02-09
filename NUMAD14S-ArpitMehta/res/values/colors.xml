@@ -22,7 +22,10 @@
    <color name="wordgame_background">#ffffe1ab</color>
    <color name="grid_line_dark">#a29276</color>
    <color name="grid_line_hilite">#403f3e</color>
-   <color name="invalid_word_selection">#f25757</color>
-   <color name="valid_word_selection">#20f96f</color>
+   <color name="invalid_word_selection">#34fd3b3b</color>
+   <color name="valid_word_selection">#00a944</color>
+   <color name="invalid_selection">#34fd3b3b</color>
+   <color name="valid_selection">#3400a944</color>
    <color name="wordgame_forground">#ff000000</color>
+   <color name="paused_forground">#55000000</color>
 </resources>
