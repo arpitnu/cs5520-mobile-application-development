@@ -50,6 +50,16 @@ public class GameConstants {
 	 * The Timer & Score text size
 	 */
 	private static final int TEXT_SIZE = 40;
+	
+	/**
+	 * The Game Timer Duration in ms
+	 */
+	private static final long TIMER_DURATION = 180000; 	// 3 minutes
+	
+	/**
+	 * The timer tick interval in ms
+	 */
+	private static final long TIMER_TICK_DURATION = 1000; 	// 1sec
 
 	/**
 	 * @return the nUM_GRID_ROWS
@@ -119,5 +129,19 @@ public class GameConstants {
 	 */
 	public static int getTextSize() {
 		return TEXT_SIZE;
+	}
+
+	/**
+	 * @return the timerDuration
+	 */
+	public static long getTimerDuration() {
+		return TIMER_DURATION;
+	}
+
+	/**
+	 * @return the timerTickDuration
+	 */
+	public static long getTimerTickDuration() {
+		return TIMER_TICK_DURATION;
 	}
 }

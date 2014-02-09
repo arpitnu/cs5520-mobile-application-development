@@ -3,9 +3,7 @@ package edu.neu.madcourse.arpitmehta.wordgame;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -40,6 +38,11 @@ public class LetrisGame extends Activity {
 	 */
 	ArrayList<String> validSelectedWords = new ArrayList<String>();
 	
+	/**
+	 * The game timer
+	 */
+	GameTimer gameTimer;
+ 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +50,17 @@ public class LetrisGame extends Activity {
 		Log.d(TAG, "onCreate");
 
 		// TODO Game difficulty
-
+		
+		// Initialize Puzzle
 		letrisPuzzle = getPuzzle();
+		
+		// Initialize Game View
 		gameView = new LetrisGameView(this);
 
 		setContentView(gameView);
 		
-		setupActionBar();
+		// Initialize Game Timer
+		gameTimer = new GameTimer(gameView, GameConstants.getTimerDuration(), GameConstants.getTimerTickDuration());
 	}
 
 	/**
@@ -78,16 +85,6 @@ public class LetrisGame extends Activity {
 		Log.d(TAG, puz.toString());
 
 		return puz;
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override
@@ -194,17 +191,6 @@ public class LetrisGame extends Activity {
 	private Character getTile(int x, int y) {
 		return (Character.valueOf(letrisPuzzle[y
 				* GameConstants.getNumGridRows() + x]));
-
-		// Character c = null;
-		// try {
-		// c = Character.valueOf(letrisPuzzle[y *
-		// GameConstants.getNumGridColumns() + x]);
-		// } catch (IndexOutOfBoundsException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// return c;
 	}
 
 	/**
@@ -235,6 +221,13 @@ public class LetrisGame extends Activity {
 	public void processTile(int selX, int selY) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * Start the game timer
+	 */
+	public void startTimer() {
+		gameTimer.start();
 	}
 
 	
