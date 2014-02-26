@@ -5,10 +5,5 @@
             android:key="music"
             android:title="@string/music_title"
             android:summary="@string/music_summary"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="hints"
-            android:title="@string/hints_title"
-            android:summary="@string/hints_summary"
-            android:defaultValue="true" />        
+            android:defaultValue="true" />      
     </PreferenceScreen>

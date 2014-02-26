@@ -19,7 +19,7 @@ public class GameConstants {
 	/**
 	 * The Vertical top & bottom padding on canvas
 	 */
-	private static final int GRID_PADDING_TOP = 150;
+	private static final int GRID_PADDING_TOP = 100;
 	
 	/**
 	 * The Bottom Padding Of Game control bitmaps
@@ -29,12 +29,12 @@ public class GameConstants {
 	/**
 	 * The Side padding of game control bitmaps
 	 */
-	private static final int BITMAP_PADDING_SIDE = 20;
+	private static final int BITMAP_PADDING_SIDE = 40;
 	
 	/**
 	 * The number of bottom game control bitmaps
 	 */
-	private static final int NUM_BITMAPS = 4;
+	private static final int NUM_BITMAPS = 3;
 	
 	/**
 	 * The Top Padding for timer and score
@@ -75,6 +75,11 @@ public class GameConstants {
 	 * The displayed word size
 	 */
 	private static final int WORD_SIZE = 40;
+	
+	/**
+	 * The score value of each character
+	 */
+	private static final int CHARACTER_VALUE = 10;
 
 	/**
 	 * @return the nUM_GRID_ROWS
@@ -179,5 +184,12 @@ public class GameConstants {
 	 */
 	public static int getWordSize() {
 		return WORD_SIZE;
+	}
+
+	/**
+	 * @return the characterValue
+	 */
+	public static int getCharacterValue() {
+		return CHARACTER_VALUE;
 	}
 }

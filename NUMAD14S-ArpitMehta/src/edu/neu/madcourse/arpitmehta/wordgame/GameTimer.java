@@ -1,8 +1,6 @@
 package edu.neu.madcourse.arpitmehta.wordgame;
 
-import android.graphics.Canvas;
 import android.os.CountDownTimer;
-import android.view.View;
 
 public class GameTimer extends CountDownTimer {
 	/**

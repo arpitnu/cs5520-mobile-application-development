@@ -36,7 +36,7 @@ public class Prefs extends PreferenceActivity {
    /** Get the current value of the hints option */
    
    public static boolean getHints(Context context) {
-      return PreferenceManager.getDefaultSharedPreferences(context)
+	   return PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean(OPT_HINTS, OPT_HINTS_DEF);
    }
    

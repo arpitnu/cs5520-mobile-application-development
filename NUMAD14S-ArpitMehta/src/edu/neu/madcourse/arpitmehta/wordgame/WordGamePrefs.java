@@ -10,10 +10,9 @@ import android.preference.PreferenceManager;
 
 public class WordGamePrefs extends PreferenceActivity {
 	// Option names and default values
-	   private static final String OPT_MUSIC = "music";
-	   private static final boolean OPT_MUSIC_DEF = true;
+	   private static final String WORD_GAME_OPT_MUSIC = "letris_music";
+	   private static final boolean WORD_GAME_OPT_MUSIC_DEF = true;
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +42,6 @@ public class WordGamePrefs extends PreferenceActivity {
 	 */
 	public static boolean getMusic(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context)
-	            .getBoolean(OPT_MUSIC, OPT_MUSIC_DEF);
+	            .getBoolean(WORD_GAME_OPT_MUSIC, WORD_GAME_OPT_MUSIC_DEF);
 	}
 }

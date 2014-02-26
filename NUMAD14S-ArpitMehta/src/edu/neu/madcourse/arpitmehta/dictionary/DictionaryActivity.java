@@ -12,6 +12,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -159,15 +160,16 @@ public class DictionaryActivity extends Activity {
 				TextView tvWord = new TextView(this);
 				tvWord.setText(word);
 				tvWord.setTextSize(getResources().getDimension(R.dimen.textsize));
+				tvWord.setTextColor(Color.BLACK);
 				tvWord.setGravity(Gravity.CENTER_HORIZONTAL);
-				llWordDisplay.addView(tvWord);			
+				llWordDisplay.addView(tvWord);
+				
+				try {
+					Uri beep = Uri.parse("android.resource://edu.neu.madcourse.arpitmehta/raw/" + R.raw.beep);
+					Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), beep);
+					r.play();
+				} catch(Exception e) {}
 			}
-			
-			try {
-				Uri beep = Uri.parse("android.resource://edu.neu.madcourse.arpitmehta/raw/" + R.raw.beep);
-				Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), beep);
-				r.play();
-			} catch(Exception e) {}
 		}
 	}	
 	

@@ -26,6 +26,11 @@ import android.widget.TextView;
 import edu.neu.madcourse.arpitmehta.R;
 
 public class LetrisGame extends Activity {
+	
+	/**
+	 * Flag to hold the game state
+	 */
+	private boolean isGameRunning;
 
 	/**
 	 * The tag for LetrisGame
@@ -96,6 +101,10 @@ public class LetrisGame extends Activity {
 	 * The Buffered Reader
 	 */
 	private BufferedReader brFileToSearch;
+	
+	private static final int NEW_GAME = 1;
+	
+	private static final int CONTINUE_GAME = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +133,8 @@ public class LetrisGame extends Activity {
 	}
 
 	/**
-	 * getPuzzle Function returns a new puzzle.
+	 * getPuzzle 
+	 * 		Function generates and returns a new puzzle.
 	 * 
 	 * @param none
 	 * 
@@ -146,7 +156,8 @@ public class LetrisGame extends Activity {
 
 		return puz;
 	}
-
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -451,5 +462,28 @@ public class LetrisGame extends Activity {
 
 	public void pauseMusic() {
 		WordGameMusic.stop(this);
+	}
+
+	public void modifyScore(int length) {
+		gameScore = gameScore + length * GameConstants.getCharacterValue();
+	}
+
+	public void resetWordSearchParams() {
+		selCharList.clear();
+		setSelectedWord(new String());
+	}
+
+	/**
+	 * @return the isGameRunning
+	 */
+	public boolean isGameRunning() {
+		return isGameRunning;
+	}
+
+	/**
+	 * @param isGameRunning the isGameRunning to set
+	 */
+	public void setGameRunning(boolean isGameRunning) {
+		this.isGameRunning = isGameRunning;
 	}
 }
