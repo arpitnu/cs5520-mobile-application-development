@@ -105,8 +105,7 @@
         \u2022 Referred to the following link for vibrating on key press: 
         		http://karanbalkar.com/2013/07/programmatically-vibrating-android-device/ \n\n	</string>
     <string name="title_activity_instructions">Instructions</string>
-    <string name="wordGameInstructionsText">         
-        \u2022 <b>Selecting Characters</b> \n
+    <string name="wordGameInstructionsText">        \u2022 <b>Selecting Characters</b> \n
         	Click on the game console icon to begin the game. A user will be given 3 minutes (180 seconds) to identify words in
         	the grid. The character selection is by simply touching the tile in which the character is placed. \n\n
         	
@@ -119,8 +118,7 @@
         	weightage and hence the score is entirely based on the length. \n\n
         	
         \u2022 <b>Game controls</b> \n
-        	The user will be able to see 4 game control buttons at the bottom. They are <i>Pause</i>, <i>Hints</i> and <i>Stop</i> 
-        	button from left to right. If a user clicks on <i>Pause</i> button, the grid will become inactive and the timer stops. 
+        	The user will be able to see 4 game control buttons at the bottom. They are <i>Pause</i>, <i>Hints</i> and <i>Stop</i>        	button from left to right. If a user clicks on <i>Pause</i> button, the grid will become inactive and the timer stops. 
         	Also the <i>Pause</i> button is replaced by 
         	The game can be resumed by clicking on the <i>Resume</i> button. The <i>Hints</i> button, should the user choose to avail this option,
         	will prompt the users with word hints during game play. The <i>Stop</i> button stops the game play. \n\n
@@ -129,5 +127,16 @@
         	At the end of the game, the user is shown his/her score and the words selected.</string>
 
     <!-- Strings for communicate activity -->
-	<string name="communicateText">Communication</string>
+    <string name="communicateText">Communication</string>
+    <string name="title_activity_communication">Communication</string>
+    <string name="title_activity_communication_ack">Acknowledgements</string>
+    <string name="usernameText">Enter Username</string>
+    <string name="registerUserBtnText">Register</string>
+    <string name="registeredUsersBtnText">Registered Users</string>
+    <string name="communicationAckText">
+        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
+        
+        \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n
+    </string>
+
 </resources>

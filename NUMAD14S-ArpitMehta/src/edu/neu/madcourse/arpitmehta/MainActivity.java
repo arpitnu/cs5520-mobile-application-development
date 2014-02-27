@@ -1,5 +1,6 @@
 package edu.neu.madcourse.arpitmehta;
 
+import edu.neu.madcourse.arpitmehta.communication.CommunicationActivity;
 import edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity;
 import edu.neu.madcourse.arpitmehta.sudoku.Sudoku;
 import edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity;
@@ -86,7 +87,8 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * launchWordGame Start New Word Game Activity
+	 * launchWordGame 
+	 * 		Start New Word Game Activity
 	 * 
 	 * @param view
 	 * 
@@ -95,6 +97,19 @@ public class MainActivity extends Activity {
 	public void launchWordGame(View view) {
 		Intent wordGameIntent = new Intent(this, WordGameActivity.class);
 		startActivity(wordGameIntent);
+	}
+	
+	/**
+	 * communicate 
+	 * 		Start New Communication Activity
+	 * 
+	 * @param view
+	 * 
+	 * @return void
+	 */
+	public void communicate(View view) {
+		Intent commIntent = new Intent(this, CommunicationActivity.class);
+		startActivity(commIntent);
 	}
 
 	/**
