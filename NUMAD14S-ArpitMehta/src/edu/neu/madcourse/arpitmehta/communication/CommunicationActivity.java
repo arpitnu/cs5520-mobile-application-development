@@ -8,6 +8,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import edu.neu.madcourse.arpitmehta.R;
+import edu.neu.mhealth.api.KeyValueAPI;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -60,6 +62,12 @@ public class CommunicationActivity extends Activity {
 	 * The Shared Preferences
 	 */
 	SharedPreferences prefs;
+	
+	/**
+	 * The Toast to display messages
+	 */
+	Toast toast;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,26 +77,20 @@ public class CommunicationActivity extends Activity {
 		//setupActionBar();
 		
 		context = getApplicationContext();
-		
-		// check device for play services APK
-		if (checkPlayServices()) {
-			regId = getRegistrationId(context);
-
-			if (regId.isEmpty()) {
-				// User unregistered
-				setContentView(R.layout.activity_communication_user_registrtion);
-			}
-			else {
-				setContentView(R.layout.activity_communication_send_msg);
-			}
-		} else {
-
-		}
+		setContentView(R.layout.activity_communication);
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
+		// Check device for play services APK
+		if(checkPlayServices()) {
+			gcm = GoogleCloudMessaging.getInstance(this);
+		}
+		else {
+			Log.i(TAG, "No valid Google Play Services APK found.");
+		}
 	}
 	
 	@Override
@@ -102,6 +104,49 @@ public class CommunicationActivity extends Activity {
 		super.onStop();
 	}
 	
+	private void unregister() {
+		// Log 
+		Log.d(CommunicationConstants.TAG, "UNREGISTER USERID: " + regId);
+		
+		new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				String msg = "";
+				try {
+					msg = "Sent unregistration";
+					KeyValueAPI.put("pbj1203", "1312789", "alertText",
+							"Notification");
+					KeyValueAPI.put("pbj1203", "1312789", "titleText",
+							"Unregister");
+					KeyValueAPI.put("pbj1203", "1312789", "contentText",
+							"Unregistering Successful!");
+					gcm.unregister();
+				} catch (IOException ex) {
+					msg = "Error :" + ex.getMessage();
+				}
+				return msg;
+			}
+
+			@Override
+			protected void onPostExecute(String msg) {
+				removeRegistrationId(getApplicationContext());
+				toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		}.execute();
+	}
+	
+	private void removeRegistrationId(Context context) {
+		final SharedPreferences prefs = getGCMPreferences(context);
+		int appVersion = getAppVersion(context);
+		Log.i(CommunicationConstants.TAG, "Removig regId on app version "
+				+ appVersion);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.remove(PROPERTY_REG_ID);
+		editor.commit();
+		regId = null;
+	}
+
 	/**
 	 * registerInBackground
 	 * 		Registers the application with GCM servers asynchronously.
@@ -118,21 +163,51 @@ public class CommunicationActivity extends Activity {
 				
 				try {
 					if (gcm == null) {
-	                    gcm = GoogleCloudMessaging.getInstance(context);
-	                    
-	                    regId = gcm.register(CommunicationConstants.GCM_SENDER_ID);
-	                    
-	                    msg = "Device registered, registration ID=" + regId;
-	                    
-	                    // You should send the registration ID to your server over HTTP,
-	                    // so it can use GCM/HTTP or CCS to send messages to your app.
-	                    // The request to your server should be authenticated if your app
-	                    // is using accounts.
-	                    sendRegistrationIdToBackend();
-	                    
-	                    // Persist the regID - no need to register again.
-	                    storeRegistrationId(context, regId);
-	                }
+						gcm = GoogleCloudMessaging.getInstance(context);
+					}
+
+					KeyValueAPI.put("pbj1203", "1312789", "alertText",
+							"Register Notification");
+					KeyValueAPI.put("pbj1203", "1312789", "titleText",
+							"Register");
+					KeyValueAPI.put("pbj1203", "1312789", "contentText",
+							"Registering Successful!");
+
+					regId = gcm.register(CommunicationConstants.GCM_SENDER_ID);
+
+					int cnt = 0;
+
+					if (KeyValueAPI.isServerAvailable()) {
+
+						if (!KeyValueAPI.get("pbj1203", "1312789", "cnt")
+								.contains("Error")) {
+							Log.d("????", KeyValueAPI.get("pbj1203", "1312789",
+									"cnt"));
+							cnt = Integer.parseInt(KeyValueAPI.get("pbj1203",
+									"1312789", "cnt"));
+						}
+						String getString;
+						boolean flag = false;
+						for (int i = 1; i <= cnt; i++) {
+							getString = KeyValueAPI.get("pbj1203", "1312789",
+									"regid" + String.valueOf(i));
+							Log.d(String.valueOf(i), getString);
+							if (getString.equals(regId))
+								flag = true;
+						}
+						
+						if (!flag) {
+							KeyValueAPI.put("pbj1203", "1312789", "cnt",
+									String.valueOf(cnt + 1));
+							KeyValueAPI.put("pbj1203", "1312789", "regid"
+									+ String.valueOf(cnt + 1), regId);
+						}
+						msg = "Device Registered";
+
+					} else {
+						msg = "Error :" + "Backup Server is not available";
+						return msg;
+					}
 				} catch (IOException ex) {
 	                msg = "Error :" + ex.getMessage();
 	                // If there is an error, don't just keep trying to register.
@@ -140,12 +215,22 @@ public class CommunicationActivity extends Activity {
 	                // exponential back-off.
 	            }
 				
+				// You should send the registration ID to your server over HTTP,
+                // so it can use GCM/HTTP or CCS to send messages to your app.
+                // The request to your server should be authenticated if your app
+                // is using accounts.
+                sendRegistrationIdToBackend();
+                
+                // Persist the regID - no need to register again.
+                storeRegistrationId(context, regId);
+				
 				return msg;
 			}
 			
 			@Override
 	        protected void onPostExecute(String msg) {
-				
+				toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+				toast.show();
 	        }
 		}.execute(null, null, null);
 	}
@@ -216,8 +301,7 @@ public class CommunicationActivity extends Activity {
 	 * @return Application's {@code SharedPreferences}.
 	 */
 	private SharedPreferences getGCMPreferences(Context context2) {
-		return getSharedPreferences(CommunicationActivity.class.getSimpleName(),
-	            Context.MODE_PRIVATE);
+		return getSharedPreferences(CommunicationActivity.class.getSimpleName(), Context.MODE_PRIVATE);
 	}
 	
 	/**
@@ -304,17 +388,38 @@ public class CommunicationActivity extends Activity {
 	}
 	
 	/**
-	 * registerUser
-	 * 		Register the user
+	 * registerDevice
+	 * 		Register the device
 	 * 
 	 * @param View
+	 * 
+	 * @return void
 	 */
-	public void registerUser(View view) {
-		
+	public void registerDevice(View view) {
+		if (checkPlayServices()) {
+			regId = getRegistrationId(context);
+			if(regId.isEmpty()) {
+				registerInBackground();
+			}
+		}
+		else {
+			Log.i(TAG, "No valid Google Play Services APK found.");
+		}
 	}
 	
-	public void showRegisterdUsers(View view) {
-		
+	public void unregisterDevice(View view) {
+		// Unregister Device
+		unregister();
+	}
+	
+	public void startSyncCommunication(View view) {
+		Intent loginActivityIntent = new Intent(this, LoginActivity.class);
+		startActivity(loginActivityIntent);
+	}
+	
+	public void startAsyncCommunication(View view) {
+//		Intent sendMessageActivityIntent = new Intent(this, SendMessageActivity.class);
+//		startActivity(sendMessageActivityIntent);
 	}
 	
 	/**
@@ -335,6 +440,9 @@ public class CommunicationActivity extends Activity {
 	 * @param View
 	 */
 	public void quitActivity(View v) {
+		// Unregister Device
+		unregister();
+		
 		finish();
 	}
 

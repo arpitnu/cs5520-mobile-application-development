@@ -131,12 +131,16 @@
     <string name="title_activity_communication">Communication</string>
     <string name="title_activity_communication_ack">Acknowledgements</string>
     <string name="usernameText">Enter Username</string>
+    <string name="registerBtnText">Register Device</string>
+    <string name="unregisterBtnText">Unregister Device</string>
+    <string name="synchronousCommText">Synchronous Communication</string>
+    <string name="asynchronousCommText">Asynchronous Communication</string>
     <string name="registerUserBtnText">Register</string>
     <string name="registeredUsersBtnText">Registered Users</string>
-    <string name="communicationAckText">
-        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
+    <string name="communicationAckText">        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
         
-        \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n
-    </string>
+        \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n</string>
+    <string name="title_activity_login">Enter Username</string>
+    <string name="btnLoginText">Login</string>
 
 </resources>
