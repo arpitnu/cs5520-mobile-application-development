@@ -99,6 +99,11 @@ public class MainActivity extends Activity {
 		startActivity(wordGameIntent);
 	}
 	
+	public void launchTwoPlayerWordGame(View view) {
+//		Intent twoPlayerGameIntent = new Intent(this, TwoPlayerWordGameActivity.class);
+//		startActivity(twoPlayerGameIntent);
+	}
+	
 	/**
 	 * communicate 
 	 * 		Start New Communication Activity

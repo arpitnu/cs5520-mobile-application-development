@@ -137,10 +137,14 @@
     <string name="asynchronousCommText">Asynchronous Communication</string>
     <string name="registerUserBtnText">Register</string>
     <string name="registeredUsersBtnText">Registered Users</string>
+    <string name="twoPlayerGameBtnText">Two Player Word Game</string>
     <string name="communicationAckText">        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
         
         \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n</string>
-    <string name="title_activity_login">Enter Username</string>
+    <string name="title_activity_login">Login</string>
     <string name="btnLoginText">Login</string>
+    
+    <!-- Two Player Word Game Strings -->
+    <string name="title_activity_two_player_word_game">Two Player Word Game</string>
 
 </resources>

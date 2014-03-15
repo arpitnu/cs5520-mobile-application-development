@@ -113,7 +113,7 @@ public class CommunicationActivity extends Activity {
 			protected String doInBackground(Void... params) {
 				String msg = "";
 				try {
-					msg = "Sent unregistration";
+					msg = "Device Unregistration Sent";
 					KeyValueAPI.put("pbj1203", "1312789", "alertText",
 							"Notification");
 					KeyValueAPI.put("pbj1203", "1312789", "titleText",
@@ -202,7 +202,7 @@ public class CommunicationActivity extends Activity {
 							KeyValueAPI.put("pbj1203", "1312789", "regid"
 									+ String.valueOf(cnt + 1), regId);
 						}
-						msg = "Device Registered";
+						msg = "Device Registration Sent";
 
 					} else {
 						msg = "Error :" + "Backup Server is not available";
@@ -440,8 +440,10 @@ public class CommunicationActivity extends Activity {
 	 * @param View
 	 */
 	public void quitActivity(View v) {
-		// Unregister Device
-		unregister();
+		// Unregister Device only if device is not previously unregistered
+		if(regId != null) {
+			unregister();
+		}
 		
 		finish();
 	}

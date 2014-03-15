@@ -53,6 +53,11 @@
         </TableRow>
         
         <TableRow>
+            
+            <Button
+                android:id="@+id/twoPlayerGameButton"
+                android:onClick="launchTwoPlayerWordGame"
+                android:text="@string/twoPlayerGameBtnText" />
 
             <Button
                 android:id="@+id/quitButton"

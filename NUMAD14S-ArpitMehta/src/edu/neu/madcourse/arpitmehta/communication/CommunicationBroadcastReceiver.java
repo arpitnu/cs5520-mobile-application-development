@@ -12,11 +12,11 @@ public class CommunicationBroadcastReceiver extends WakefulBroadcastReceiver {
 	/**
 	 * The Broadcast Receiver Tag
 	 */
-	private static final String TAG = "GCM_Boradcast_Receiver";
+	private static final String TAG = "CommunicationBroadcastReceiver";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.d(TAG, "Initialized...");
+		Log.d(TAG, "Initialized");
 		
 		// Explicitly specify that GcmIntentService will handle the intent.
         ComponentName comp = new ComponentName(context.getPackageName(),

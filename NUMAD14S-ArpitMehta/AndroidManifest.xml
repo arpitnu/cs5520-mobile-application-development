@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.arpitmehta"
-    android:versionCode="8"
-    android:versionName="1.4.1" >
+    android:versionCode="10"
+    android:versionName="1.4.2" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -164,11 +164,22 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.communication.LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.communication.CommunicationActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.communication.CommunicationActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.communication.CommunicationActivity" />
         </activity>
+        
+        <!-- Two Player Word Game Activities -->
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity"
+            android:label="@string/title_activity_two_player_word_game"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
+        </activity>
     </application>
+
 </manifest>

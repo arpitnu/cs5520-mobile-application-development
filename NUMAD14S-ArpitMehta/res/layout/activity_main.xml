@@ -63,12 +63,21 @@
         android:layout_centerHorizontal="true"
         android:onClick="communicate"
         android:text="@string/communicateText" />
+    
+    <Button
+        android:id="@+id/twoPlayerGameButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/communicateButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="launchTwoPlayerWordGame"
+        android:text="@string/twoPlayerGameBtnText" />
 
     <Button
         android:id="@+id/quitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/communicateButton"
+        android:layout_below="@+id/twoPlayerGameButton"
         android:layout_centerHorizontal="true"
         android:onClick="quitApplication"
         android:text="@string/quitBtnText" />

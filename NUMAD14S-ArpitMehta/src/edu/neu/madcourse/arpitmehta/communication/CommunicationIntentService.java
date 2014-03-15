@@ -24,7 +24,7 @@ public class CommunicationIntentService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		Log.d(TAG, "  I'm reciving data....");
+		Log.d(TAG, "Reciving Data ...");
 		String alertText = "";
 		String titleText = "";
 		String contentText = "";
@@ -49,7 +49,7 @@ public class CommunicationIntentService extends IntentService {
 	// a GCM message.
 	public void sendNotification(String alertText, String titleText,
 			String contentText) {
-		Log.d(TAG, "???sendNotification???");
+		Log.d(TAG, "Send Notification");
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent notificationIntent;
@@ -73,10 +73,7 @@ public class CommunicationIntentService extends IntentService {
 			mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 	}
 
-
-
 	public CommunicationIntentService() {
 		super("CommunicationIntentService");
-		// TODO Auto-generated constructor stub
 	}	
 }
