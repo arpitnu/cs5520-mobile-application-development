@@ -170,7 +170,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.communication.CommunicationActivity" />
         </activity>
-        
+
         <!-- Two Player Word Game Activities -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity"

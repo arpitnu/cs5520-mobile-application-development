@@ -37,3 +37,6 @@ RemoteSystemsTempFiles
 DictionarySplit
 Assign 3 ack
 proguard-project.txt
+Communication
+.classpath
+.settings
