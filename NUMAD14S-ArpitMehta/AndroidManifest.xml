@@ -181,6 +181,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
         </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameAckActivity"
+            android:label="@string/title_activity_two_player_word_game_ack"
+            android:screenOrientation="portrait"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />
+        </activity>
     </application>
 
 </manifest>

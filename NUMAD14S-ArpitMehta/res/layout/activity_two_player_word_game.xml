@@ -35,5 +35,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="launchTwoPlayerWordGameAckActivity"
         android:text="@string/ackButtonText" />
+    
+    <Button
+        android:id="@+id/quitTwoPlayerWordGameBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twoPlayerWordGameAckBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="quitTwoPlayerWordGame"
+        android:text="@string/returnToMenuText" />
 
 </RelativeLayout>

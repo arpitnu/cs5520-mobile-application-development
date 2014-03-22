@@ -3,6 +3,7 @@ package edu.neu.madcourse.arpitmehta;
 import edu.neu.madcourse.arpitmehta.communication.CommunicationActivity;
 import edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity;
 import edu.neu.madcourse.arpitmehta.sudoku.Sudoku;
+import edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity;
 import edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -100,8 +101,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void launchTwoPlayerWordGame(View view) {
-//		Intent twoPlayerGameIntent = new Intent(this, TwoPlayerWordGameActivity.class);
-//		startActivity(twoPlayerGameIntent);
+		Intent twoPlayerGameIntent = new Intent(this, TwoPlayerWordGameActivity.class);
+		startActivity(twoPlayerGameIntent);
 	}
 	
 	/**

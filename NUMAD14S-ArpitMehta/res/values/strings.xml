@@ -146,6 +146,13 @@
 
     <!-- Two Player Word Game Strings -->
     <string name="title_activity_two_player_word_game">Two Player Word Game</string>
-	<string name="syncGamePlayBtnText">Synchronous Game Play</string>
-	<string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
+    <string name="syncGamePlayBtnText">Synchronous Game Play</string>
+    <string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
+    <string name="title_activity_two_player_word_game_ack">Acknowledgments</string>
+    <string name="twoPlayerWordGameAckText">
+        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
+        
+        \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n
+    </string>
+
 </resources>
