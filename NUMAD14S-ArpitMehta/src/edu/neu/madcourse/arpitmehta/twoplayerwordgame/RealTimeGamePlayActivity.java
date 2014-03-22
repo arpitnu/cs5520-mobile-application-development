@@ -236,10 +236,10 @@ public class RealTimeGamePlayActivity extends Activity {
 		}
 	}
 
-	private static class ReceivedRequstAsyncTask extends
+	private class ReceivedRequstAsyncTask extends
 			AsyncTask<String, Integer, Integer> {
 
-		private String inviterUser = null;
+		private String inviterUser;
 
 		@Override
 		protected void onPostExecute(Integer rcvdRequestResult) {
@@ -258,8 +258,7 @@ public class RealTimeGamePlayActivity extends Activity {
 				Toast.makeText(appContext, "Connection Error",
 						Toast.LENGTH_SHORT).show();
 
-				// Clear Inivitation Requests
-				// TODO
+				// Clear Invitation Requests
 				new ClearInvitesTask().execute("Clear Inivitations");
 				break;
 
@@ -269,6 +268,55 @@ public class RealTimeGamePlayActivity extends Activity {
 					// Toast.makeText(getApplicationContext(),
 					// "Game Request Received", Toast.LENGTH_SHORT).show();
 
+					AlertDialog.Builder acceptInviteDialogAlertBuilder = new AlertDialog.Builder(
+							RealTimeGamePlayActivity.this);
+
+					// The alert dialog click listener
+					DialogInterface.OnClickListener alertDialogListener = new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							switch (which) {
+							case DialogInterface.BUTTON_POSITIVE:
+								// Clear Invitation Requests
+								new ClearInvitesTask()
+										.execute("Clear Inivitations");
+
+								// Set properties
+								TwoPlayerWordGameProperties
+										.getGamePropertiesInstance()
+										.setIsInvited(true);
+								TwoPlayerWordGameProperties
+										.getGamePropertiesInstance()
+										.setInvitedByUsername(inviterUser);
+
+								// Store the Game ID
+								saveGameId();
+
+								// Begin game once the invitation is accepted
+								new InviteAcceptedAsyncTask().execute("");
+
+								break;
+
+							case DialogInterface.BUTTON_NEGATIVE:
+								isGameRequestReceived = false;
+
+								// Clear Invitation Requests
+								new ClearInvitesTask()
+										.execute("Clear Inivitations");
+								break;
+
+							default:
+								break;
+							}
+						}
+					};
+
+					acceptInviteDialogAlertBuilder
+							.setMessage(inviterUser + " invites you to play.")
+							.setPositiveButton("Accept", alertDialogListener)
+							.setNegativeButton("Reject", alertDialogListener)
+							.show();
 				}
 				break;
 
@@ -320,6 +368,94 @@ public class RealTimeGamePlayActivity extends Activity {
 			return returnVal;
 		}
 
+	}
+
+	private class InviteAcceptedAsyncTask extends
+			AsyncTask<String, Integer, Integer> {
+
+		@Override
+		protected void onPostExecute(Integer accpetResult) {
+			if (accpetResult == 1) {
+				Toast.makeText(appContext,
+						"Unable to confirm acceptance. Server Unavailable.",
+						Toast.LENGTH_SHORT).show();
+			} else if (accpetResult == 0) {
+				// DO Nothing
+			} else {
+				Log.e(TAG, "InviteAcceptedAsyncTask: Unexpected return value");
+			}
+		}
+
+		@Override
+		protected Integer doInBackground(String... params) {
+			Integer returnVal = null;
+
+			if (KeyValueAPI.isServerAvailable()) {
+				KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(),
+						TwoPlayerWordGameConstants.getPassword(),
+						TwoPlayerWordGameProperties.getGamePropertiesInstance()
+								.getLoginUsername()
+								+ "accepted invitation from"
+								+ TwoPlayerWordGameProperties
+										.getGamePropertiesInstance()
+										.getInvitedByUsername(), "true");
+
+				returnVal = 0;
+			} else {
+				// Server Unavailable
+				returnVal = 1;
+			}
+
+			return returnVal;
+		}
+
+	}
+
+	/**
+	 * Save the game ID
+	 */
+	protected void saveGameId() {
+		new AsyncTask<String, Integer, Integer>() {
+
+			@Override
+			protected void onPostExecute(Integer result) {
+
+			}
+
+			@Override
+			protected Integer doInBackground(String... params) {
+				Integer returnVal = null;
+
+				if (KeyValueAPI.isServerAvailable()) {
+					String key = TwoPlayerWordGameProperties
+							.getGamePropertiesInstance().getLoginUsername()
+							+ TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.getInvitedByUsername() + "gameId";
+					String gameid = TwoPlayerWordGameProperties
+							.getGamePropertiesInstance().getLoginUsername()
+							+ TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.getInvitedByUsername() + "gameId";
+
+					Log.d(TAG, "Game ID: " + gameid);
+
+					KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(), key,
+							gameid);
+
+					TwoPlayerWordGameProperties.getGamePropertiesInstance()
+							.setIsGameIdGenerated(true);
+					TwoPlayerWordGameProperties.getGamePropertiesInstance()
+							.setGameId(gameid);
+				} else {
+					// Server Unavailable
+					returnVal = 0;
+				}
+
+				return returnVal;
+			}
+		}.execute("");
 	}
 
 	private static class ClearInvitesTask extends
