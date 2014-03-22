@@ -103,17 +103,17 @@ public class RealTimeGamePlayActivity extends Activity {
 			} else {
 				int index = 1;
 				Boolean isInvitedUserOnline = false;
-				String uname = null;
+				String userOnServer = null;
 				String inviterUser = TwoPlayerWordGameProperties
 						.getGamePropertiesInstance().getLoginUsername();
 
 				if (KeyValueAPI.isServerAvailable()) {
-					uname = KeyValueAPI.get(
+					userOnServer = KeyValueAPI.get(
 							TwoPlayerWordGameConstants.getTeamName(),
 							TwoPlayerWordGameConstants.getPassword(), "User: "
 									+ Integer.toString(index));
-					while (!uname.equals("Error: No Such Key")) {
-						if (uname.equals(opponentUname)) {
+					while (!userOnServer.equals("Error: No Such User Key")) {
+						if (userOnServer.equals(opponentUname)) {
 							isInvitedUserOnline = true;
 							break;
 						}
@@ -125,11 +125,15 @@ public class RealTimeGamePlayActivity extends Activity {
 						KeyValueAPI.put(
 								TwoPlayerWordGameConstants.getTeamName(),
 								TwoPlayerWordGameConstants.getPassword(),
-								"inviter: ", inviterUser);
+								opponentUname, "is invited");
 						KeyValueAPI.put(
 								TwoPlayerWordGameConstants.getTeamName(),
 								TwoPlayerWordGameConstants.getPassword(),
-								"invitee: ", opponentUname);
+								opponentUname + "is invited by", inviterUser);
+						// KeyValueAPI.put(
+						// TwoPlayerWordGameConstants.getTeamName(),
+						// TwoPlayerWordGameConstants.getPassword(),
+						// "invitee: ", opponentUname);
 						TwoPlayerWordGameProperties.getGamePropertiesInstance()
 								.setOpponentUsername(opponentUname);
 
@@ -154,11 +158,16 @@ public class RealTimeGamePlayActivity extends Activity {
 		@Override
 		protected void onPostExecute(Integer sentRequestResult) {
 			switch (sentRequestResult) {
+			case -1:
+				// Do Nothing
+				break;
+
 			case 2:
 				// Server Unavailable
 				Toast.makeText(appContext, "Server Unavailable.",
 						Toast.LENGTH_SHORT).show();
 				break;
+
 			case 1:
 				// Sent request accepted by opponent
 				// TODO
@@ -168,6 +177,7 @@ public class RealTimeGamePlayActivity extends Activity {
 				break;
 
 			default:
+				Log.e(TAG, "SentRequestAsyncTask: Unexpected Return Value");
 				break;
 			}
 		}
@@ -229,15 +239,123 @@ public class RealTimeGamePlayActivity extends Activity {
 	private static class ReceivedRequstAsyncTask extends
 			AsyncTask<String, Integer, Integer> {
 
+		private String inviterUser = null;
+
 		@Override
 		protected void onPostExecute(Integer rcvdRequestResult) {
+			switch (rcvdRequestResult) {
+			case -1:
+				// Do nothing
+				break;
 
+			case 3:
+				// Server Unavailable
+				Toast.makeText(appContext, "Server Unavailable.",
+						Toast.LENGTH_SHORT).show();
+				break;
+
+			case 2:
+				Toast.makeText(appContext, "Connection Error",
+						Toast.LENGTH_SHORT).show();
+
+				// Clear Inivitation Requests
+				// TODO
+				new ClearInvitesTask().execute("Clear Inivitations");
+				break;
+
+			case 1:
+				if (false != isGameRequestReceived) {
+					// TODO for testing
+					// Toast.makeText(getApplicationContext(),
+					// "Game Request Received", Toast.LENGTH_SHORT).show();
+
+				}
+				break;
+
+			default:
+				Log.e(TAG, "ReceivedRequstAsyncTask: Unexpected Return Value");
+				break;
+			}
 		}
 
 		@Override
 		protected Integer doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			return null;
+			Integer returnVal = null;
+
+			if (isGameRequestReceived == false) {
+				if (KeyValueAPI.isServerAvailable()) {
+					String myInviationStatus = KeyValueAPI.get(
+							TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(),
+							TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.getLoginUsername());
+
+					if (myInviationStatus.equals("is invited")) {
+						inviterUser = KeyValueAPI.get(
+								TwoPlayerWordGameConstants.getTeamName(),
+								TwoPlayerWordGameConstants.getPassword(),
+								TwoPlayerWordGameProperties
+										.getGamePropertiesInstance()
+										.getLoginUsername()
+										+ "is invited by");
+
+						if (!inviterUser.contains("Error")) {
+							isGameRequestReceived = true;
+							returnVal = 1;
+						} else {
+							// Error
+							returnVal = 2;
+						}
+					}
+				} else {
+					// Server Unavailable
+					returnVal = 3;
+				}
+			} else {
+				// Game Request Already Recieved
+				returnVal = -1;
+			}
+
+			return returnVal;
+		}
+
+	}
+
+	private static class ClearInvitesTask extends
+			AsyncTask<String, Integer, Integer> {
+
+		@Override
+		protected void onPostExecute(Integer clearInvitesResult) {
+			if (clearInvitesResult == 1) {
+				Toast.makeText(appContext,
+						"Server Unavailable. Unable to clear invite.",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		@Override
+		protected Integer doInBackground(String... params) {
+			Integer returnVal = null;
+
+			if (KeyValueAPI.isServerAvailable()) {
+				KeyValueAPI.clearKey(TwoPlayerWordGameConstants.getTeamName(),
+						TwoPlayerWordGameConstants.getPassword(),
+						TwoPlayerWordGameProperties.getGamePropertiesInstance()
+								.getLoginUsername());
+
+				KeyValueAPI.clearKey(TwoPlayerWordGameConstants.getTeamName(),
+						TwoPlayerWordGameConstants.getPassword(),
+						TwoPlayerWordGameProperties.getGamePropertiesInstance()
+								.getLoginUsername() + "is invited by");
+
+				returnVal = 0;
+			} else {
+				// Server Unavailable
+				returnVal = 1;
+			}
+
+			return returnVal;
 		}
 
 	}
@@ -276,7 +394,7 @@ public class RealTimeGamePlayActivity extends Activity {
 	/**
 	 * The Activity Tag
 	 */
-	protected final String TAG = "RealTimeGamePlayActivity";
+	protected final static String TAG = "RealTimeGamePlayActivity";
 
 	/**
 	 * sentRequestCheckRunnable
