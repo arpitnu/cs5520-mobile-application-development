@@ -1,7 +1,5 @@
 package edu.neu.madcourse.arpitmehta.twoplayerwordgame;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import edu.neu.madcourse.arpitmehta.R;
 import edu.neu.madcourse.arpitmehta.communication.CommunicationActivity;
 import edu.neu.mhealth.api.KeyValueAPI;
@@ -32,8 +30,8 @@ public class CommunicationIntentService extends IntentService {
 //		if (Communication_Globals.mode == 1)
 //			contentText = +"is online";
 		Bundle extras = intent.getExtras();
-		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-		String messageType = gcm.getMessageType(intent);
+//		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+//		String messageType = gcm.getMessageType(intent);
 		Log.d(String.valueOf(extras.size()), extras.toString());
 		if (!extras.isEmpty()) { // has effect of unparcelling Bundle
 			alertText = KeyValueAPI.get("arpitm","qwerty","alertText");

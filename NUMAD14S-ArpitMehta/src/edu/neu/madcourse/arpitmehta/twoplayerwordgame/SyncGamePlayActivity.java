@@ -36,11 +36,12 @@ public class SyncGamePlayActivity extends Activity {
 		pb = (ProgressBar) findViewById(R.id.loginProgressBar);
 		pb.setProgress(0);
 	}
-	
+
 	/**
 	 * Exit Login
 	 * 
-	 * @param view {@link View}
+	 * @param view
+	 *            {@link View}
 	 */
 	public void quitLogin(View view) {
 		finish();
@@ -110,8 +111,10 @@ public class SyncGamePlayActivity extends Activity {
 
 				if (KeyValueAPI.isServerAvailable()) {
 					// Check if the user is already logged in
-					loggedInUser = KeyValueAPI.get("arpitm", "qwerty", "User: "
-							+ Integer.toString(loggedInUserCnt));
+					loggedInUser = KeyValueAPI.get(
+							TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(), "User: "
+									+ Integer.toString(loggedInUserCnt));
 					while (!loggedInUser.equals("Error: No Such Key")) {
 						if (uname.equals(loggedInUser)) {
 							unameExists = true;
@@ -126,7 +129,9 @@ public class SyncGamePlayActivity extends Activity {
 				if (false == unameExists) {
 					if (uname != "") {
 						// Put the user name in the KeyValueAPI mHealth server
-						KeyValueAPI.put("arpitm", "qwerty",
+						KeyValueAPI.put(
+								TwoPlayerWordGameConstants.getTeamName(),
+								TwoPlayerWordGameConstants.getPassword(),
 								"User: " + Integer.toString(loggedInUserCnt),
 								uname);
 						TwoPlayerWordGameProperties.getGamePropertiesInstance()

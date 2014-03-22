@@ -1,17 +1,19 @@
 package edu.neu.madcourse.arpitmehta.twoplayerwordgame;
 
-import edu.neu.madcourse.arpitmehta.R;
-import edu.neu.madcourse.rajatmalhotra.wordgamemultiplayer.RealTimePlayTP.InviteToPlayTask;
-import edu.neu.mhealth.api.KeyValueAPI;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.text.Editable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import edu.neu.madcourse.arpitmehta.R;
+import edu.neu.mhealth.api.KeyValueAPI;
 
 /**
  * RealTimeGamePlayActivity class
@@ -27,12 +29,14 @@ public class RealTimeGamePlayActivity extends Activity {
 	 * @author Arpit
 	 * 
 	 */
-	private class LogoutAsyncTask extends AsyncTask<String, Integer, Boolean> {
-		
+	private static class LogoutAsyncTask extends
+			AsyncTask<String, Integer, Boolean> {
+
 		@Override
 		protected void onPostExecute(Boolean logoutStatus) {
-			if(false == logoutStatus) {
-				Toast.makeText(getApplicationContext(), "Server Unavailable.", Toast.LENGTH_LONG).show();
+			if (false == logoutStatus) {
+				Toast.makeText(appContext, "Server Unavailable.",
+						Toast.LENGTH_LONG).show();
 			}
 		}
 
@@ -51,12 +55,183 @@ public class RealTimeGamePlayActivity extends Activity {
 			return logoutDone;
 		}
 	}
-	
-	private static class InviteAsyncTask extends AsyncTask<String, Integer, Integer> {
-		
+
+	private static class InviteAsyncTask extends
+			AsyncTask<String, Integer, Integer> {
+
 		@Override
 		protected void onPostExecute(Integer inviteResult) {
-			
+			switch (inviteResult) {
+			case 3:
+				// Server Unavailable
+				Toast.makeText(appContext, "Server Unavailable.",
+						Toast.LENGTH_SHORT).show();
+				break;
+
+			case 2:
+				// Opponent not online
+				Toast.makeText(appContext, "Opponent user not online.",
+						Toast.LENGTH_SHORT).show();
+				break;
+
+			case 1:
+				// Opponent user is online
+				Toast.makeText(appContext,
+						"Invitation sent. Waiting for opponent to accept...",
+						Toast.LENGTH_LONG).show();
+				break;
+
+			case 0:
+			default:
+				// User inviting himself/herself to play
+				Toast.makeText(appContext,
+						"You're inviting yourself to play. Not allowed.",
+						Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+
+		@Override
+		protected Integer doInBackground(String... params) {
+			String opponentUname = params[0].toString();
+			Integer returnVal = 0;
+
+			// Check if the user is not inviting himself
+			if (opponentUname.equals(TwoPlayerWordGameProperties
+					.getGamePropertiesInstance().getLoginUsername())) {
+				returnVal = 0;
+			} else {
+				int index = 1;
+				Boolean isInvitedUserOnline = false;
+				String uname = null;
+				String inviterUser = TwoPlayerWordGameProperties
+						.getGamePropertiesInstance().getLoginUsername();
+
+				if (KeyValueAPI.isServerAvailable()) {
+					uname = KeyValueAPI.get(
+							TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(), "User: "
+									+ Integer.toString(index));
+					while (!uname.equals("Error: No Such Key")) {
+						if (uname.equals(opponentUname)) {
+							isInvitedUserOnline = true;
+							break;
+						}
+
+						index++;
+					}
+
+					if (false != isInvitedUserOnline) {
+						KeyValueAPI.put(
+								TwoPlayerWordGameConstants.getTeamName(),
+								TwoPlayerWordGameConstants.getPassword(),
+								"inviter: ", inviterUser);
+						KeyValueAPI.put(
+								TwoPlayerWordGameConstants.getTeamName(),
+								TwoPlayerWordGameConstants.getPassword(),
+								"invitee: ", opponentUname);
+						TwoPlayerWordGameProperties.getGamePropertiesInstance()
+								.setOpponentUsername(opponentUname);
+
+						// Opponent user is online
+						returnVal = 1;
+					} else {
+						// Opponent user not online
+						returnVal = 2;
+					}
+				} else {
+					// Server unavailable
+					returnVal = 3;
+				}
+			}
+			return returnVal;
+		}
+	}
+
+	private static class SentRequestAsyncTask extends
+			AsyncTask<String, Integer, Integer> {
+
+		@Override
+		protected void onPostExecute(Integer sentRequestResult) {
+			switch (sentRequestResult) {
+			case 2:
+				// Server Unavailable
+				Toast.makeText(appContext, "Server Unavailable.",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case 1:
+				// Sent request accepted by opponent
+				// TODO
+				// Intent realTimeWordGameIntent = new
+				// Intent(RealTimeGamePlayActivity.this,
+				// RealTimeWordGame.class);
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		@Override
+		protected Integer doInBackground(String... params) {
+			Integer returnVal = null;
+
+			if (false == isSentGameRequestAccepted) {
+				if (KeyValueAPI.isServerAvailable()) {
+					// Server Available. Check for status of sent requests
+					if ((KeyValueAPI.get(TwoPlayerWordGameConstants
+							.getTeamName(), TwoPlayerWordGameConstants
+							.getPassword(), "Game Between "
+							+ TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.getLoginUsername()
+							+ " + "
+							+ TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.getOpponentUsername()).equals("true"))
+							|| (KeyValueAPI.get(TwoPlayerWordGameConstants
+									.getTeamName(), TwoPlayerWordGameConstants
+									.getPassword(), "Game Between "
+									+ TwoPlayerWordGameProperties
+											.getGamePropertiesInstance()
+											.getOpponentUsername()
+									+ " + "
+									+ TwoPlayerWordGameProperties
+											.getGamePropertiesInstance()
+											.getLoginUsername()).equals("true"))) {
+						// Set sent request accepted flag
+						isSentGameRequestAccepted = true;
+
+						KeyValueAPI.put(TwoPlayerWordGameConstants
+								.getTeamName(), TwoPlayerWordGameConstants
+								.getPassword(), TwoPlayerWordGameProperties
+								.getGamePropertiesInstance().getLoginUsername()
+								+ " status: ", "playing");
+
+						// Game request accepted by opponent
+						returnVal = 1;
+					} else {
+						// Game request not accepted by opponent
+						returnVal = 0;
+					}
+				} else {
+					// Server unavailable
+					returnVal = 2;
+				}
+			} else {
+				// Sent Request Already Accepted by another user
+				returnVal = -1;
+			}
+			return returnVal;
+		}
+	}
+
+	private static class ReceivedRequstAsyncTask extends
+			AsyncTask<String, Integer, Integer> {
+
+		@Override
+		protected void onPostExecute(Integer rcvdRequestResult) {
+
 		}
 
 		@Override
@@ -64,35 +239,222 @@ public class RealTimeGamePlayActivity extends Activity {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	}
 
+	/**
+	 * The Application Context
+	 */
+	private static Context appContext;
+
+	/**
+	 * Flag indicates if a sent game play request is accepted by opponent
+	 */
+	static Boolean isSentGameRequestAccepted;
+
+	/**
+	 * Flag to indicate if the logged in user has accepted an opponent's request
+	 */
+	static Boolean isGameRequestReceived;
+
+	/**
+	 * Flag to indicate my online status (i.e, if the RealTimeGamePlayActivity
+	 * is in front)
+	 */
+	Boolean myOnlineStatus;
+
+	/**
+	 * Sent Game Play Requests Handler
+	 */
+	Handler sentRequestHandler;
+
+	/**
+	 * Received Game Play Requests Handler
+	 */
+	Handler rcvdRequestHandler;
+
+	/**
+	 * The Activity Tag
+	 */
+	protected final String TAG = "RealTimeGamePlayActivity";
+
+	/**
+	 * sentRequestCheckRunnable
+	 */
+	private Runnable sentRequestCheckRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+			Log.d(TAG, "Running sentRequestHandler Runnable");
+
+			SentRequestAsyncTask sentRequestAsyncTask = new SentRequestAsyncTask();
+
+			if ((false != myOnlineStatus)
+					&& (false == isSentGameRequestAccepted)) {
+				sentRequestAsyncTask.execute("Checking Sent Game Requests");
+			}
+		}
+	};
+
+	/**
+	 * rcvdRequestCheckRunnable
+	 */
+	private Runnable rcvdRequestCheckRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+			Log.d(TAG, "Running rcvdRequestHandler Runnable");
+
+			ReceivedRequstAsyncTask rcvdRequstAsyncTask = new ReceivedRequstAsyncTask();
+
+			if ((false != myOnlineStatus) && (false == isGameRequestReceived)) {
+				rcvdRequstAsyncTask.execute("Checking Received Game Requests");
+			}
+		}
+	};
+
+	/**
+	 * RealTimeGamePlayActivity onCreate
+	 * 
+	 * @param savedInstanceState
+	 *            {@link Bundle}
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_real_time_game_play);
 
+		appContext = getApplicationContext();
+
+		// Display the login user name
+		String loginUname = TwoPlayerWordGameProperties
+				.getGamePropertiesInstance().getLoginUsername();
+		TextView tvLoginUsername = (TextView) findViewById(R.id.tvLoggedInUsername);
+		tvLoginUsername.setText("User Logged In As: " + loginUname);
+
+		// Set properties
+		TwoPlayerWordGameProperties.getGamePropertiesInstance().setIsInvited(
+				false);
+		TwoPlayerWordGameProperties.getGamePropertiesInstance()
+				.setIsGameIdGenerated(false);
+
+		// No requests accepted to start with
+		isSentGameRequestAccepted = false;
+
+		// Handlers
+		handleReceivedGamePlayRequests();
+		handleSentGamePlayRequests();
 	}
-	
+
+	private void handleSentGamePlayRequests() {
+		sentRequestHandler = new Handler();
+
+		// Schedule Sent Requests Runnable every 1000 ms
+		sentRequestHandler.postDelayed(sentRequestCheckRunnable, 1000);
+	}
+
+	private void handleReceivedGamePlayRequests() {
+		rcvdRequestHandler = new Handler();
+
+		rcvdRequestHandler.postDelayed(rcvdRequestCheckRunnable, 2000);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		myOnlineStatus = false;
+
+		// Remove any pending posts of Runnabler that are in the message queue.
+		sentRequestHandler.removeCallbacks(sentRequestCheckRunnable);
+		rcvdRequestHandler.removeCallbacks(rcvdRequestCheckRunnable);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onStart();
+
+		myOnlineStatus = true;
+		isSentGameRequestAccepted = false;
+
+		// Set properties
+		TwoPlayerWordGameProperties.getGamePropertiesInstance().setIsInvited(
+				false);
+		TwoPlayerWordGameProperties.getGamePropertiesInstance()
+				.setIsGameIdGenerated(false);
+
+		// Handlers
+		handleReceivedGamePlayRequests();
+		handleSentGamePlayRequests();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+
+		// Log the user out and exit
+		new LogoutAsyncTask().execute("Logout");
+
+		// Remove any pending posts of Runnable that are in the message queue.
+		sentRequestHandler.removeCallbacks(sentRequestCheckRunnable);
+		rcvdRequestHandler.removeCallbacks(rcvdRequestCheckRunnable);
+
+		Toast.makeText(appContext, "User Logged Out.", Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// Log the user out and exit
+		new LogoutAsyncTask().execute("Logout");
+
+		// Remove any pending posts of Runnable that are in the message queue.
+		sentRequestHandler.removeCallbacks(sentRequestCheckRunnable);
+		rcvdRequestHandler.removeCallbacks(rcvdRequestCheckRunnable);
+	}
+
+	// TODO check
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		// Log the user out and exit
+		new LogoutAsyncTask().execute("Logout");
+
+		// Remove any pending posts of Runnable that are in the message queue.
+		sentRequestHandler.removeCallbacks(sentRequestCheckRunnable);
+		rcvdRequestHandler.removeCallbacks(rcvdRequestCheckRunnable);
+	}
+
 	/**
 	 * Display the real time two player game play instructions.
 	 * 
-	 * @param view {@link View}
+	 * @param view
+	 *            {@link View}
 	 * 
 	 * @return void
 	 */
 	public void instructionsClickHandler(View view) {
-		AlertDialog.Builder instructionsAlertBuilder = new AlertDialog.Builder(this);
-		
+		AlertDialog.Builder instructionsAlertBuilder = new AlertDialog.Builder(
+				this);
+
 		// Set title of the alert
 		instructionsAlertBuilder.setTitle("Instructions");
-		
+
 		// Set message of the alert.
-		instructionsAlertBuilder.setMessage(R.string.realTimeGamePlayInstructionsText);
-		
+		instructionsAlertBuilder
+				.setMessage(R.string.realTimeGamePlayInstructionsText);
+
 		// Create the AlertDialog Object
 		AlertDialog instructionsAlertDialog = instructionsAlertBuilder.create();
-		
+
 		// Display the Alert Dialog
 		instructionsAlertDialog.show();
 	}
@@ -109,52 +471,57 @@ public class RealTimeGamePlayActivity extends Activity {
 		// Log the user out and exit
 		new LogoutAsyncTask().execute("Logout");
 
-		Toast.makeText(getApplicationContext(), "User Logged Out",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(appContext, "User Logged Out", Toast.LENGTH_SHORT)
+				.show();
 		finish();
 	}
-	
+
 	/**
 	 * Invite other user to play
 	 * 
-	 * @param view {@link View}
+	 * @param view
+	 *            {@link View}
 	 * 
 	 * @return void
 	 */
 	public void inviteClickHandler(View view) {
 		AlertDialog.Builder inviteAlertBuilder = new AlertDialog.Builder(this);
-		
+
 		// Set title of the alert
 		inviteAlertBuilder.setTitle("Invite Another User");
-		
+
 		// Set the message of the alert
 		inviteAlertBuilder.setMessage("Enter the username of the opponent: ");
-		
+
 		// Initialize an EditText view to input the opponent username
 		final EditText etOpponentUsername = new EditText(this);
 		inviteAlertBuilder.setView(etOpponentUsername);
-		
-		// Set the positive button click listener
-		inviteAlertBuilder.setPositiveButton("Send Request", new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				String opponentUsername = etOpponentUsername.getText().toString();
-				// Do something with value!
-				new InviteAsyncTask().execute(opponentUsername);
-			}
-			
-		});
-		
+		// Set the positive button click listener
+		inviteAlertBuilder.setPositiveButton("Send Request",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String opponentUsername = etOpponentUsername.getText()
+								.toString();
+
+						// Start the invite async task
+						new InviteAsyncTask().execute(opponentUsername);
+					}
+
+				});
+
 		// Set the negative button click listener
-		inviteAlertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// Do Nothing
-			}
-		});
-		
+		inviteAlertBuilder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// Do Nothing
+					}
+				});
+
 		// Show the alert
 		inviteAlertBuilder.show();
 	}

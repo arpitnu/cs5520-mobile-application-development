@@ -7,9 +7,10 @@ public class TwoPlayerWordGameProperties {
 	 */
 	private String loginUsername;
 	private String loginUsernameKey;
-	private String inviterUsername;
-	private String inviteeUsername;
+	private String opponentUsername;
+	private String invitedByUsername;
 	private String gameId;
+	private Boolean isGameIdGenerated;
 	private int myScore;
 	private int opponentScore;
 	private Boolean isInvited;
@@ -45,22 +46,6 @@ public class TwoPlayerWordGameProperties {
 		this.loginUsernameKey = loginUsernameKey;
 	}
 
-	public String getInviterUsername() {
-		return inviterUsername;
-	}
-
-	public void setInviterUsername(String inviterUsername) {
-		this.inviterUsername = inviterUsername;
-	}
-
-	public String getInviteeUsername() {
-		return inviteeUsername;
-	}
-
-	public void setInviteeUsername(String inviteeUsername) {
-		this.inviteeUsername = inviteeUsername;
-	}
-
 	public String getGameId() {
 		return gameId;
 	}
@@ -91,6 +76,30 @@ public class TwoPlayerWordGameProperties {
 
 	public void setIsInvited(Boolean isInvited) {
 		this.isInvited = isInvited;
+	}
+
+	public String getOpponentUsername() {
+		return opponentUsername;
+	}
+
+	public void setOpponentUsername(String opponentUsername) {
+		this.opponentUsername = opponentUsername;
+	}
+
+	public String getInvitedByUsername() {
+		return invitedByUsername;
+	}
+
+	public void setInvitedByUsername(String invitedByUsername) {
+		this.invitedByUsername = invitedByUsername;
+	}
+
+	public Boolean getIsGameIdGenerated() {
+		return isGameIdGenerated;
+	}
+
+	public void setIsGameIdGenerated(Boolean isGameIdGenerated) {
+		this.isGameIdGenerated = isGameIdGenerated;
 	}
 	
 }
