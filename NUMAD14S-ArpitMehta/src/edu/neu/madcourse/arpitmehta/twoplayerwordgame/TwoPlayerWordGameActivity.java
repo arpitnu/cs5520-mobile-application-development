@@ -41,8 +41,8 @@ public class TwoPlayerWordGameActivity extends Activity {
 	 * @return void
 	 */
 	public void launchSyncGamePlayActivity(View view) {
-//		Intent syncGamePlayIntent = new Intent(this, SyncGamePlayActivity.class);
-//		startActivity(syncGamePlayIntent);
+		Intent syncGamePlayIntent = new Intent(this, SyncGamePlayActivity.class);
+		startActivity(syncGamePlayIntent);
 	}
 	
 	/**

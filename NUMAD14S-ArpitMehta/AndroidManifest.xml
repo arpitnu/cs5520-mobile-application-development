@@ -184,6 +184,15 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameAckActivity"
             android:label="@string/title_activity_two_player_word_game_ack"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.SyncGamePlayActivity"
+            android:label="@string/title_activity_sync_game_play"
             android:screenOrientation="portrait"
             android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" >
             <meta-data
