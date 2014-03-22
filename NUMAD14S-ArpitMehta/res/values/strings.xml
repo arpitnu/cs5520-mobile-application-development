@@ -146,5 +146,6 @@
 
     <!-- Two Player Word Game Strings -->
     <string name="title_activity_two_player_word_game">Two Player Word Game</string>
-
+	<string name="syncGamePlayBtnText">Synchronous Game Play</string>
+	<string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
 </resources>
