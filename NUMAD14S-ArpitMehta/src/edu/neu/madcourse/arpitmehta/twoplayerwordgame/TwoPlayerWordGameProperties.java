@@ -10,6 +10,9 @@ public class TwoPlayerWordGameProperties {
 	private String inviterUsername;
 	private String inviteeUsername;
 	private String gameId;
+	private int myScore;
+	private int opponentScore;
+	private Boolean isInvited;
 	
 	/**
 	 * Default Constructor
@@ -64,6 +67,30 @@ public class TwoPlayerWordGameProperties {
 
 	public void setGameId(String gameId) {
 		this.gameId = gameId;
+	}
+
+	public int getMyScore() {
+		return myScore;
+	}
+
+	public void setMyScore(int myScore) {
+		this.myScore = myScore;
+	}
+
+	public int getOpponentScore() {
+		return opponentScore;
+	}
+
+	public void setOpponentScore(int opponentScore) {
+		this.opponentScore = opponentScore;
+	}
+
+	public Boolean getIsInvited() {
+		return isInvited;
+	}
+
+	public void setIsInvited(Boolean isInvited) {
+		this.isInvited = isInvited;
 	}
 	
 }

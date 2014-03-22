@@ -152,6 +152,8 @@
     <string name="twoPlayerWordGameAckText">
         \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
         
+        \u2022 Custom Alert Dialogs: http://www.learn-android-easily.com/2013/07/android-custom-alertdialog-example.html \n\n
+        
         \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
         
         \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n</string>
