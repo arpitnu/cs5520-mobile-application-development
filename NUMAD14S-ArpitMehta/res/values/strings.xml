@@ -149,9 +149,20 @@
     <string name="syncGamePlayBtnText">Synchronous Game Play</string>
     <string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
     <string name="title_activity_two_player_word_game_ack">Acknowledgments</string>
-    <string name="twoPlayerWordGameAckText">        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
+    <string name="twoPlayerWordGameAckText">
+        \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
+        
+        \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
         
         \u2022 GCM Tutorial by Antonie Campbell: https://www.captechconsulting.com/blog/antoine-campbell/google-cloud-messaging-cloud-connection-server-tutorial \n\n</string>
     <string name="title_activity_sync_game_play">Synchronous Game Play</string>
+    <string name="title_activity_real_time_game_play">Two Player Word Game</string>
+    <string name="inviteBtnText">Invite</string>
+    <string name="gamePlayInstructionText">Instructions</string>
+    <string name="logoutBtnText">Logout</string>
+    <string name="realTimeGamePlayInstructionsText">
+        Click on \"Invite\" button. Enter the username of the other player you want to invite. If the other user is also logged 
+        in, he/she will notice a dialog popup with the options to either accept or decline you request.
+    </string>
 
 </resources>

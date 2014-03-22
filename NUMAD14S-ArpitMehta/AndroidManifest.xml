@@ -193,11 +193,20 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.SyncGamePlayActivity"
             android:label="@string/title_activity_sync_game_play"
-            android:screenOrientation="portrait"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.RealTimeGamePlayActivity"
+            android:label="@string/title_activity_real_time_game_play"
+            android:screenOrientation="portrait"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.SyncGamePlayActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.SyncGamePlayActivity" />
         </activity>
     </application>
 
