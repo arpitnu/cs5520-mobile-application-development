@@ -53,8 +53,8 @@ public class TwoPlayerWordGameActivity extends Activity {
 	 * @return void
 	 */
 	public void launchAsyncGamePlayActivity(View view) {
-//		Intent asyncGamePlayIntent = new Intent(this, AsyncGamePlayActivity.class);
-//		startActivity(asyncGamePlayIntent);
+		Intent asyncGamePlayIntent = new Intent(this, AsyncGamePlayActivity.class);
+		startActivity(asyncGamePlayIntent);
 	}
 	
 	/**

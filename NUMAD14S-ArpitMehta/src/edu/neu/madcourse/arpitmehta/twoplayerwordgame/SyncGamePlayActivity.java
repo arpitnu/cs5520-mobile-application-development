@@ -38,7 +38,7 @@ public class SyncGamePlayActivity extends Activity {
 	}
 
 	/**
-	 * Exit Login
+	 * Exit Login Screen
 	 * 
 	 * @param view
 	 *            {@link View}

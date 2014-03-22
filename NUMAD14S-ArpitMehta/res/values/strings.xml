@@ -149,8 +149,7 @@
     <string name="syncGamePlayBtnText">Synchronous Game Play</string>
     <string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
     <string name="title_activity_two_player_word_game_ack">Acknowledgments</string>
-    <string name="twoPlayerWordGameAckText">
-        \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
+    <string name="twoPlayerWordGameAckText">        \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
         
         \u2022 Custom Alert Dialogs: http://www.learn-android-easily.com/2013/07/android-custom-alertdialog-example.html \n\n
         
@@ -162,9 +161,8 @@
     <string name="inviteBtnText">Invite</string>
     <string name="gamePlayInstructionText">Instructions</string>
     <string name="logoutBtnText">Logout</string>
-    <string name="realTimeGamePlayInstructionsText">
-        Click on \"Invite\" button. Enter the username of the other player you want to invite. If the other user is also logged 
-        in, he/she will notice a dialog popup with the options to either accept or decline you request.
-    </string>
+    <string name="realTimeGamePlayInstructionsText">        Click on \"Invite\" button. Enter the username of the other player you want to invite. If the other user is also logged 
+        in, he/she will notice a dialog popup with the options to either accept or decline you request.</string>
+    <string name="title_activity_async_game_play">Turn Base Game Play</string>
 
 </resources>
