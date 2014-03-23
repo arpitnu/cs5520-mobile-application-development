@@ -39,6 +39,12 @@ public class SyncGamePlayActivity extends Activity {
 		pb = (ProgressBar) findViewById(R.id.loginProgressBar);
 		pb.setProgress(0);
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		etUsername.setText("");
+	}
 
 	/**
 	 * Exit Login Screen

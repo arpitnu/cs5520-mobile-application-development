@@ -59,6 +59,11 @@ public class AsyncGamePlayActivity extends Activity {
 	 * The Toast to display messages
 	 */
 	Toast toast;
+	
+	/**
+	 * The EditText UI element to read the user name
+	 */
+	EditText etUsername;
 
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	public static final String PROPERTY_REG_ID = "registration_id";
@@ -70,6 +75,8 @@ public class AsyncGamePlayActivity extends Activity {
 		setContentView(R.layout.activity_async_game_play);
 
 		context = getApplicationContext();
+		etUsername = (EditText) findViewById(R.id.etTbUsername);
+		etUsername.setText("");
 
 		// Set opponent username as null to begin with
 		TwoPlayerWordGameProperties.getGamePropertiesInstance()
@@ -91,6 +98,7 @@ public class AsyncGamePlayActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		etUsername.setText("");
 		checkPlayServices();
 	}
 
@@ -134,7 +142,7 @@ public class AsyncGamePlayActivity extends Activity {
 	 *            {@link View}
 	 */
 	public void quitLogin(View view) {
-//		unregister();
+		unregister();
 		finish();
 	}
 

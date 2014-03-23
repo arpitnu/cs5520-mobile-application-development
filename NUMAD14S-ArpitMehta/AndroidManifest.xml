@@ -220,11 +220,29 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TurnBasedGamePlayActivity"
             android:label="@string/title_activity_turn_based_game_play"
-            android:screenOrientation="portrait"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.AsyncGamePlayActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.AsyncGamePlayActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />
+        </activity>
+        <!--
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerGameLoginActivity"
+            android:label="@string/title_activity_two_player_game_login"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
+        </activity>
+        -->
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.ShakeDetectActivity"
+            android:label="@string/title_activity_shake_detect"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
         </activity>
     </application>
 

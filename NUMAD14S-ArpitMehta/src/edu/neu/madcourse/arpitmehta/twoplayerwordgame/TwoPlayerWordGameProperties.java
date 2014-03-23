@@ -32,7 +32,7 @@ public class TwoPlayerWordGameProperties {
 	/**
 	 * The Puzzle
 	 */
-	private String puzzle = "";
+	private String puzzle = "HAPPYNGREATERHKITCHENMONEYRBURGERS";
 	
 	/**
 	 * Default Constructor

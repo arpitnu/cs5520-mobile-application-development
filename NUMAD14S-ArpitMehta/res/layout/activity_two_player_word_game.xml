@@ -26,12 +26,21 @@
         android:layout_centerHorizontal="true"
         android:onClick="launchAsyncGamePlayActivity"
         android:text="@string/asyncGamePlayBtnText" />
+    
+    <Button
+        android:id="@+id/shakeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asyncGamePlayBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="handleShake"
+        android:text="@string/shakeBtnText" />
 
     <Button
         android:id="@+id/twoPlayerWordGameAckBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/asyncGamePlayBtn"
+        android:layout_below="@+id/shakeBtn"
         android:layout_centerHorizontal="true"
         android:onClick="launchTwoPlayerWordGameAckActivity"
         android:text="@string/ackButtonText" />

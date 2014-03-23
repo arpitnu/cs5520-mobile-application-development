@@ -79,5 +79,17 @@ public class TwoPlayerWordGameActivity extends Activity {
 	public void quitTwoPlayerWordGame(View view) {
 		finish();
 	}
+	
+	/**
+	 * Function handle phone shake
+	 * 
+	 * @param view {@link View}
+	 * 
+	 * @return void
+	 */
+	public void handleShake(View view) {
+		Intent shakeDetectIntent = new Intent(this, ShakeDetectActivity.class);
+		startActivity(shakeDetectIntent);
+	}
 
 }

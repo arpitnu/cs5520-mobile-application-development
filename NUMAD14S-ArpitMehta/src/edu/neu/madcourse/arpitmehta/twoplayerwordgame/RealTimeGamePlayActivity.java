@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -152,7 +153,7 @@ public class RealTimeGamePlayActivity extends Activity {
 		}
 	}
 
-	private static class SentRequestAsyncTask extends
+	private class SentRequestAsyncTask extends
 			AsyncTask<String, Integer, Integer> {
 
 		@Override
@@ -170,10 +171,10 @@ public class RealTimeGamePlayActivity extends Activity {
 
 			case 1:
 				// Sent request accepted by opponent
-				// TODO
-				// Intent realTimeWordGameIntent = new
-				// Intent(RealTimeGamePlayActivity.this,
-				// RealTimeWordGame.class);
+				Intent realTimeWordGameIntent = new Intent(
+						RealTimeGamePlayActivity.this,
+						RealTimeWordGameActivity.class);
+				startActivity(realTimeWordGameIntent);
 				break;
 
 			default:
@@ -264,7 +265,6 @@ public class RealTimeGamePlayActivity extends Activity {
 
 			case 1:
 				if (false != isGameRequestReceived) {
-					// TODO for testing
 					// Toast.makeText(getApplicationContext(),
 					// "Game Request Received", Toast.LENGTH_SHORT).show();
 
@@ -355,8 +355,7 @@ public class RealTimeGamePlayActivity extends Activity {
 							// Error
 							returnVal = 2;
 						}
-					}
-					else {
+					} else {
 						returnVal = -1;
 					}
 				} else {
@@ -566,7 +565,8 @@ public class RealTimeGamePlayActivity extends Activity {
 
 			if ((false != myOnlineStatus) && (false == isGameRequestReceived)) {
 				try {
-					rcvdRequstAsyncTask.execute("Checking Received Game Requests");
+					rcvdRequstAsyncTask
+							.execute("Checking Received Game Requests");
 				} catch (IllegalStateException e) {
 					Log.d(TAG, "IllegalStateException: " + e.getMessage());
 					e.printStackTrace();
@@ -682,7 +682,6 @@ public class RealTimeGamePlayActivity extends Activity {
 		rcvdRequestHandler.removeCallbacks(rcvdRequestCheckRunnable);
 	}
 
-	// TODO check
 	@Override
 	protected void onStop() {
 		super.onStop();
