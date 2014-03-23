@@ -184,7 +184,7 @@ public class RealTimeGamePlayActivity extends Activity {
 
 		@Override
 		protected Integer doInBackground(String... params) {
-			Integer returnVal = null;
+			Integer returnVal;
 
 			if (false == isSentGameRequestAccepted) {
 				if (KeyValueAPI.isServerAvailable()) {
@@ -356,6 +356,9 @@ public class RealTimeGamePlayActivity extends Activity {
 							returnVal = 2;
 						}
 					}
+					else {
+						returnVal = -1;
+					}
 				} else {
 					// Server Unavailable
 					returnVal = 3;
@@ -504,12 +507,12 @@ public class RealTimeGamePlayActivity extends Activity {
 	/**
 	 * Flag indicates if a sent game play request is accepted by opponent
 	 */
-	static Boolean isSentGameRequestAccepted;
+	static Boolean isSentGameRequestAccepted = false;
 
 	/**
 	 * Flag to indicate if the logged in user has accepted an opponent's request
 	 */
-	static Boolean isGameRequestReceived;
+	static Boolean isGameRequestReceived = false;
 
 	/**
 	 * Flag to indicate my online status (i.e, if the RealTimeGamePlayActivity
@@ -562,7 +565,12 @@ public class RealTimeGamePlayActivity extends Activity {
 			ReceivedRequstAsyncTask rcvdRequstAsyncTask = new ReceivedRequstAsyncTask();
 
 			if ((false != myOnlineStatus) && (false == isGameRequestReceived)) {
-				rcvdRequstAsyncTask.execute("Checking Received Game Requests");
+				try {
+					rcvdRequstAsyncTask.execute("Checking Received Game Requests");
+				} catch (IllegalStateException e) {
+					Log.d(TAG, "IllegalStateException: " + e.getMessage());
+					e.printStackTrace();
+				}
 			}
 		}
 	};

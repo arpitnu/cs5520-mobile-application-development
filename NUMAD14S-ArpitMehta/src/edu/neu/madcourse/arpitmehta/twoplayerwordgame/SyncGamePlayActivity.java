@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -22,6 +23,8 @@ public class SyncGamePlayActivity extends Activity {
 	 * The EditText UI element to read the user name
 	 */
 	EditText etUsername;
+
+	private static final String TAG = "SyncGamePlayActivity";
 
 	public enum SERVER_RESPONSE {
 		USERNAME_REGISTERED, USERNAME_REQUIRED, USERNAME_EXISTS, SERVER_UNAVAILABLE
@@ -56,6 +59,8 @@ public class SyncGamePlayActivity extends Activity {
 	 * @return void
 	 */
 	public void loginButtonClickHandler(View view) {
+		Log.d(TAG, "Launching login async task");
+
 		// Begin the user login async task
 		new AsyncTask<String, Integer, Integer>() {
 
@@ -106,16 +111,21 @@ public class SyncGamePlayActivity extends Activity {
 				String uname = etUsername.getText().toString();
 				boolean unameExists = false;
 				int loggedInUserCnt = 1;
-				Integer retValue = 0;
+				Integer returnValue = 0;
 				String loggedInUser = null;
 
 				if (KeyValueAPI.isServerAvailable()) {
 					// Check if the user is already logged in
-					loggedInUser = KeyValueAPI.get(
+					// loggedInUser = KeyValueAPI.get(
+					// TwoPlayerWordGameConstants.getTeamName(),
+					// TwoPlayerWordGameConstants.getPassword(), "User: "
+					// + Integer.toString(loggedInUserCnt));
+
+					while (!(loggedInUser = KeyValueAPI.get(
 							TwoPlayerWordGameConstants.getTeamName(),
 							TwoPlayerWordGameConstants.getPassword(), "User: "
-									+ Integer.toString(loggedInUserCnt));
-					while (!loggedInUser.equals("Error: No Such Key")) {
+									+ Integer.toString(loggedInUserCnt)))
+							.equals("Error: No Such Key")) {
 						if (uname.equals(loggedInUser)) {
 							unameExists = true;
 						}
@@ -123,11 +133,13 @@ public class SyncGamePlayActivity extends Activity {
 						loggedInUserCnt++;
 					}
 				} else {
-					retValue = 3;
+					returnValue = 3;
 				}
 
 				if (false == unameExists) {
 					if (uname != "") {
+						Log.d(TAG, "User not logged in");
+
 						// Put the user name in the KeyValueAPI mHealth server
 						KeyValueAPI.put(
 								TwoPlayerWordGameConstants.getTeamName(),
@@ -142,15 +154,17 @@ public class SyncGamePlayActivity extends Activity {
 										"User: "
 												+ Integer
 														.toString(loggedInUserCnt));
-						retValue = 0;
+						returnValue = 0;
 					} else {
-						retValue = 1;
+						returnValue = 1;
 					}
 				} else {
-					retValue = 2;
+					returnValue = 2;
 				}
-
-				return retValue;
+				
+				// TODO
+				Log.d(TAG, "Login return val: " + returnValue);
+				return returnValue;
 			}
 
 		}.execute("log in");

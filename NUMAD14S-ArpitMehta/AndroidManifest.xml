@@ -211,8 +211,17 @@
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.AsyncGamePlayActivity"
             android:label="@string/title_activity_async_game_play"
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TurnBasedGamePlayActivity"
+            android:label="@string/title_activity_turn_based_game_play"
             android:screenOrientation="portrait"
-            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" >
+            android:parentActivityName="edu.neu.madcourse.arpitmehta.twoplayerwordgame.AsyncGamePlayActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity" />

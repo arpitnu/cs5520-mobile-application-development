@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -69,6 +70,10 @@ public class AsyncGamePlayActivity extends Activity {
 		setContentView(R.layout.activity_async_game_play);
 
 		context = getApplicationContext();
+
+		// Set opponent username as null to begin with
+		TwoPlayerWordGameProperties.getGamePropertiesInstance()
+				.setTbOpponentUsername(null);
 	}
 
 	@Override
@@ -129,6 +134,7 @@ public class AsyncGamePlayActivity extends Activity {
 	 *            {@link View}
 	 */
 	public void quitLogin(View view) {
+//		unregister();
 		finish();
 	}
 
@@ -151,6 +157,69 @@ public class AsyncGamePlayActivity extends Activity {
 			Toast.makeText(context, "No valid Google Play Services APK found.",
 					Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void unregister() {
+		// Log
+		Log.d(CommunicationConstants.TAG, "UNREGISTER USERID: " + regId);
+
+		new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(Void... params) {
+				String msg = "";
+				try {
+					msg = "Username Logout Sent";
+					KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(),
+							"alertText", "Logout Notification");
+
+					KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(),
+							"titleText", "Logout");
+
+					KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(),
+							TwoPlayerWordGameConstants.getPassword(),
+							"contentText", "Logout Successful!");
+
+					KeyValueAPI.clearKey(TwoPlayerWordGameConstants
+							.getTeamName(), TwoPlayerWordGameConstants
+							.getPassword(), TwoPlayerWordGameProperties
+							.getGamePropertiesInstance().getTbLoginUsername()
+							+ "regId");
+
+					gcm.unregister();
+				} catch (IOException ex) {
+					msg = "Error :" + ex.getMessage();
+				}
+				return msg;
+			}
+
+			@Override
+			protected void onPostExecute(String msg) {
+				removeRegistrationId(getApplicationContext());
+				toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		}.execute();
+	}
+
+	/**
+	 * Removes the registration id from shared preferences.
+	 * 
+	 * @param context
+	 *            {@link Context}
+	 * 
+	 * @return void
+	 */
+	private void removeRegistrationId(Context context) {
+		final SharedPreferences prefs = getGCMPreferences(context);
+		int appVersion = getAppVersion(context);
+		Log.i(CommunicationConstants.TAG, "Removig regId on app version "
+				+ appVersion);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.remove(PROPERTY_REG_ID);
+		editor.commit();
+		regId = null;
 	}
 
 	/**
@@ -184,20 +253,25 @@ public class AsyncGamePlayActivity extends Activity {
 
 					regId = gcm.register(CommunicationConstants.GCM_SENDER_ID);
 
-//					int cnt = 0;
+					// int cnt = 0;
 
-					if (KeyValueAPI.isServerAvailable()) {						
-						String loginUname = ((EditText)findViewById(R.id.etTbUsername)).getText().toString();
-						
-						if(!loginUname.equals("")) {
+					if (KeyValueAPI.isServerAvailable()) {
+						String loginUname = ((EditText) findViewById(R.id.etTbUsername))
+								.getText().toString();
+
+						if (!loginUname.equals("")) {
 							// Put the reg id in KeyValueAPI
-							KeyValueAPI.put(TwoPlayerWordGameConstants.getTeamName(), TwoPlayerWordGameConstants.getPassword(), loginUname + "regId", regId);
-							
-							TwoPlayerWordGameProperties.getGamePropertiesInstance().setTbLoginUsername(loginUname);
-							
+							KeyValueAPI.put(
+									TwoPlayerWordGameConstants.getTeamName(),
+									TwoPlayerWordGameConstants.getPassword(),
+									loginUname + "regId", regId);
+
+							TwoPlayerWordGameProperties
+									.getGamePropertiesInstance()
+									.setTbLoginUsername(loginUname);
+
 							msg = "User Logged In";
-						}
-						else {
+						} else {
 							msg = "Enter Username";
 						}
 
@@ -229,10 +303,15 @@ public class AsyncGamePlayActivity extends Activity {
 			protected void onPostExecute(String msg) {
 				toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
 				toast.show();
+				
+				if(msg.equals("User Logged In")) {
+					Intent tunBasedGamePlayIntent = new Intent(AsyncGamePlayActivity.this, TurnBasedGamePlayActivity.class);
+					startActivity(tunBasedGamePlayIntent);
+				}
 			}
 		}.execute(null, null, null);
 	}
-	
+
 	/**
 	 * Stores the registration ID and app versionCode in the application's
 	 * {@code SharedPreferences}.
@@ -254,7 +333,7 @@ public class AsyncGamePlayActivity extends Activity {
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
 		editor.commit();
 	}
-	
+
 	/**
 	 * Sends the registration ID to your server over HTTP, so it can use
 	 * GCM/HTTP or CCS to send messages to your app. Not needed for this demo

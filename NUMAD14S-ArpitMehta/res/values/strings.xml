@@ -164,5 +164,11 @@
     <string name="realTimeGamePlayInstructionsText">        Click on \"Invite\" button. Enter the username of the other player you want to invite. If the other user is also logged 
         in, he/she will notice a dialog popup with the options to either accept or decline you request.</string>
     <string name="title_activity_async_game_play">Turn Base Game Play</string>
+    <string name="title_activity_turn_based_game_play">Turn Based Game Play</string>
+    <string name="turnBasedGamePlayInstructionsText">
+		In the turn-based game play, once you invite another user to play, he/she will recieve a notification, 
+		if they are logged in. On clicking the notification, they can start the game play. You will be able 
+		to begin your game play only when he/she accepts the invitation.	
+	</string>
 
 </resources>
