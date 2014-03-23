@@ -16,12 +16,36 @@ public class TwoPlayerWordGameProperties {
 	private Boolean isInvited;
 	
 	/**
+	 * Async Game Play Properties
+	 */
+	private String tbLoginUsername;
+	private String tbOpponentUsername;
+	private String tbInvitedByUsername;
+	private String tbGameId;
+	private Boolean isTbGameIdGenerated;
+	private int myTbScore;
+	private int opponentTbScore;
+	private Boolean isInvitedTb;
+	private int numMovesLeft;
+	private Boolean isTbGameOver;
+	
+	/**
+	 * The Puzzle
+	 */
+	private String puzzle = "";
+	
+	/**
 	 * Default Constructor
 	 */
 	protected TwoPlayerWordGameProperties() {
 		
 	}
 	
+	/**
+	 * Returns a synchronized TwoPlayerWordGameProperties object
+	 * 
+	 * @return gameProperties synchronized {@link TwoPlayerWordGameProperties} 
+	 */
 	public static synchronized TwoPlayerWordGameProperties getGamePropertiesInstance() {
 		if(null == gameProperties) {
 			gameProperties = new TwoPlayerWordGameProperties();
@@ -29,6 +53,10 @@ public class TwoPlayerWordGameProperties {
 		
 		return gameProperties;
 	}
+	
+	/**
+	 * Getter & Setter Functions
+	 */
 
 	public String getLoginUsername() {
 		return loginUsername;
@@ -100,6 +128,94 @@ public class TwoPlayerWordGameProperties {
 
 	public void setIsGameIdGenerated(Boolean isGameIdGenerated) {
 		this.isGameIdGenerated = isGameIdGenerated;
+	}
+
+	public String getTbLoginUsername() {
+		return tbLoginUsername;
+	}
+
+	public void setTbLoginUsername(String tbLoginUsername) {
+		this.tbLoginUsername = tbLoginUsername;
+	}
+
+	public String getTbOpponentUsername() {
+		return tbOpponentUsername;
+	}
+
+	public void setTbOpponentUsername(String tbOpponentUsername) {
+		this.tbOpponentUsername = tbOpponentUsername;
+	}
+
+	public String getTbInvitedByUsername() {
+		return tbInvitedByUsername;
+	}
+
+	public void setTbInvitedByUsername(String tbInvitedByUsername) {
+		this.tbInvitedByUsername = tbInvitedByUsername;
+	}
+
+	public String getTbGameId() {
+		return tbGameId;
+	}
+
+	public void setTbGameId(String tbGameId) {
+		this.tbGameId = tbGameId;
+	}
+
+	public Boolean getIsTbGameIdGenerated() {
+		return isTbGameIdGenerated;
+	}
+
+	public void setIsTbGameIdGenerated(Boolean isTbGameIdGenerated) {
+		this.isTbGameIdGenerated = isTbGameIdGenerated;
+	}
+
+	public int getMyTbScore() {
+		return myTbScore;
+	}
+
+	public void setMyTbScore(int myTbScore) {
+		this.myTbScore = myTbScore;
+	}
+
+	public int getOpponentTbScore() {
+		return opponentTbScore;
+	}
+
+	public void setOpponentTbScore(int opponentTbScore) {
+		this.opponentTbScore = opponentTbScore;
+	}
+
+	public Boolean getIsInvitedTb() {
+		return isInvitedTb;
+	}
+
+	public void setIsInvitedTb(Boolean isInvitedTb) {
+		this.isInvitedTb = isInvitedTb;
+	}
+
+	public int getNumMovesLeft() {
+		return numMovesLeft;
+	}
+
+	public void setNumMovesLeft(int numMovesLeft) {
+		this.numMovesLeft = numMovesLeft;
+	}
+
+	public Boolean getIsTbGameOver() {
+		return isTbGameOver;
+	}
+
+	public void setIsTbGameOver(Boolean isTbGameOver) {
+		this.isTbGameOver = isTbGameOver;
+	}
+
+	public String getPuzzle() {
+		return puzzle;
+	}
+
+	public void setPuzzle(String puzzle) {
+		this.puzzle = puzzle;
 	}
 	
 }
