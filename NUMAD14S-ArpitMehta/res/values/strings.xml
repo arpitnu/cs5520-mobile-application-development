@@ -149,9 +149,13 @@
     <string name="syncGamePlayBtnText">Synchronous Game Play</string>
     <string name="asyncGamePlayBtnText">Asynchronous Game Play</string>
     <string name="title_activity_two_player_word_game_ack">Acknowledgments</string>
-    <string name="twoPlayerWordGameAckText">        \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
+    <string name="twoPlayerWordGameAckText">        
+        \u2022 Android Background Processing: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html \n\n
         
         \u2022 Custom Alert Dialogs: http://www.learn-android-easily.com/2013/07/android-custom-alertdialog-example.html \n\n
+        
+        \u2022 Referred to the following link for implementing the accelerometer based shake detection: 
+               http://stackoverflow.com/questions/2317428/android-i-want-to-shake-it \n\n
         
         \u2022 GCM Android Developers Tutorial: http://developer.android.com/google/gcm/index.html \n\n
         

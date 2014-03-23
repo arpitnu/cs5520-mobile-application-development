@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class ShakeDetectActivity extends Activity {
 	
@@ -28,6 +29,8 @@ public class ShakeDetectActivity extends Activity {
      * The Accelerometer Sensor
      */
     private Sensor accelerometer;
+
+	private final String TAG = "ShakeDetectActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +57,20 @@ public class ShakeDetectActivity extends Activity {
 	
 	protected void startRandomGamePlayMode() {
 		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		
+		// Add the Sync & Async game play activities to the list
     	classes.add(SyncGamePlayActivity.class);
     	classes.add(AsyncGamePlayActivity.class);
-    	Random r = new Random();
-		int randomNumber = r.nextInt(2);
+    	
+    	Random random = new Random();
+		int randomNumber = random.nextInt(2);
+		
+		Log.d(TAG , Integer.toString(randomNumber));
+		
+		// Create an intent based on random activity.
     	Intent i = new Intent(this, classes.get(randomNumber));
+    	
+    	// Start the activity
     	startActivity(i);
 	}
 
