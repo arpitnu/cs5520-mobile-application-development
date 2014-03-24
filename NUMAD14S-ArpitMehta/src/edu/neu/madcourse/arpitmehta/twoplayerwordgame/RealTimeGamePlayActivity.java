@@ -213,6 +213,7 @@ public class RealTimeGamePlayActivity extends Activity {
 						// Set sent request accepted flag
 						isSentGameRequestAccepted = true;
 
+						// Indicate that i'm on game screen to begin playing
 						KeyValueAPI.put(TwoPlayerWordGameConstants
 								.getTeamName(), TwoPlayerWordGameConstants
 								.getPassword(), TwoPlayerWordGameProperties
@@ -421,7 +422,10 @@ public class RealTimeGamePlayActivity extends Activity {
 
 			@Override
 			protected void onPostExecute(Integer result) {
-
+				if (result == 1) {
+					Toast.makeText(getApplicationContext(),
+							"Server Unavailable!", Toast.LENGTH_SHORT).show();
+				}
 			}
 
 			@Override

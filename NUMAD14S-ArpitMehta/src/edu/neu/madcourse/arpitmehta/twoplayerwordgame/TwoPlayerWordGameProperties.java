@@ -14,6 +14,7 @@ public class TwoPlayerWordGameProperties {
 	private int myScore;
 	private int opponentScore;
 	private Boolean isInvited;
+	private Boolean isBoardUpdated;
 	
 	/**
 	 * Async Game Play Properties
@@ -216,6 +217,14 @@ public class TwoPlayerWordGameProperties {
 
 	public void setPuzzle(String puzzle) {
 		this.puzzle = puzzle;
+	}
+
+	public Boolean getIsBoardUpdated() {
+		return isBoardUpdated;
+	}
+
+	public void setIsBoardUpdated(Boolean isBoardUpdated) {
+		this.isBoardUpdated = isBoardUpdated;
 	}
 	
 }
