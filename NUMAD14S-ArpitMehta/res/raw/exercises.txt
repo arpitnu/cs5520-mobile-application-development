@@ -1,0 +1,5 @@
+BenchPress
+Squats
+SkullCrusher
+DeadLift
+DumbellCurl

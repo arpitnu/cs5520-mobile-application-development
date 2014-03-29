@@ -10,7 +10,7 @@ public class TwoPlayerGameLoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_two_player_game_login);
+//		setContentView(R.layout.activity_two_player_game_login);
 		// Show the Up button in the action bar.
 //		setupActionBar();
 	}

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import edu.neu.madcourse.arpitmehta.R;
-import edu.neu.madcourse.rajatmalhotra.wordgamemultiplayer.WordGameTP.UpdatePuzzleAndScoreTask;
 import edu.neu.mhealth.api.KeyValueAPI;
 
 import android.app.Activity;

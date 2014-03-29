@@ -5,6 +5,7 @@ import edu.neu.madcourse.arpitmehta.dictionary.DictionaryActivity;
 import edu.neu.madcourse.arpitmehta.sudoku.Sudoku;
 import edu.neu.madcourse.arpitmehta.twoplayerwordgame.TwoPlayerWordGameActivity;
 import edu.neu.madcourse.arpitmehta.wordgame.WordGameActivity;
+import edu.neu.madcourse.rajatmalhotra.trickiestpart.MultiTurnExerciseDialogActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -116,6 +117,11 @@ public class MainActivity extends Activity {
 	public void communicate(View view) {
 		Intent commIntent = new Intent(this, CommunicationActivity.class);
 		startActivity(commIntent);
+	}
+	
+	public void handleTrickiestPartBtnClick(View view) {
+		Intent trickiestPartIntent = new Intent(this, MultiTurnExerciseDialogActivity.class);
+		startActivity(trickiestPartIntent);
 	}
 
 	/**

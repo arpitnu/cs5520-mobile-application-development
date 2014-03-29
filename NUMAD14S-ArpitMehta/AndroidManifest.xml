@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.arpitmehta"
-    android:versionCode="12"
-    android:versionName="1.5.1" >
+    android:versionCode="13"
+    android:versionName="1.5.2" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -234,7 +234,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
-        </activity>
+        </activity>
         -->
         <activity
             android:name="edu.neu.madcourse.arpitmehta.twoplayerwordgame.ShakeDetectActivity"
@@ -243,6 +243,32 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.neu.madcourse.arpitmehta.MainActivity" />
+        </activity>
+
+        <!-- Trickiest Part Activities -->
+        <activity
+            android:name="edu.neu.madcourse.rajatmalhotra.trickiestpart.TrickiestPart"
+            android:label="@string/title_activity_trickiest_part"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.rajatmalhotra.trickiestpart.ManualInput"
+            android:label="@string/title_activity_manual_input"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.rajatmalhotra.trickiestpart.WorkoutToday"
+            android:label="@string/title_activity_workout_today"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.rajatmalhotra.trickiestpart.WorkoutEntries"
+            android:label="@string/title_activity_workout_entries" >
+        </activity>
+        <activity
+            android:name="edu.neu.madcourse.rajatmalhotra.trickiestpart.MultiTurnExerciseDialogActivity"
+            android:label="@string/title_activity_workout_today"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -178,5 +178,38 @@
     <string name="shakeBtnText">Shake it up!</string>
     <string name="title_activity_shake_detect">Shake It Up!</string>
     <string name="shakeText">Shake to phone to randomly choose real-time or turn-based game play.</string>
+    
+    <!-- Trickiest Part strings -->
+
+    <string name="trickiest_part">Trickiest Part</string>
+    <string name="title_activity_trickiest_part">Trickiest Part</string>
+    <string name="btSpeak">Speak</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_voice_recognition">Voice Recognition</string>
+    <string name="tvTextMatches">Text Matches</string>
+    <string name="sNoOfMatches">No of Matches</string>
+    <string name="etSearchHint">Speech hint here</string>
+
+    <string-array name="saNoOfMatches">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string name="title_activity_manual_input">Exercise Details</string>
+    <string name="title_activity_workout_today">Add Workout</string>
+    <string name="title_activity_workout_entries">Workout Details</string>
+    <string name="title_activity_speech_activation">Speech Activation</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="btnBeginWorkout">Begin Workout</string>
+    <string name="loadingText">Loading...</string>
+    <string name="addManuallyText">Add Manually</string>
 
 </resources>

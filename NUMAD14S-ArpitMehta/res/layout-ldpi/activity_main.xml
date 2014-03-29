@@ -53,6 +53,11 @@
         </TableRow>
         
         <TableRow>
+            
+            <Button
+                android:id="@+id/trickiestPartButton"
+                android:onClick="handleTrickiestPartBtnClick"
+                android:text="@string/trickiest_part" />
 
             <Button
                 android:id="@+id/quitButton"
