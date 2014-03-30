@@ -15,6 +15,7 @@ public class TwoPlayerWordGameProperties {
 	private int opponentScore;
 	private Boolean isInvited;
 	private Boolean isBoardUpdated;
+	private Boolean isHintEnabled = false;
 	
 	/**
 	 * Async Game Play Properties
@@ -225,6 +226,14 @@ public class TwoPlayerWordGameProperties {
 
 	public void setIsBoardUpdated(Boolean isBoardUpdated) {
 		this.isBoardUpdated = isBoardUpdated;
+	}
+
+	public Boolean getIsHintEnabled() {
+		return isHintEnabled;
+	}
+
+	public void setIsHintEnabled(Boolean isHintEnabled) {
+		this.isHintEnabled = isHintEnabled;
 	}
 	
 }
