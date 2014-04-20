@@ -81,12 +81,21 @@
         android:layout_centerHorizontal="true"
         android:onClick="handleTrickiestPartBtnClick"
         android:text="@string/trickiest_part" />
+    
+    <Button
+        android:id="@+id/finalProjectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trickiestPartButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="handleFinalProjectClick"
+        android:text="@string/final_project_text" />
 
     <Button
         android:id="@+id/quitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/trickiestPartButton"
+        android:layout_below="@+id/finalProjectButton"
         android:layout_centerHorizontal="true"
         android:onClick="quitApplication"
         android:text="@string/quitBtnText" />

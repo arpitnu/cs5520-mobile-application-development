@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		 setTitle(R.string.myName);
+		setTitle(R.string.myName);
 	}
 
 	@Override
@@ -89,8 +90,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * launchWordGame 
-	 * 		Start New Word Game Activity
+	 * launchWordGame Start New Word Game Activity
 	 * 
 	 * @param view
 	 * 
@@ -100,15 +100,15 @@ public class MainActivity extends Activity {
 		Intent wordGameIntent = new Intent(this, WordGameActivity.class);
 		startActivity(wordGameIntent);
 	}
-	
+
 	public void launchTwoPlayerWordGame(View view) {
-		Intent twoPlayerGameIntent = new Intent(this, TwoPlayerWordGameActivity.class);
+		Intent twoPlayerGameIntent = new Intent(this,
+				TwoPlayerWordGameActivity.class);
 		startActivity(twoPlayerGameIntent);
 	}
-	
+
 	/**
-	 * communicate 
-	 * 		Start New Communication Activity
+	 * communicate Start New Communication Activity
 	 * 
 	 * @param view
 	 * 
@@ -118,10 +118,28 @@ public class MainActivity extends Activity {
 		Intent commIntent = new Intent(this, CommunicationActivity.class);
 		startActivity(commIntent);
 	}
-	
+
 	public void handleTrickiestPartBtnClick(View view) {
-		Intent trickiestPartIntent = new Intent(this, MultiTurnExerciseDialogActivity.class);
+		Intent trickiestPartIntent = new Intent(this,
+				MultiTurnExerciseDialogActivity.class);
 		startActivity(trickiestPartIntent);
+	}
+
+	public void handleFinalProjectClick(View view) {
+		Intent finalProjectIntent = new Intent();
+		finalProjectIntent.setAction("edu.neu.madcourse.rajatmalhotra.finalproject.ProjectDescriptionActivity.LAUNCH_ME");
+
+		String title = getResources().getString(
+				R.string.title_activity_project_description);
+		Intent chooser = Intent.createChooser(finalProjectIntent, title);
+
+		if (finalProjectIntent.resolveActivity(getPackageManager()) != null) {
+			startActivity(chooser);
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"Please install Rajat Malhotra's app", Toast.LENGTH_SHORT)
+					.show();
+		}
 	}
 
 	/**

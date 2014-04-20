@@ -211,5 +211,9 @@
     <string name="btnBeginWorkout">Begin Workout</string>
     <string name="loadingText">Loading...</string>
     <string name="addManuallyText">Add Manually</string>
+    
+    <!-- Final Project Strings -->
+    <string name="final_project_text">Final Project</string>
+    <string name="title_activity_project_description">Let\'s Talk Workouts!</string>
 
 </resources>

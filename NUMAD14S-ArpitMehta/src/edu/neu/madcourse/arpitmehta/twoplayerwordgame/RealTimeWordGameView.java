@@ -215,7 +215,7 @@ public class RealTimeWordGameView extends View {
 
 			public void onFinish() {
 				gamePlay.finalScore = myScore;
-				gamePlay.timeUp();
+//				gamePlay.timeUp();
 			}
 		}.start();
 	}
@@ -346,9 +346,9 @@ public class RealTimeWordGameView extends View {
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 7; j++) {
-				canvas.drawText(this.gamePlay.getTileString(i, j), j
-						* tileWidth + x, (gridtop + (i * tileHeight) + y),
-						foregroundPaint);
+//				canvas.drawText(this.gamePlay.getTileString(i, j), j
+//						* tileWidth + x, (gridtop + (i * tileHeight) + y),
+//						foregroundPaint);
 			}
 		}
 
@@ -455,7 +455,7 @@ public class RealTimeWordGameView extends View {
 
 	private void exitClick() {
 		this.gamePlay.finish();
-		this.gamePlay.exitPressed();
+//		this.gamePlay.exitPressed();
 	}
 
 	private void hintClick() {
@@ -512,7 +512,7 @@ public class RealTimeWordGameView extends View {
 				Toast.makeText(gamePlay, "Valid Word Detected!",
 						Toast.LENGTH_SHORT).show();
 
-				gamePlay.changeLetters();
+//				gamePlay.changeLetters();
 				
 				invalidate();
 			}
@@ -564,14 +564,14 @@ public class RealTimeWordGameView extends View {
 						// Do nothing
 					}
 					
-					CharSequence txtSel = gamePlay.getTileString(selY - 2, selX);
-					word = word.concat(txtSel.toString());
-					if (word.length() >= 2 && (gamePlay.isWordFound(word))) {
-						found = true;
-					} 
-					else {
-						found = false;
-					}
+//					CharSequence txtSel = gamePlay.getTileString(selY - 2, selX);
+//					word = word.concat(txtSel.toString());
+//					if (word.length() >= 2 && (gamePlay.isWordFound(word))) {
+//						found = true;
+//					} 
+//					else {
+//						found = false;
+//					}
 				}
 				
 				selectedX = x;
