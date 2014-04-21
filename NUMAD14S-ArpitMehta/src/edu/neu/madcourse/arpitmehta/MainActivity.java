@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
 			startActivity(chooser);
 		} else {
 			Toast.makeText(getApplicationContext(),
-					"Please install Rajat Malhotra's app", Toast.LENGTH_SHORT)
+					"Please install/update Rajat Malhotra's app", Toast.LENGTH_SHORT)
 					.show();
 		}
 	}
